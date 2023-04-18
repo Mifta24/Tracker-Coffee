@@ -1,0 +1,194 @@
+:root {
+    --primary: #b6895b;
+    --bg: #010101;
+}
+
+html{
+   scroll-behavior: smooth; /* Supaya Scroll menjadi smooth */
+}
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    outline: none;
+    border: none;
+    text-decoration: none;
+}
+
+body {
+    font-family: 'Poopins', sans-serif;
+    background-color: var(--bg);
+
+    /* Tulisan warna azure */
+    color: white;
+
+    /* min-height: 2000px; */
+}
+
+/* Navbar */
+.navbar {
+    display: flex;
+    justify-content: space-between;  /* untuk membuat tampilan secara horizontal dan berjarak antar content */
+    align-items: center;
+    padding: 1.4rem 7%;
+    background-color: rgba(1, 1, 1, 0.8);
+    border-bottom: 1px solid #9b6734;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 9999;
+}
+
+.navbar .navbar-logo {
+    font-size: 2rem;
+    font-weight: 700;
+    color: antiquewhite;
+    font-style: italic;
+}
+
+.navbar .navbar-logo span {
+    color: var(--primary);
+}
+
+.navbar .navbar-nav a {
+    color: whitesmoke;
+    display: inline-block;
+    font-size: 1.3rem;
+    margin: 0 1rem;
+}
+
+/* Jika di klik berbuah warna*/
+.navbar .navbar-nav a:hover {
+    color: var(--primary);
+}
+
+/*garis*/
+.navbar .navbar-nav a::after {
+    content: '';
+    display: block;
+    padding-bottom: 0.5;
+    border-bottom: 0.1rem solid var(--primary);
+    transform: scaleX(0);
+    transition: 0.2s linear;
+}
+
+/* setelah di klik akan munul garis*/
+.navbar .navbar-nav a:hover::after {
+    transform: scaleX(1);  /* Panjang garis */
+}
+
+.navbar .navbar-extra a {
+    color: whitesmoke;
+    margin: 0 0.5rem;
+}
+
+.navbar .navbar-extra a:hover {
+    color: var(--primary);
+}
+
+#hamburger-menu {
+    display: none;
+}
+
+
+/* Pembayaran */
+.pembayaran{
+    margin-top: 7rem;
+    text-align: center;
+    
+}
+.pembayaran h1{
+    margin: 2rem;
+    font-size: 3rem;
+}
+
+
+.pembayaran .qr{
+    display: flexbox;
+    padding: 4rem 2rem;
+    justify-content: center;
+    text-align: center;
+    flex-wrap: wrap;
+    margin: 1rem 2rem 5rem;
+    border: 2px solid var(--primary);
+}
+
+.pembayaran .qr h3{
+    font-size: 2rem;
+    margin-bottom: 2rem;
+}
+
+.pembayaran .qr .qr-title{
+    margin: 1rem;
+    font-size: 1rem;
+    font-weight: 100;
+    line-height: 1;
+}
+
+.pembayaran .qr a img{
+    width: 40%;
+}
+
+
+
+
+
+/* Media Queries */
+/* Untuk layar jadi Responsive */
+
+/* Laptop */
+@media (max-width:1366px) {
+
+    /* Lebar layar */
+    html {
+        font-size: 75%;
+    }
+}
+
+/* Tablet */
+@media (max-width:768px) {
+    html {
+        font-size: 62.5%;
+    }
+
+    #hamburger-menu{
+        display: inline-block;
+    }
+    .navbar .navbar-nav {
+        position: absolute;
+        top: 100%;   /*  berada di bawah diluar layar*/
+        right: -100%;  /* keluar dari layar berada di sebelah kanan luar layar*/
+        background-color: white;
+        width: 30rem;
+        height: 100vh;
+        transition: 0.3s;
+    }
+
+    .navbar .navbar-nav.active {
+        right: 0;   /* ketika di klick ada di sebelah kanan*/
+    }
+
+    .navbar .navbar-nav a{
+        color: var(--bg);
+        display: block;
+        margin: 1.5rem;
+        padding: 0.5rem;
+        font-size: 2rem;
+    }
+
+    .navbar .navbar-nav a::after{
+        transform-origin: 0 0;
+    }
+    .navbar .navbar-nav a:hover::after {
+        transform: scaleX(0.2);
+    }
+}
+
+
+/* Mobile Phone */
+@media (max-width:450px) {
+    html {
+        font-size: 55%;
+    }
+}

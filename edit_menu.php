@@ -1,0 +1,98 @@
+<?php
+session_start();
+include 'db.php';
+
+	if($_SESSION['status']!="login"){
+		header("location:login.php?pesan=belum_login");
+	};
+
+    $kategori=mysqli_query($conn,"SELECT * FROM tbl_category WHERE category_id='".$_GET['id']."' ");
+
+    $k=mysqli_fetch_object($kategori);
+	?>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+	<link rel="stylesheet" href="profil.css">
+</head>
+<body>
+ 
+	<header>
+		<a href="index.html" class="logo">Tracker<span>coffee</span>.</a>
+      <div class="nav">
+        <a href="admin.php">Dashboard</a>
+        <a href="profil.php">Profil</a>
+        <a href="kategori.php">Data Kategori</a>
+        <a href="#">Data Produk</a>
+      </div>
+
+      <div class="navbar-extra">
+        <a href="#" id="hamburger-menu"> <i data-feather="menu"></i></a>
+		<a href="logout.php">LOGOUT</a>
+      </div>
+	</header>
+ 
+    <section class="profil">
+		<h2>Edit Menu</h2>
+
+	<form action="" method="post">
+
+        <input type="text" class="input-control" name="nama_menu" id="nama_menu" placeholder="Nama Menu" value="<?php echo $k->category_name ;?>">
+        <input type="submit" class="btn" name="submit" id="submit" placeholder="Submit">
+
+		<img src="img/<?php echo $k->gambar ?>" alt="">
+    </form>
+
+	<!-- update fata ke data base -->
+	<?php
+
+	// Untuk membesarkan huruf depan ucwords()
+
+		if (isset($_POST['submit'])) {
+			$nama_menu=ucwords( $_POST['nama_menu']);
+		
+
+			$update=mysqli_query($conn,"UPDATE tbl_category SET 
+			category_name='$nama_menu' WHERE category_id='$k->category_id' ");
+
+			if ($update) {
+				echo "<p style='color : green'>Update Success</p>";
+				echo "<script>window.location='kategori.php'</script>";
+			}
+			else {
+				echo "<p style='color : red'>Update Failed</p>";
+			}
+		}
+	?>
+    </section>
+
+
+
+	<!-- Fotter Start -->
+    <footer>
+		<div class="sosial">
+		  <a target="_blank" href="https://twitter.com/MiftaAldi24?t=tGR24pLkyKmcJkHMb6NlwA&s=09"><i data-feather="twitter"></i></a>
+		  <a target="_blank" href="https://instagram.com/mifta_xh_ui?igshid=ZDdkNTZiNTM="><i data-feather="instagram"></i></a>
+		  <a target="_blank" href="https://github.com/Mifta24"><i data-feather="github"></i></a>
+		</div>
+  
+		<div class="link">
+		  <a href="#home">Home</a>
+		  <a href="#about">Tentang Kami</a>
+		  <a href="#menu">Menu</a>
+		  <a href="#contact">Contact</a>
+		</div>
+  
+		<div class="credit">
+		  <p>Created by <a href="">Miftahudin Aldi Saputra</a>| &copy; 2023.</p>
+		</div>
+	  </footer>
+	  <!-- Fotter End -->
+</body>
+</html>
