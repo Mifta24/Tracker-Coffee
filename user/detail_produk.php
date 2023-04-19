@@ -1,6 +1,6 @@
 <?php
 
-include 'db.php';
+include '../database/db.php';
 
 $produk=mysqli_query($conn,"SELECT * FROM tbl_product WHERE product_id='".$_GET['id']."' ");
 
@@ -27,7 +27,7 @@ $p=mysqli_fetch_object($produk);
     <script src="https://unpkg.com/feather-icons"></script>
 
     <!-- My CSS Style -->
-    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="../style.css" />
   </head>
 
   <body>
@@ -63,8 +63,8 @@ $p=mysqli_fetch_object($produk);
             
             <img
               class="menu-card-img"
-              src="img/coffee-menu/<?php echo $p->product_image ?>"
-              alt="Espresso"
+              src="../img/coffee-menu/<?php echo $p->product_image ?>"
+              alt="../img/coffee-menu/<?php echo $p->product_image ?>"
             />
           <h3 class="menu-card-title">~ <?php echo $p->product_name ?> ~</h3>
           <p class="menu-card-price">Rp. <?php echo number_format( $p->product_price) ?></p>

@@ -149,7 +149,7 @@ body {
     min-height: 100vh;
     display: flex;
     align-items: center; /* Untuk membuat tampilan secara vertikal */
-    background-image:url('img/coffee7.jpg');
+    background-image:url('../../img/coffee7.jpg');
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;

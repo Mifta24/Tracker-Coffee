@@ -1,14 +1,15 @@
 <?php
 
-include 'db.php';
+// koneksi database
+include '../database/db.php';
 
+// Kondisi jika belum login
 session_start();
+if ($_SESSION['status'] != "login") {
+	header("location:../login/login.php?pesan=belum_login");
+}
 
 $produk=mysqli_query($conn,"SELECT * FROM tbl_product");
-
-if($_SESSION['status']!="login"){
-  header("location:login.php?pesan=belum_login");
-}
 
 ?>
 
@@ -75,7 +76,7 @@ if($_SESSION['status']!="login"){
 
       <div class="row">
         <div class="about-img">
-          <img src="img/coffe2bg.jpg" alt="" srcset="" />
+          <img src="../img/coffe2bg.jpg" alt="" srcset="" />
         </div>
         <div class="content">
           <h3>Apa Itu Tracker Coffee?</h3>
@@ -118,8 +119,8 @@ if($_SESSION['status']!="login"){
             
             <img
               class="menu-card-img"
-              src="img/coffee-menu/<?php echo $p->product_image ?>"
-              alt="Espresso"
+              src="../img/coffee-menu/<?php echo $p->product_image ?>"
+              alt="../img/coffee-menu/<?php echo $p->product_image ?>"
             />
           </a>
           <h3 class="menu-card-title">~ <?php echo $p->product_name ?> ~</h3>

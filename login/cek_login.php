@@ -33,7 +33,7 @@ if($cek > 0){
 elseif($userlog>0){
 	$_SESSION['username'] = $username;
 	$_SESSION['status'] = "login";
-	header("location:user.php");
+	header("location:../user/user.php");
 }
 else{
 	header("location:login.php?pesan=gagal");

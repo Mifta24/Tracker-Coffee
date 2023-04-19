@@ -1,6 +1,6 @@
 <?php
 
-include 'db.php';
+include 'database/db.php';
 
 $produk=mysqli_query($conn,"SELECT * FROM tbl_product");
 
@@ -39,14 +39,18 @@ $produk=mysqli_query($conn,"SELECT * FROM tbl_product");
         <a href="#about">Tentang Kami</a>
         <a href="#menu">Menu</a>
         <a href="#contact">Contact</a>
-        <a href="login.php" class="nav login" id="login">Log-in / Sign-up</a>
+
+        <!-- Login Navbar For Mobile -->
+        <a href="login/login.php" class="nav login" id="login">Log-in / Sign-up</a>
       </div>
 
       <div class="navbar-extra">
         <a href="#" id="search"> <i data-feather="search"></i></a>
         <a href="#" id="shopping-cart"> <i data-feather="shopping-cart"></i></a>
         <a href="#" id="hamburger-menu"> <i data-feather="menu"></i></a>
-        <a href="login.php" class="login" id="user login">Log-in / Sign-up</a>
+
+        <!-- Login Navbar -->
+        <a href="login/login.php" class="login" id="user login">Log-in / Sign-up</a>
       </div>
     </nav>
     <!-- Navbar End-->
