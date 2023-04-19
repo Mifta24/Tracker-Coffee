@@ -20,10 +20,10 @@
      <script src="https://unpkg.com/feather-icons"></script>
 
     <!-- My Css -->
-    <link rel="stylesheet" href="login.css">
+    <link rel="stylesheet" href="css/login.css">
 </head>
 <body>
-
+<img src="../img/bgcoffee2.jpg" alt="">
 <!-- cek pesan notifikasi -->
 <?php 
 	if(isset($_GET['pesan'])){

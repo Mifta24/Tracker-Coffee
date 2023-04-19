@@ -5,7 +5,7 @@ if(isset($_POST['submit'])){
 session_start();
  
 // menghubungkan dengan koneksi
-include 'db.php';
+include '../database/db.php';
  
 // menangkap data yang dikirim dari form
 $username = mysqli_real_escape_string($conn,$_POST['username']);
@@ -28,7 +28,7 @@ $cek = mysqli_num_rows($data);
 if($cek > 0){
 	$_SESSION['username'] = $username;
 	$_SESSION['status'] = "login";
-	header("location:admin.php");
+	header("location:../admin/admin.php");
 }
 elseif($userlog>0){
 	$_SESSION['username'] = $username;

@@ -1,10 +1,14 @@
 <?php
 
+// koneksi database
+include '../database/db.php';
+
+// Kondisi jika belum login
 session_start();
-include 'db.php';
-	if($_SESSION['status']!="login"){
-		header("location:login.php?pesan=belum_login");
-	}
+if ($_SESSION['status'] != "login") {
+	header("location:../login/login.php?pesan=belum_login");
+}
+
 	?>
 
 <!DOCTYPE html>
@@ -15,7 +19,7 @@ include 'db.php';
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 
-	<link rel="stylesheet" href="profil.css">
+	<link rel="stylesheet" href="css/profil.css">
 </head>
 <body>
  
@@ -36,14 +40,18 @@ include 'db.php';
  
     <section class="profil">
 		<h2>Tambah Data</h2>
+
 		<form action="" method="post">
 		
+		<!-- inputan kategori yang ingin ditambah -->
         <input type="text" class="input-control" name="nama_menu" id="nama_menu" placeholder="Nama Menu" value="">
+
+		<!-- submit -->
         <input type="submit" class="btn" name="submit" id="submit" placeholder="Submit">
 
-    </form>
+    	</form>
 
-	<!-- update fata ke data base -->
+	<!-- Masukkan data ke database -->
 	<?php
 
 	// Untuk membesarkan huruf depan ucwords()

@@ -2,7 +2,7 @@ body{
     margin: 0;
     padding: 0;
     font-family: 'Poppins', sans-serif;
-    background-image: url(img/bglogin5.webp);
+    background-image: url(../img/bglogin5.webp);
     background-position: center;
     background-size: cover;
     background-repeat: no-repeat;

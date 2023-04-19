@@ -1,9 +1,9 @@
 <?php
 session_start();
-include 'db.php';
+include '../database/db.php';
 
 	if($_SESSION['status']!="login"){
-		header("location:login.php?pesan=belum_login");
+		header("location:../login/login.php?pesan=belum_login");
 	};
 
     $kategori=mysqli_query($conn,"SELECT * FROM tbl_category WHERE category_id='".$_GET['id']."' ");
@@ -19,7 +19,7 @@ include 'db.php';
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 
-	<link rel="stylesheet" href="profil.css">
+	<link rel="stylesheet" href="css/profil.css">
 </head>
 <body>
  

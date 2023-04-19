@@ -1,10 +1,10 @@
 <?php
 session_start();
-include 'db.php';
+include '../database/db.php';
 
 // Jika belum login maka akan di alihkan ke halaman login
 if ($_SESSION['status'] != "login") {
-  header("location:login.php?pesan=belum_login");
+  header("location:../login/login.php?pesan=belum_login");
 };
 
 //  ambil data dari tbl_product sesuai id yang didapat dari url
@@ -23,7 +23,7 @@ $p = mysqli_fetch_object($produk);
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
 
-  <link rel="stylesheet" href="profil.css">
+  <link rel="stylesheet" href="css/profil.css">
 </head>
 
 <body>

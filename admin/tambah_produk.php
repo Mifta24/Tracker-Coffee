@@ -1,10 +1,12 @@
 <?php
+// koneksi database
+include '../database/db.php';
 
+// Kondisi jika belum login
 session_start();
-include 'db.php';
-	if($_SESSION['status']!="login"){
-		header("location:login.php?pesan=belum_login");
-	}
+if ($_SESSION['status'] != "login") {
+	header("location:../login/login.php?pesan=belum_login");
+}
 ?>
 
 <!DOCTYPE html>
@@ -15,7 +17,7 @@ include 'db.php';
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 
-	<link rel="stylesheet" href="profil.css">
+	<link rel="stylesheet" href="css/profil.css">
 
 <!-- CKEditor 5 -->
     <script src="https://cdn.ckeditor.com/ckeditor5/36.0.1/classic/ckeditor.js"></script>
@@ -43,34 +45,54 @@ include 'db.php';
 		<form action="" method="post" enctype="multipart/form-data">
 		
         <select name="menu" id="menu" class="input-control">
+            <!-- Query data id dari tabel category -->
             <?php $kategori=mysqli_query($conn,"SELECT * FROM tbl_category ORDER BY category_id");
             
-            
-
+            // Perulangan data sebabnyak data yang ada di tbl_category
             while($row=mysqli_fetch_array($kategori)) :
             ?>
-            <option value="<?php echo $row['category_id'] ?>"><?php echo $row['category_name'] ?></option>
+
+            <!-- Option kategori -->
+            <option value="<?php echo $row['category_id'] ?>">
+
+            <!-- isi option -->
+            <?php echo $row['category_name'] ?>
+
+            </option>
 
             <?php endwhile; ?>
+
         </select>
 
+        <!-- Nama Produk -->
         <input type="text" class="input-control" name="nama_produk" id="nama_prduk" placeholder="Nama Produk" value="">
+
+        <!-- Harga -->
         <input type="text" name="harga" id="" class="input-control" placeholder="Harga">
+
+        <!-- Stock -->
         <input type="text" name="stok" id="stok" class="input-control" placeholder="Stok">
+
+        <!-- Gambar -->
         <input type="file" name="gambar" id="gambar" class="input-control" placeholder="Masukkan Gambar">
+
+        <!-- Deskripsi Produk -->
         <textarea name="deskripsi" id="deskripsi" cols="40" rows="5" class="input-control"></textarea>
         <br>
+
+        <!-- Status Penjualan -->
         <select name="status" id="status" class="input-control">
             <option  value="">Pilih...</option>
             <option value="1">On Sale</option>
             <option value="0">Not For Sale</option>
         </select>
 
+        <!-- Submit -->
         <input type="submit" class="btn" name="submit" id="submit" placeholder="Submit">
 
     </form>
 
-	<!-- update fata ke data base -->
+	<!-- Insert fata ke database tbl_product -->
 	<?php
 
 	// Untuk membesarkan huruf depan ucwords()

@@ -1,3 +1,11 @@
+    <!-- cek apakah sudah login -->
+	<?php 
+	session_start();
+	if($_SESSION['status']!="login"){
+		header("location:../login.php?pesan=belum_login");
+	}
+	?>
+	
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,16 +14,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 
-	<link rel="stylesheet" href="admin.css">
+	<link rel="stylesheet" href="css/admin.css">
 </head>
 <body>
-    <!-- cek apakah sudah login -->
-	<?php 
-	session_start();
-	if($_SESSION['status']!="login"){
-		header("location:login.php?pesan=belum_login");
-	}
-	?>
  
 	<header>
 		<a href="index.html" class="logo">Tracker<span>coffee</span>.</a>
