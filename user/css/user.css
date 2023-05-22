@@ -3,9 +3,11 @@
     --bg: #010101;
 }
 
-html{
-   scroll-behavior: smooth; /* Supaya Scroll menjadi smooth */
+html {
+    scroll-behavior: smooth;
+    /* Supaya Scroll menjadi smooth */
 }
+
 * {
     margin: 0;
     padding: 0;
@@ -28,7 +30,8 @@ body {
 /* Navbar */
 .navbar {
     display: flex;
-    justify-content: space-between;  /* untuk membuat tampilan secara horizontal dan berjarak antar content */
+    justify-content: space-between;
+    /* untuk membuat tampilan secara horizontal dan berjarak antar content */
     align-items: center;
     padding: 1.4rem 7%;
     background-color: rgba(1, 1, 1, 0.8);
@@ -37,7 +40,8 @@ body {
     top: 0;
     left: 0;
     right: 0;
-    z-index: 9999;/* Supaya berada dipaling depan*/
+    z-index: 9999;
+    /* Supaya berada dipaling depan*/
 }
 
 .navbar .navbar-logo {
@@ -75,7 +79,8 @@ body {
 
 /* setelah di klik akan munul garis*/
 .navbar .navbar-nav a:hover::after {
-    transform: scaleX(1);  /* Panjang garis */
+    transform: scaleX(1);
+    /* Panjang garis */
 }
 
 .navbar .navbar-extra a {
@@ -91,9 +96,58 @@ body {
     display: none;
 }
 
+/* Navbar search form */
+.navbar .search-form {
+    position: absolute;
+    top: 100%;
+    right: 7%;
+    background-color: #fff;
+    width: 50rem;
+    height: 5rem;
+    display: flex;
+    align-items: center;
+    transform: scaleY(0);
+    transform-origin: top;
+    transition: 0.3s;
+}
+
+.navbar .search-form.active {
+    transform: scaleY(1);
+}
+
+.navbar .search-form form {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+}
+
+.navbar .search-form form input {
+    height: 100%;
+    width: 100%;
+    font-size: 1.6rem;
+    color: var(--bg);
+    padding: 1rem;
+}
+
+.navbar .search-form label {
+    cursor: pointer;
+    font-size: 2rem;
+    margin-right: 1.5rem;
+    color: var(--bg);
+}
+
+.navbar .search-form button {
+    color: #fff;
+    background-color: blueviolet;
+    width: 10%;
+    height: 100%;
+}
+
 
 /* Login */
-.login{
+.login {
     position: relative;
     right: -20%;
     background-color: var(--primary);
@@ -107,13 +161,13 @@ body {
     transition: 0.2s linear;
 }
 
-.login:hover{
-    
+.login:hover {
+
     background-color: antiquewhite;
 }
 
 /* login navbar-nav */
-.navbar-nav .nav.login{
+.navbar-nav .nav.login {
     display: none;
 
 }
@@ -121,8 +175,9 @@ body {
 .navbar-nav .nav.login:hover {
     color: #fff;
     background-color: var(--primary);
-    
+
 }
+
 .navbar .navbar-nav .nav.login::after {
     content: '';
     display: block;
@@ -130,13 +185,25 @@ body {
     border-bottom: 0.1rem solid whitesmoke;
     transform: scaleX(0);
     transition: 0.2s linear;
-    
+
 }
 
 /* setelah di klik akan munul garis*/
 .navbar .navbar-nav .nav.login:hover::after {
-    transform: scaleX(1);  /* Panjang garis */
-    padding-top: 3px; /* agar kebawah saat dilakukan aksi*/
+    transform: scaleX(1);
+    /* Panjang garis */
+    padding-top: 3px;
+    /* agar kebawah saat dilakukan aksi*/
+}
+
+.navbar .navbar-extra .search {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+}
+
+.navbar .navbar-extra .search-form button {
+    background-color: none;
 }
 
 
@@ -145,11 +212,12 @@ body {
 /* Home section */
 
 /* Hero Section */
-.hero-section{
+.hero-section {
     min-height: 100vh;
     display: flex;
-    align-items: center; /* Untuk membuat tampilan secara vertikal */
-    background-image:url('../../img/coffee7.jpg');
+    align-items: center;
+    /* Untuk membuat tampilan secara vertikal */
+    background-image: url('../../img/coffee7.jpg');
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
@@ -157,45 +225,47 @@ body {
 }
 
 /* untuk memberi gradasi warna unutk di scroll di bWh gambar */
-.hero-section::after{
+.hero-section::after {
     content: '';
     display: block;
     position: absolute;
     width: 100%;
     height: 30%;
     bottom: 0;
-    background: linear-gradient(0deg,rgba(1, 1, 3, 1)8%, rgba(255, 255, 255, 0)50%);
+    background: linear-gradient(0deg, rgba(1, 1, 3, 1)8%, rgba(255, 255, 255, 0)50%);
 }
 
 /* isi content */
-.hero-section .content{
+.hero-section .content {
     padding: 1.4rem 7%;
     max-width: 60rem;
 }
 
 /* Tag h1 */
-.hero-section .content h1{
+.hero-section .content h1 {
     font-size: 5em;
     color: #fff;
     text-shadow: 1px 1px 3px rgba(1, 1, 3, 0.5);
     line-height: 1.2;
 }
 
-.hero-section .content h1 span{
+.hero-section .content h1 span {
     color: rgb(231, 155, 12);
 }
 
-.hero-section .content p{
+.hero-section .content p {
     font-size: 1.6rem;
     margin-top: 1rem;
     line-height: 1.4;
     font-weight: 100;
     text-shadow: 1px 1px 3px rgba(1, 1, 3, 0.5);
-    mix-blend-mode: difference;  /*Untuk memberikan contras pada warna yg bertabrakan*/
+    mix-blend-mode: difference;
+    /*Untuk memberikan contras pada warna yg bertabrakan*/
 }
 
 /* Button */
-.hero-section .content .btn-beli, .menu .row .menu-card .beli-menu{
+.hero-section .content .btn-beli,
+.menu .row .menu-card .beli-menu {
     margin-top: 1rem;
     background-color: var(--primary);
     font-size: 1.4rem;
@@ -209,61 +279,72 @@ body {
 
 /* About section */
 
-.about , .menu, .contact{
-    padding: 8rem 7% 1.4rem; /* Atas 10rem kiridankanan 7% bawah 1.4rem*/
+.about,
+.menu,
+.contact {
+    padding: 8rem 7% 1.4rem;
+    /* Atas 10rem kiridankanan 7% bawah 1.4rem*/
 }
 
-.about h2, .menu h2, .contact h2 {
-text-align: center;
-font-size: 3rem;
-margin-bottom: 1rem;
+.about h2,
+.menu h2,
+.contact h2 {
+    text-align: center;
+    font-size: 3rem;
+    margin-bottom: 1rem;
 
 }
 
-.about h2 span, .menu h2 span, .contact h2 span{
+.about h2 span,
+.menu h2 span,
+.contact h2 span {
     color: var(--primary);
 }
 
-.about .subjudul p{
+.about .subjudul p {
     text-align: center;
     font-size: 1rem;
     margin-bottom: 3rem;
 }
 
-.about .row{
+.about .row {
     display: flex;
-} 
+}
 
-.about .row .about-img{
+.about .row .about-img {
     flex: 1 1 45rem;
 }
 
-.about .row .about-img img{
+.about .row .about-img img {
     width: 100%;
 }
 
-.about .row .content{
+.about .row .content {
     flex: 1 1 35rem;
-    padding: 0 1rem; /* atas 0 kiri kanan 1 */
+    padding: 0 1rem;
+    /* atas 0 kiri kanan 1 */
 }
 
-.about .row .content h3{
+.about .row .content h3 {
     font-size: 1.8rem;
     margin-bottom: 1rem;
 }
 
-.about .row .content p{
+.about .row .content p {
     margin-bottom: 0.8rem;
     font-size: 1.3rem;
-    font-weight: 50; /*Tebal huruf*/
-    line-height: 1.6; /* Spasi antar baris */
+    font-weight: 50;
+    /*Tebal huruf*/
+    line-height: 1.6;
+    /* Spasi antar baris */
 }
 
 
 /* Menu section */
 
 
-.menu p, .contact p{
+.menu p,
+.contact p {
     font-size: 1rem;
     font-weight: 100;
     text-align: center;
@@ -274,46 +355,67 @@ margin-bottom: 1rem;
 }
 
 
-.menu .row{
+.menu .row {
     display: flex;
     margin-top: 5rem;
     flex-wrap: wrap;
     justify-content: center;
 }
 
-.menu .row .menu-card{
+.menu .row .menu-card {
     text-align: center;
     padding-bottom: 2rem;
-    
+
 }
 
-.menu .menu-card img{
+.menu .menu-card img {
     border-radius: 50%;
     width: 60%;
 }
 
-.menu .menu-card .menu-card-title{
+.menu .menu-card .menu-card-title {
     margin: 1rem auto 0.5rem;
 }
 
-.menu .row .menu-card .beli-menu{
+.menu .row .menu-card .beli-menu {
     margin-bottom: 1rem;
-   
+
 }
 
+.menu .menu-card form {
+    width: 100%;
+    height: 100%;
+    /* background-color: #fff; */
+    /* align-items: center; */
+
+}
+
+.menu .menu-card form #jumlah {
+    display: block;
+    width: 60px;
+    text-align: center;
+    padding: 5px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    font-size: 1.3rem;
+    font-weight: 100;
+    color: #333;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    margin: auto;
+}
 
 /* Contact Section */
-.contact .row{
+.contact .row {
     display: flex;
     margin-top: 2rem;
     background-color: rgb(19, 19, 19);
 }
 
-.contact .row h3{
+.contact .row h3 {
     font-size: 1.8rem;
 }
 
-.contact .row .map{
+.contact .row .map {
     flex: 1 1 45rem;
     width: 100%;
     object-fit: cover;
@@ -321,13 +423,13 @@ margin-bottom: 1rem;
 
 
 
-.contact .row form{
+.contact .row form {
     flex: 1 1 45rem;
     padding: 5rem 2rem;
     text-align: center;
 }
 
-.contact .row .input-group{
+.contact .row .input-group {
     display: flex;
     align-items: center;
     border: 1px solid #eee;
@@ -337,7 +439,7 @@ margin-bottom: 1rem;
 }
 
 
-.contact .row .input-group input{
+.contact .row .input-group input {
     padding: 2rem;
     width: 100%;
     background: none;
@@ -345,20 +447,21 @@ margin-bottom: 1rem;
     color: #fff;
 }
 
-.contact .row form button{
+.contact .row form button {
     display: inline-block;
     padding: 1rem 2rem;
     margin-top: 3rem;
     color: #fff;
     background-color: var(--primary);
     font-size: 1.7rem;
-    cursor: pointer; /* Membuat kursor tangan */
+    cursor: pointer;
+    /* Membuat kursor tangan */
 
 }
 
 
 /* Fotter */
-footer{
+footer {
     background-color: var(--primary);
     text-align: center;
     padding: 1rem 0 3rem;
@@ -366,35 +469,36 @@ footer{
     border-top: 1px solid rgb(112, 8, 172);
 }
 
-footer .sosial{
+footer .sosial {
     padding: 1rem 0;
 
 }
 
-footer .sosial a{
+footer .sosial a {
     color: #fff;
     margin: 1rem;
 }
 
 /* Berubah warna ketika di klik */
-footer .sosial a :hover, footer .link a :hover{
+footer .sosial a :hover,
+footer .link a :hover {
     color: var(--bg);
 }
 
-footer .link{
+footer .link {
     margin-bottom: 1.3rem;
 }
 
-footer .link a{
+footer .link a {
     color: #fff;
     padding: 0.7rem 1rem;
 }
 
-footer.credit{
+footer.credit {
     font-size: 0.8rem;
 }
 
-footer .credit a{
+footer .credit a {
     color: var(--bg);
     font-weight: 700;
 }
@@ -419,9 +523,10 @@ footer .credit a{
         font-size: 62.5%;
     }
 
-    #hamburger-menu{
+    #hamburger-menu {
         display: inline-block;
     }
+
     .navbar .navbar-nav {
         position: absolute;
         top: 100%;
@@ -436,7 +541,7 @@ footer .credit a{
         right: 0;
     }
 
-    .navbar .navbar-nav a{
+    .navbar .navbar-nav a {
         color: var(--bg);
         display: block;
         margin: 1.5rem;
@@ -444,55 +549,57 @@ footer .credit a{
         font-size: 2rem;
     }
 
-    .navbar .navbar-nav a::after{
+    .navbar .navbar-nav a::after {
         transform-origin: 0 0;
     }
+
     .navbar .navbar-nav a:hover::after {
         transform: scaleX(0.2);
     }
 
-    .login{
+    .login {
         display: none;
     }
 
-    .navbar-nav .nav.login{
+    .navbar-nav .nav.login {
         display: inline-block;
     }
-    
-    
-    
-    .about .row{
-            flex-wrap: wrap; /* Unutk membungkus supaya turun kebawah */
+
+
+
+    .about .row {
+        flex-wrap: wrap;
+        /* Unutk membungkus supaya turun kebawah */
     }
 
-    .about .about-img img{
+    .about .about-img img {
         height: 24rem;
         object-fit: cover;
         object-position: center;
     }
 
-    .about .row .content{
+    .about .row .content {
         padding: 0;
     }
-    
-    .about .row .content h3{
+
+    .about .row .content h3 {
         margin-top: 1rem;
         font-size: 2rem;
     }
 
-    .about .row .content p{
+    .about .row .content p {
         font-size: 1.6rem;
     }
 
-    .contact .row{
+    .contact .row {
         flex-wrap: wrap;
     }
 
-    .contact .row .map{
+    .contact .row .map {
         height: 30rem;
     }
 
-    .contact .row form{
+    .contact .row form {
         padding-top: 0;
     }
 }

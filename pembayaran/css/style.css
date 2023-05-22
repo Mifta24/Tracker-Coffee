@@ -1,0 +1,118 @@
+body{
+  background:#F0F0F0;
+  margin: 0;
+  color: gray;
+  font-family: calibri;
+}
+input:invalid{
+  background: pink;
+}
+.container{
+  background: rgba(163, 152, 129, 0.24);
+  width:40%;
+  height:auto;
+  padding:15px;
+  position: relative;
+  left:30%;
+  top:1%;
+  border-radius: 5px;
+}
+.input-form{
+  width:95%;
+  background:pink;
+  margin:0.9%;
+  padding:10px;
+  border: none;
+  border-radius: 5px;
+}
+
+
+.input-form-number{
+  width:12%;
+  background:#F9F9F9;
+  margin:1%;
+  padding:10px;
+  border: none;
+  border-radius: 5px;
+}
+
+
+.input-form-value{
+  width:57.5%;
+  background:#F9F9F9;
+  margin:1%;
+  padding:10px;
+  border: none;
+  border-radius: 5px;
+}
+.btn-form-change{
+  color:white;
+  background: #ff6868;
+  font-weight: bold;
+  border:none;
+  border-radius:50px;
+  padding:12px;
+  margin:10px;
+  width: 30%;
+  float:left;
+  margin-left: 20px;
+  cursor: pointer;
+  text-decoration: none;
+  text-align: center;
+  
+}
+
+.btn-form-pay{
+  color:white;
+  background: #68a2ff;
+  font-weight: bold;
+  border:none;
+  border-radius:50px;
+  padding:15px;
+  margin:10px;
+  width: 35%;
+  float:right;
+  cursor: pointer;
+}
+.btn-form-pay:hover{
+  background:#66bef9;
+}
+.btn-form-change:hover{
+  background: #fc7979;
+}
+table {
+    margin-top: 5px;
+    border-collapse: collapse;
+    width: 100%;
+    border: 1px solid #ddd;
+}
+
+th, td {
+    background: white;
+}
+
+th:hover {
+  box-shadow:2px 0px 10px 0px #F4F4F4;
+  border: 1px solid #68a2ff;
+}
+th{
+  border: 1px solid #F4F4F4;
+}
+@media only screen and (max-width: 700px) {
+    .container{
+      width:80%;
+      left:6%;
+    }
+    .input-form-value{
+      width:49%;
+    }
+}
+
+footer{
+  background: white;
+  width:100%;
+  height:40px;
+  position: absolute;
+  bottom:-10;
+  z-index: -999999;
+}

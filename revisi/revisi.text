@@ -8,6 +8,9 @@ penjelasan lokasi disamping map
 
 dan juga komentar di contact
 
+
+PHP
+
 membuat halaman login dengan dan logic phpnya : success
 
 membuat halaman admin untuk kelola stock coffee : success
@@ -16,7 +19,24 @@ membuat logika cek login untuk masuknya user dan admin dengan terhubung database
 
 edit menu php belum selesai masih kacau
 
-input pencarian produk maupun berdasarkan jenis
+input pencarian produk maupun berdasarkan jenis : success
 
-gambar halaman admin tidak muncul
+gambar halaman admin tidak muncul  :: SUCCESS
 
+ketika tombol beli di klik pada menu maka akan muncul detail produk dan juga input jumlah produk yg ingin di beli user  : success
+
+ketika user sudah klik beli maka pesanan akan masuk ke keranjang dan ada tombol hapus pesanan berupa silang dan bayar Sekarang  : success
+
+ketika di pembayaran akan muncul nama alamat email dan no hp user dan juga metode pembayaran serta upload bukti pembayaran
+
+serta qr sesuai metode pembayaran
+
+ketika di keranjnag sudah ada harusnmya di update masih errrorr  :: SUCCESS
+
+ketika user sudah upload bukti pembayaran maka status nya berubah dari bayar sekarang menjadi menunggu pembayaran  :: SUCCESS
+
+ketika admin klik mengecek bukti pembayaran dan betul maka admin pencet success pada menu action di data Penjualan  :: SUCCESS
+
+ketika admin klik success maka menu yg ada di keranjang user akan di hapus seluruhnya dan ada tulisan pembelian success
+
+jika sudah beli barang sebelumnya lalu beli lagi maka barang sebelumnya jadi belum terbayar kacauuuu   :: SUCCESS

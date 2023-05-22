@@ -21,10 +21,13 @@
 	<header>
 		<a href="index.html" class="logo">Tracker<span>coffee</span>.</a>
       <div class="nav">
-        <a href="admin.php">Dashboard</a>
-        <a href="profil.php">Profil</a>
-        <a href="kategori.php">Data Kategori</a>
-        <a href="produk.php">Data Produk</a>
+	  <a href="admin.php">Dashboard</a>
+          <a href="profil.php">Profil</a>
+          <a href="user.php">Data User</a>
+          <a href="kategori.php">Data Kategori</a>
+          <a href="produk.php">Data Produk</a>
+          <a href="pemesanan.php">Data Pemesanan</a>
+          <a href="penjualan.php">Data Penjualan</a>
       </div>
 
       <div class="navbar-extra">
@@ -36,7 +39,8 @@
 	<section class="dashboard">
 		<h3>Dashboard</h3>
 		<div class="box">
-			<p>Selamat Datang Admin</p>
+			<h3>Selamat Datang Admin</h3>
+			<p>Ini Adalah halaman untuk mengatur website user dari Tracker Coffee</p>
 		</div>
 	</section>
  

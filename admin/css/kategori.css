@@ -159,3 +159,22 @@ footer .credit a{
     color: var(--bg);
     font-weight: 700;
 }
+
+/* Media Queries */
+/* Untuk layar jadi Responsive */
+
+/* Laptop */
+@media (max-width:1366px) {
+
+    /* Lebar layar */
+    html {
+        font-size: 85%;
+    }
+}
+
+/* Tablet */
+@media (max-width:820px) {
+    html {
+        font-size: 62.5%;
+    }
+}

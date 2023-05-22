@@ -4,7 +4,20 @@ include 'database/db.php';
 
 $produk=mysqli_query($conn,"SELECT * FROM tbl_product");
 
-
+if(isset($_POST['cari'])){
+  
+  $keyword=$_POST['search-box'];
+  
+  $produk=mysqli_query($conn,"SELECT * FROM tbl_product WHERE product_name LIKE '%$keyword%' ");
+  // if($produk==true){
+    
+  //   header("location:#menu");
+      
+  //   }
+  //   else{
+  //     echo "<script> alert('Data Tidak Ditemukan') </script>";
+  //   }
+}
 
 ?>
 
@@ -45,13 +58,25 @@ $produk=mysqli_query($conn,"SELECT * FROM tbl_product");
       </div>
 
       <div class="navbar-extra">
-        <a href="#" id="search"> <i data-feather="search"></i></a>
+        <a href="#" id="search-button"> <i data-feather="search"></i></a>
         <a href="#" id="shopping-cart"> <i data-feather="shopping-cart"></i></a>
         <a href="#" id="hamburger-menu"> <i data-feather="menu"></i></a>
-
         <!-- Login Navbar -->
         <a href="login/login.php" class="login" id="user login">Log-in / Sign-up</a>
       </div>
+
+      <!-- Search Form start -->
+    <div class="search-form">
+      <form action="" method="post">
+        <input name="search-box" type="search" id="search-box" placeholder="search here...">
+        <!-- <label for="search-box"><i data-feather="search"></i></label> -->
+
+        <button name="cari" type="submit"><i data-feather="search"></i></button>
+      </form>
+    </div>
+      <!-- Search Form end -->
+
+
     </nav>
     <!-- Navbar End-->
 
@@ -124,6 +149,29 @@ $produk=mysqli_query($conn,"SELECT * FROM tbl_product");
         </div>
 
         <?php endwhile; ?>
+      </div>
+
+      <div class="category">
+        <h3>Kategori</h3>
+        <div class="box">
+          <?php $kategori=mysqli_query($conn,"SELECT * FROM tbl_category ORDER BY category_id ASC"); 
+                // pengecekan jika datanya adalah
+                if(mysqli_num_rows($kategori)>0) :
+                  while ($k=mysqli_fetch_assoc($kategori)) :
+          ?>
+          <a href="produk.php?kat=<?php echo $k["category_id"] ?>">
+          <div class="col">
+            <img src="img/<?php echo $k["image"] ?>" alt="coffee" width="60px">
+            <p><?php echo $k["category_name"] ?></p>
+          </div>
+           </a>
+          <?php
+            endwhile;
+            endif;
+           
+          ?>
+         
+        </div>
       </div>
     </section>
     <!-- Menu Section End -->

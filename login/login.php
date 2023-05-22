@@ -23,7 +23,7 @@
     <link rel="stylesheet" href="css/login.css">
 </head>
 <body>
-<img src="../img/bgcoffee2.jpg" alt="">
+
 <!-- cek pesan notifikasi -->
 <?php 
 	if(isset($_GET['pesan'])){
@@ -38,13 +38,13 @@
 	?>
 
     <div class="welcome">
-      <a href="index.php"><i data-feather="corner-up-left"></i></a>
+      <a href="../index.php"><i data-feather="corner-up-left"></i></a>
       <h1> Welcome To Tracker<span>Coffee</span>.</h1>
 
     </div>
 
     <div class="login-box">
-        <img src="img/avatar.jpg" alt="User" class="avatar">
+        <img src="../img/avatar.jpg" alt="User" class="avatar">
         <h1>Login Disini</h1>
         
         <form  action="cek_login.php" method="post">
@@ -63,7 +63,7 @@
         </form>
     </div>
 
-
+        
      <!-- Feather Icons -->
      <script>
       feather.replace();

@@ -22,7 +22,7 @@ body {
     /* Tulisan warna azure */
     color: white;
 
-    /* min-height: 2000px; */
+    /* min-height: 2000px;   */
 }
 
 /* Navbar */
@@ -94,6 +94,7 @@ header .nav a:hover {
 .dashboard{
     padding: 2rem 7% 1.4rem; /* Atas 10rem kiridankanan 7% bawah 1.4rem*/
     border: 1px solid white;
+    height: 430px;
 }
 
 .dashboard .box{
@@ -156,7 +157,7 @@ footer .credit a{
 
     /* Lebar layar */
     html {
-        font-size: 75%;
+        font-size: 85%;
     }
 }
 

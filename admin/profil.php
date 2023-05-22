@@ -39,10 +39,13 @@ while ($admin = mysqli_fetch_array($query)) {
 	<header>
 		<a href="index.html" class="logo">Tracker<span>coffee</span>.</a>
 		<div class="nav">
-			<a href="admin.php">Dashboard</a>
-			<a href="profil.php">Profil</a>
-			<a href="kategori.php">Data Kategori</a>
-			<a href="produk.php">Data Produk</a>
+		<a href="admin.php">Dashboard</a>
+          <a href="profil.php">Profil</a>
+          <a href="user.php">Data User</a>
+          <a href="kategori.php">Data Kategori</a>
+          <a href="produk.php">Data Produk</a>
+          <a href="pemesanan.php">Data Pemesanan</a>
+          <a href="penjualan.php">Data Penjualan</a>
 		</div>
 
 		<div class="navbar-extra">

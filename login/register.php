@@ -1,3 +1,15 @@
+<!-- cek pesan notifikasi -->
+<?php 
+	if(isset($_GET['pesan'])){
+		if($_GET['pesan'] == "gagal"){
+			echo "Login gagal! username dan password salah!";
+		}else if($_GET['pesan'] == "logout"){
+			echo "Anda telah berhasil logout";
+		}else if($_GET['pesan'] == "belum_login"){
+			echo "Anda harus login untuk mengakses halaman admin";
+		}
+	}
+	?>
 
 
 <!DOCTYPE html>
@@ -21,22 +33,10 @@
      <script src="https://unpkg.com/feather-icons"></script>
 
     <!-- My Css -->
-    <link rel="stylesheet" href="login.css">
+    <link rel="stylesheet" href="css/register.css">
 </head>
 <body>
 
-<!-- cek pesan notifikasi -->
-<?php 
-	if(isset($_GET['pesan'])){
-		if($_GET['pesan'] == "gagal"){
-			echo "Login gagal! username dan password salah!";
-		}else if($_GET['pesan'] == "logout"){
-			echo "Anda telah berhasil logout";
-		}else if($_GET['pesan'] == "belum_login"){
-			echo "Anda harus login untuk mengakses halaman admin";
-		}
-	}
-	?>
 
     <div class="welcome">
       <a href="login.php"><i data-feather="corner-up-left"></i></a>
@@ -45,20 +45,34 @@
     </div>
 
     <div class="login-box">
-        <img src="img/avatar.jpg" alt="User" class="avatar">
-        <h1>Login Disini</h1>
+        <img src="../img/avatar.jpg" alt="User" class="avatar">
+        <h1>Buat Akun Disini</h1>
         
         <form  action="" method="post">
+          <div class="subform">
 
-           <input class="user" type="text" name="name" placeholder="Masukkan Nama">
-           <input class="user" type="text" name="username" placeholder="Buat Username">
+            <div class="akun">
+  
+              <input class="user" type="text" name="name" placeholder="Masukkan Nama">
+              <input class="user" type="text" name="username" placeholder="Buat Username">
+   
+              <!-- <p>Password</p> -->
+              <input class="password" type="password" name="password" id="password" placeholder="Buat Password">
+            </div>
+            
+            <div class="data">
+              
+              <input class="user" type="text" name="alamat" id="alamat" placeholder="Masukkan Alamat">
+              
+              <input class="user" type="text" name="telp" id="telp" placeholder="Masukkan No Telp">
+              <input class="password" type="password" name="password1" id="password1" placeholder="Konfirmasi Password">
+       
+            </div>
+          </div>
+          
+          <input class="submit" type="submit" name="buat" id="buat" value="Buat Akun">
 
-           <!-- <p>Password</p> -->
-           <input class="password" type="password" name="password" id="password" placeholder="Buat Password">
-           <input class="password" type="password" name="password1" id="password1" placeholder="Konfirmasi Password">
-    
-           <input class="submit" type="submit" name="buat" id="buat" value="Buat Akun">
-    
+          <a  href="login.php">Sudah Memiliki Akun ?</a>
            
         </form>
     </div>
@@ -67,7 +81,7 @@
 
 if(isset($_POST['buat'])){
      // menghubungkan dengan koneksi
-     include 'db.php';
+     include '../database/db.php';
 
   // mengaktifkan session php
   session_start();
@@ -76,24 +90,29 @@ if(isset($_POST['buat'])){
 $name = $_POST['name'];
 $username = $_POST['username'];
 $password = md5($_POST['password']);
-$password1=$_POST['password1'];
+$password1=md5($_POST['password1']);
+$alamat=$_POST['alamat'];
+$telp=$_POST['telp'];
 
 // Enkripsi password
 // $password = password_hash($password, PASSWORD_DEFAULT);
 
     // Simpan data ke database
     
+    if($password1==$password){
+      $insert= mysqli_query($conn,"INSERT INTO tbl_user VALUES (null,'$name','$username','$password','$alamat','$telp')");
     
-   $insert= mysqli_query($conn,"INSERT INTO tbl_user VALUES (null,'$name','$username','$password')");
-   
-   if ($insert) {
-    echo "<p style='color : green'>Update Success</p>";
-    echo "<script>window.location='login.php'</script>";
+      if ($insert) {
+      echo "<p style='color : green'>Update Success</p>";
+      echo "<script>alert('Buat Akun Success!, Silahkan Login');window.location='login.php'</script>";
+      }
+      else {
+      echo "<p style='color : red'>Buat Akun Failed</p>";
+      }
     }
-    else {
-     echo "<p style='color : red'>Update Failed</p>";
-     }
-
+    else{
+      echo "<script>alert('Konfirmasi Password Tidak Sesuai');window.location='register.php'</script>";
+    }
     // menghitung jumlah data yang ditemukan
     // if (mysqli_query($conn, $regis)) {
     //     echo "Registrasi berhasil";

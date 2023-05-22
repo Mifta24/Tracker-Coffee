@@ -4,6 +4,7 @@ session_start();
  
 // menghapus semua session
 session_destroy();
+session_unset();
  
 // mengalihkan halaman sambil mengirim pesan logout
 header("location:../login/login.php");

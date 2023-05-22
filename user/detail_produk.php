@@ -27,7 +27,7 @@ $p=mysqli_fetch_object($produk);
     <script src="https://unpkg.com/feather-icons"></script>
 
     <!-- My CSS Style -->
-    <link rel="stylesheet" href="../style.css" />
+    <link rel="stylesheet" href="css/detail.css" />
   </head>
 
   <body>
@@ -70,6 +70,10 @@ $p=mysqli_fetch_object($produk);
           <p class="menu-card-price">Rp. <?php echo number_format( $p->product_price) ?></p>
           <p class=""><?php echo  $p->product_description ?></p>
           <p class="">Stock : <?php echo  $p->stock ?></p>
+        
+          <!-- jumlah produk yg ingin dibeli user -->
+          <input type="number"  min="1" max="<?php echo $p->stock ?>" step="1" style=" text-align:center; padding: 10px; border-radius: 5px; border: 1px solid #ccc; font-size: 16px; color: #333; box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);">
+          <br>
           <a class="beli-menu" href="qr.html">Beli Sekarang</a>
         </div>
 

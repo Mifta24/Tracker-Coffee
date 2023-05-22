@@ -27,10 +27,13 @@ if ($_SESSION['status'] != "login") {
 	<header>
 		<a href="index.html" class="logo">Tracker<span>coffee</span>.</a>
       <div class="nav">
-        <a href="admin.php">Dashboard</a>
-        <a href="profil.php">Profil</a>
-        <a href="kategori.php">Data Kategori</a>
-        <a href="#">Data Produk</a>
+      <a href="admin.php">Dashboard</a>
+          <a href="profil.php">Profil</a>
+          <a href="user.php">Data User</a>
+          <a href="kategori.php">Data Kategori</a>
+          <a href="produk.php">Data Produk</a>
+          <a href="pemesanan.php">Data Pemesanan</a>
+          <a href="penjualan.php">Data Penjualan</a>
       </div>
 
       <div class="navbar-extra">
@@ -122,7 +125,7 @@ if ($_SESSION['status'] != "login") {
                 echo "<script> alert('Format File Tidak Dizinkan')</script>";
             }
             else{
-                echo move_uploaded_file($tmpname,'./img/coffee-menu/'.$newimage);
+                echo move_uploaded_file($tmpname,'../img/coffee-menu/'.$newimage);
                 
 
                 // proses upload sekalikus insert ke database

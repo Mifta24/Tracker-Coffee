@@ -11,6 +11,26 @@ if ($_SESSION['status'] != "login") {
 
 $produk=mysqli_query($conn,"SELECT * FROM tbl_product");
 
+if(isset($_POST['cari'])){
+  
+  $keyword=$_POST['input_search'];
+  
+  $produk=mysqli_query($conn,"SELECT * FROM tbl_product WHERE product_name LIKE '%$keyword%' ");
+  // if($produk){
+    
+    // header("location:#menu");
+      
+    // }
+    // else{
+    //   echo "<script> alert('Data Tidak Ditemukan') </script>";
+    // }
+}
+include '../login/cek_login.php';
+
+$data=mysqli_query($conn,"SELECT * FROM tbl_user WHERE username='mifta' ");
+
+$user=mysqli_fetch_assoc($data);
+
 ?>
 
 
@@ -38,25 +58,43 @@ $produk=mysqli_query($conn,"SELECT * FROM tbl_product");
   <body>
     <!-- Navbar Start-->
     <nav class="navbar">
+      <!-- Logo -->
       <a href="index.html" class="navbar-logo">Tracker<span>coffee</span>.</a>
+
       <div class="navbar-nav">
         <a href="#home">Home</a>
         <a href="#about">Tentang Kami</a>
         <a href="#menu">Menu</a>
         <a href="#contact">Contact</a>
-        <a href="index.php" class="nav login" id="navlogout">Log-Out</a>
+        <a href="../admin/logout.php" class="nav login" id="navlogout">Log-Out</a>
       </div>
 
       <div class="navbar-extra">
-        <a href="#" id="search"> <i data-feather="search"></i></a>
-        <input type="search" name="input_search" id="input_search">
-        <a href="#" id="shopping-cart"> <i data-feather="shopping-cart"></i></a>
+        <a href="#" id="search-button"><i data-feather="search"></i></a>  
+        <a href="keranjang1.php" id="shopping-cart"> <i data-feather="shopping-cart"></i></a>
         <a href="#" id="hamburger-menu"> <i data-feather="menu"></i></a>
-        <a href="index.php" class="login" id="logout"><i data-feather="log-out"></i></a>
+        <a href="../admin/logout.php" class="login" id="logout"><i data-feather="log-out"></i></a>
       </div>
+
+       <!-- Search Form start -->
+    <div class="search-form">
+      <!--  <input type="search" id="search-box" placeholder="search here..."> -->
+      
+      <form action="" method="post" class="form-search">
+
+        <label for="search-box"><i data-feather="search"></i></label>
+        <input type="search" name="input_search" id="search-box" autofocus  autocomplete="off" placeholder="Cari Menu..." >
+        
+              <button type="submit" name="cari" id="cari" >
+                <i data-feather="search"></i>
+              </button>
+          </form>
+    </div>
+    <!-- Search Form end -->
+
     </nav>
     <!-- Navbar End-->
-
+    
     <!-- Hero Section Start -->
     <section class="hero-section" id="home">
       <main class="content">
@@ -115,22 +153,38 @@ $produk=mysqli_query($conn,"SELECT * FROM tbl_product");
 
       <?php while($p=mysqli_fetch_object($produk)): ?>
         <div class="menu-card">
-          <a href="detail_produk.php?id=<?php echo $p->product_id ?>">
+          <form action="keranjang1.php" method="post">
+            <input type="hidden" name="product_id" value="<?php echo $p->product_id ?>">
+
+            <a href="detail_produk.php?id=<?php echo $p->product_id ?>">
+              
+              <img
+                class="menu-card-img"
+                src="../img/coffee-menu/<?php echo $p->product_image ?>"
+                alt="<?php echo $p->product_image ?>"
+              />
+            </a>
+            <input type="hidden" name="product_gambar" value="<?php echo $p->product_image ?>">
+
+            <h3 class="menu-card-title">~ <?php echo $p->product_name ?> ~</h3>
+            <input type="hidden" name="product_name" value="<?php echo $p->product_name ?>">
+
+            <p class="menu-card-price" >Rp.<?php echo number_format($p->product_price)  ?></p>
+            <input type="hidden" name="product_price" value="<?php echo $p->product_price ?>">
             
-            <img
-              class="menu-card-img"
-              src="../img/coffee-menu/<?php echo $p->product_image ?>"
-              alt="../img/coffee-menu/<?php echo $p->product_image ?>"
-            />
-          </a>
-          <h3 class="menu-card-title">~ <?php echo $p->product_name ?> ~</h3>
-          <p class="menu-card-price">Rp.<?php echo number_format($p->product_price)  ?></p>
-          <a class="beli-menu" href="qr.html">Beli Sekarang</a>
+            <input type="number" name="quantity" id="jumlah" min="1" max="<?php echo $p->stock ?>" required>
+
+            <button name="beli" class="beli-menu" >Beli Sekarang</button>
+           
+          </form>
         </div>
 
         <?php endwhile; ?>
+
+        
       </div>
     </section>
+    
     <!-- Menu Section End -->
 
     <!-- Contact Section Start -->
@@ -197,6 +251,7 @@ $produk=mysqli_query($conn,"SELECT * FROM tbl_product");
     </script>
 
     <!-- My Javascript-->
-    <script src="js/script.js"></script>
+    <script src="../js/script.js"></script>
+    
   </body>
 </html>
