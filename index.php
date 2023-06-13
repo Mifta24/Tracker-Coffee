@@ -151,7 +151,7 @@ if(isset($_POST['cari'])){
         <?php endwhile; ?>
       </div>
 
-      <div class="category">
+      <!-- <div class="category">
         <h3>Kategori</h3>
         <div class="box">
           <?php $kategori=mysqli_query($conn,"SELECT * FROM tbl_category ORDER BY category_id ASC"); 
@@ -172,7 +172,7 @@ if(isset($_POST['cari'])){
           ?>
          
         </div>
-      </div>
+      </div> -->
     </section>
     <!-- Menu Section End -->
 

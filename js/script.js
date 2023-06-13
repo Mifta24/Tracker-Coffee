@@ -27,3 +27,12 @@ document.querySelector('#search-button').onclick = (e) => {
   e.preventDefault();
 };
 
+// bukti pembayaran
+const kotak=document.querySelector('.kotak');
+
+document.querySelector('#bukti').onclick=()=>{
+  kotak.classList.toggle('aktif')
+}
+
+
+

@@ -42,7 +42,7 @@ if(isset($_POST['bayar'])){
 		$newKodeBayar = $char . sprintf("%03s", $no);
 
         //nomor urut baru
-        echo $newKodeBayar;
+        // echo $newKodeBayar;
 		
     
     // KONDISI Metode PEmbayaran
@@ -51,10 +51,10 @@ if(isset($_POST['bayar'])){
         $_SESSION['pesanan']=$pesanan;
         $_SESSION['kd']=$newKodeBayar;
 
-        echo $_SESSION['kd'];
+        // echo $_SESSION['kd'];
 
         mysqli_query($conn,"INSERT INTO tbl_pembayaran VALUES(null,'$newKodeBayar','$nama','$nomor','$alamat','$pesanan','$catatan','$dana','$total',null,null)");
-        echo "<script>window.location='qr.php'</script>";
+        header('location:qr.php');
     }
     elseif(isset($gopay)){
         $_SESSION['gopay']=$gopay;

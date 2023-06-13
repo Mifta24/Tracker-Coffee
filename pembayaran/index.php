@@ -33,7 +33,7 @@ $d_user=mysqli_fetch_assoc($user);
 
       <input type="text" style="background-color: black; color:white;" value="<?php while($p=mysqli_fetch_assoc($pesanan)): ?>
             <?php echo $p['name_menu'] .'='. $p['qty'] ?>
-          <?php endwhile ?>" class="input-form" name="pesanan" id="" readonly required >
+          <?php endwhile ?>" class="input-form" name="pesanan" id="" readonly required  maxlength="500">
         
 
       <input readonly required class="input-form-value" type="text" name="total" value="<?php echo $_SESSION['total'] ?>" placeholder="<?php echo 'Rp.'.number_format( $_SESSION['total']) ?>" >
@@ -62,7 +62,7 @@ $d_user=mysqli_fetch_assoc($user);
         </table>
       </div>
       <button name="bayar" class="btn-form-pay">Pay</button>
-      <a class="btn-form-change" id="myBtn" href="../user/keranjang1.php">Batal</a>
+      <a class="btn-form-change" id="myBtn" href="../user/keranjang.php">Batal</a>
     </form>
   </div>
 

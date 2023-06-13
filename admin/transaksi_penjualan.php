@@ -6,10 +6,23 @@ include '../database/db.php';
 		header("location:../login/login.php?pesan=belum_login");
 	};
 
-    $produk=mysqli_query($conn,"SELECT * FROM tbl_pembayaran WHERE id='".$_GET['id']."' ");
+
+    // untuk menyembunyikan pesan error yg errornya itu tidak terlalu berguna
+    error_reporting(0);  // jika 0 maka sembunyikan. jika 1 tampilkan
+
+    $id=$_GET['id'];
+
+    $produk=mysqli_query($conn,"SELECT * FROM tbl_pembayaran WHERE id='$id' ");
 
     $p=mysqli_fetch_object($produk);
 
+
+// DELETE   
+    $idp=$_GET['idp'];
+    $produkDel=mysqli_query($conn,"SELECT * FROM tbl_pembayaran WHERE id='$idp' ");
+
+    $pd=mysqli_fetch_object($produkDel);
+    
   
 
     // terima pembayaran
@@ -30,10 +43,11 @@ include '../database/db.php';
     }
 
     // tolak pembayaran
-    if(isset($_GET['idp'])){
+    if(isset($_POST['tolak'])){
+        $user=$_POST['user'];
         $delete=mysqli_query($conn,"DELETE FROM tbl_pembayaran WHERE id=' ".$_GET['idp']." ' ");
         mysqli_query($conn,"UPDATE tbl_pemesanan SET 
-        payment_status=null WHERE id='$p->user' ");
+        payment_status=null WHERE user='$user' ");
         echo "<script>alert('Pembayaran Ditolak');window.location='penjualan.php'</script>";
     }
 	?>

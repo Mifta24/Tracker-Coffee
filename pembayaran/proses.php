@@ -29,7 +29,7 @@ if(isset($_POST['cek'])){
        $pesanan=$_SESSION['pesanan'];
        $kd=$_SESSION['kd'];
 
-       echo $kd;
+    //    echo $kd;
 
         // echo $user;
         // echo $pesanan;

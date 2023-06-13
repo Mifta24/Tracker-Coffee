@@ -128,6 +128,23 @@ table tr td{
     width: 110px;
 }
 
+.kotak{
+    margin: auto;
+    width: 600px;
+    height: 600px;
+    background-color: #010101;
+    position: absolute;
+    right: 0;
+    left: 0;
+    top: 300;
+    bottom: 0;
+    scale: 0;
+}
+
+.kotak.aktif{
+    scale: 1;
+}
+
 /* Fotter */
 footer{
     background-color: var(--primary);

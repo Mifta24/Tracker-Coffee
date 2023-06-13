@@ -33,20 +33,20 @@ $p=mysqli_fetch_object($produk);
   <body>
     <!-- Navbar Start-->
     <nav class="navbar">
-      <a href="index.html" class="navbar-logo">Tracker<span>coffee</span>.</a>
+      <a href="user.php" class="navbar-logo">Tracker<span>coffee</span>.</a>
       <div class="navbar-nav">
-        <a href="#home">Home</a>
-        <a href="#about">Tentang Kami</a>
-        <a href="#menu">Menu</a>
-        <a href="#contact">Contact</a>
-        <a href="index.php" class="nav login" id="navlogout">Log-Out</a>
+      <a href="user.php #home">Home</a>
+        <a href="user.php #about">Tentang Kami</a>
+        <a href="user.php #menu">Menu</a>
+        <a href="user.php #contact">Contact</a>
+        <a href="../admin/logout.php" class="nav login" id="navlogout">Log-Out</a>
       </div>
 
       <div class="navbar-extra">
-        <a href="#" id="search"> <i data-feather="search"></i></a>
-        <a href="#" id="shopping-cart"> <i data-feather="shopping-cart"></i></a>
+        <!-- <a href="#" id="search"> <i data-feather="search"></i></a> -->
+        <a href="keranjang.php" id="shopping-cart"> <i data-feather="shopping-cart"></i></a>
         <a href="#" id="hamburger-menu"> <i data-feather="menu"></i></a>
-        <a href="index.php" class="login" id="logout"><i data-feather="log-out"></i></a>
+        <a href="../admin/logout.php" class="login" id="logout"><i data-feather="log-out"></i></a>
       </div>
     </nav>
     <!-- Navbar End-->
@@ -54,12 +54,12 @@ $p=mysqli_fetch_object($produk);
     
     <!-- Menu Section Start -->
     <section class="menu" id="menu">
-      <h2><span>Coffee</span> Menu</h2>
-
+      
       <div class="row">
-
-     
+        
+        
         <div class="menu-card">
+          <h2 class="judul"><span>Coffee</span> Menu</h2>
             
             <img
               class="menu-card-img"
@@ -67,14 +67,8 @@ $p=mysqli_fetch_object($produk);
               alt="../img/coffee-menu/<?php echo $p->product_image ?>"
             />
           <h3 class="menu-card-title">~ <?php echo $p->product_name ?> ~</h3>
-          <p class="menu-card-price">Rp. <?php echo number_format( $p->product_price) ?></p>
           <p class=""><?php echo  $p->product_description ?></p>
-          <p class="">Stock : <?php echo  $p->stock ?></p>
-        
-          <!-- jumlah produk yg ingin dibeli user -->
-          <input type="number"  min="1" max="<?php echo $p->stock ?>" step="1" style=" text-align:center; padding: 10px; border-radius: 5px; border: 1px solid #ccc; font-size: 16px; color: #333; box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);">
-          <br>
-          <a class="beli-menu" href="qr.html">Beli Sekarang</a>
+          <a class="beli-menu" href="user.php #menu">Beli Sekarang</a>
         </div>
 
       
@@ -91,10 +85,10 @@ $p=mysqli_fetch_object($produk);
       </div>
 
       <div class="link">
-        <a href="#home">Home</a>
-        <a href="#about">Tentang Kami</a>
-        <a href="#menu">Menu</a>
-        <a href="#contact">Contact</a>
+        <a href="user.php #home">Home</a>
+        <a href="user.php #about">Tentang Kami</a>
+        <a href="user.php #menu">Menu</a>
+        <a href="user.php #contact">Contact</a>
       </div>
 
       <div class="credit">
@@ -109,6 +103,6 @@ $p=mysqli_fetch_object($produk);
     </script>
 
     <!-- My Javascript-->
-    <script src="js/script.js"></script>
+    <script src="../js/script.js"></script>
   </body>
 </html>

@@ -23,6 +23,7 @@ body {
     color: white;
 
     /* min-height: 2000px; */
+    
 }
 
 /* Navbar */
@@ -150,6 +151,19 @@ body {
 
 /* Menu section */
 
+.menu  {
+margin-top: 6rem;
+}
+
+.menu .row .judul{
+    text-align: center;
+    /* background-color: red; */
+    margin: 1rem;
+}
+
+.menu .row .judul span{
+    color: var(--primary);
+}
 
 .menu p, .contact p{
     font-size: 1rem;

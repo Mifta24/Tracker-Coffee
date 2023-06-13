@@ -31,7 +31,7 @@ include'../database/db.php';
 
     <!-- Navbar Start-->
     <nav class="navbar">
-        <a href="index.html" class="navbar-logo">Tracker<span>coffee</span>.</a>
+        <a href="#" class="navbar-logo">Tracker<span>coffee</span>.</a>
         <!-- <div class="navbar-nav">
           <a href="index.html#home">Home</a>
           <a href="index.html#about">Tentang Kami</a>

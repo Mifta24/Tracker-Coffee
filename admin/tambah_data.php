@@ -62,7 +62,7 @@ if ($_SESSION['status'] != "login") {
 		if (isset($_POST['submit'])) {
 			$nama_menu=ucwords( $_POST['nama_menu']);
 
-			$insert=mysqli_query($conn,"INSERT INTO tbl_category VALUES(null,'$nama_menu')");
+			$insert=mysqli_query($conn,"INSERT INTO tbl_category VALUES(null,'$nama_menu',null)");
 
 			if ($insert) {
 				echo "<p style='color : green'>Update Success</p>";

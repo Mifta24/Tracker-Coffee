@@ -48,13 +48,13 @@
           <a href="logout.php">LOGOUT</a>
         </div>
       </header>
-
+      
       <section class="dashboard">
         <div class="box">
-         
+          
           <table border="1" cellpadding=8 cellspacing="0" bordercolor="black">
             <thead>
-
+              
               <tr>
                 <td>No</td>
                 <td>Nama Produk</td>
@@ -92,17 +92,17 @@
                   <td><?php echo $row['catatan']; ?></td>
                   <!-- Gambar -->
                   <td>
-                   <?php echo $row['metode_bayar'] ?>
+                    <?php echo $row['metode_bayar'] ?>
                   </td>
                   <td>
-                   <?php echo $row['total_pembayaran'] ?>
+                    <?php echo $row['total_pembayaran'] ?>
                   </td>
                   <td>
-                    <img width="60px" src="../img/bukti-pembayaran/<?php echo $row['bukti_pembayaran'] ?>" alt="">
+                    <a id="bukti" class="bukti" href="detail_bukti.php?id=<?php echo $row['id'] ?>"><img  width="60px" height="60px" src="../img/bukti-pembayaran/<?php echo $row['bukti_pembayaran'] ?>" alt=""></a>
                   </td>
                   <td><?php echo $row['payment_status'] ?></td>
                   <!-- deskripsi dihapus -->
-
+                  
                   <!-- Aksi -->
                   <td  style="display: flex; align-items:center; ">
                   <!-- Setujui Pembayaran -->
@@ -114,10 +114,11 @@
                     </form>
                     
                     <!-- Tolak Pembayaran -->
-                    <form action="transaksi_penjuakan.php?idp=<?php echo $row['id'] ?>" method="post">
-                    <a href="transaksi_penjualan.php?idp=<?php echo $row['id'] ?>"  onclick="return confirm('Yakin ingin menghapus data ini ?')">
+                    <form action="transaksi_penjualan.php?idp=<?php echo $row['id'] ?>" method="post">
+                    <input type="hidden" name="user" value="<?php echo $row['user'] ?>">
+                    <button name="tolak" onclick="return confirm('Yakin ingin menghapus data ini ?')">
                     <i data-feather="x" style="background-color: red; color: white;"></i>
-                    </a>
+                    </button>
                     </form>
                   </td>
                 </tr>
@@ -127,8 +128,8 @@
           
         </div>
       </section>
-
-
+      
+      
       <!-- Fotter Start -->
       <footer>
         <div class="sosial">
@@ -150,6 +151,8 @@
       </footer>
       <!-- Fotter End -->
 
+
+      <script src="../js/script.js"></script>
 
        <!-- Feather Icons -->
     <script>

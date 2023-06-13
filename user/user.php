@@ -71,7 +71,7 @@ $user=mysqli_fetch_assoc($data);
 
       <div class="navbar-extra">
         <a href="#" id="search-button"><i data-feather="search"></i></a>  
-        <a href="keranjang1.php" id="shopping-cart"> <i data-feather="shopping-cart"></i></a>
+        <a href="keranjang.php" id="shopping-cart"> <i data-feather="shopping-cart"></i></a>
         <a href="#" id="hamburger-menu"> <i data-feather="menu"></i></a>
         <a href="../admin/logout.php" class="login" id="logout"><i data-feather="log-out"></i></a>
       </div>
@@ -153,7 +153,7 @@ $user=mysqli_fetch_assoc($data);
 
       <?php while($p=mysqli_fetch_object($produk)): ?>
         <div class="menu-card">
-          <form action="keranjang1.php" method="post">
+          <form action="keranjang.php" method="post">
             <input type="hidden" name="product_id" value="<?php echo $p->product_id ?>">
 
             <a href="detail_produk.php?id=<?php echo $p->product_id ?>">
