@@ -92,9 +92,9 @@ header .nav a:hover {
 }
 
 .dashboard{
-    padding: 2rem 7% 1.4rem; /* Atas 10rem kiridankanan 7% bawah 1.4rem*/
+    padding: 2rem 2% 1.4rem; /* Atas 10rem kiridankanan 7% bawah 1.4rem*/
     border: 1px solid white;
-    height: 430px;
+    /* height: 430px; */
 }
 
 .dashboard .box{
@@ -104,6 +104,23 @@ header .nav a:hover {
     color: #010101;
     margin: 20px 0;
     box-sizing: border-box;
+}
+
+.box .user{
+    color: #fff;
+    background-color: #03a8f2;
+     width: 150px;
+    height: 80px; 
+    border-radius: 10px;
+    text-align: center;
+    margin: 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.box .user .content{
+    margin: 0px 10px;
 }
 
 /* Fotter */

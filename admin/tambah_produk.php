@@ -20,7 +20,7 @@ if ($_SESSION['status'] != "login") {
 	<link rel="stylesheet" href="css/profil.css">
 
 <!-- CKEditor 5 -->
-    <script src="https://cdn.ckeditor.com/ckeditor5/36.0.1/classic/ckeditor.js"></script>
+    <!-- <script src="https://cdn.ckeditor.com/ckeditor5/36.0.1/classic/ckeditor.js"></script> -->
 </head>
 <body>
  
@@ -132,7 +132,7 @@ if ($_SESSION['status'] != "login") {
                 $insert=mysqli_query($conn,"INSERT INTO tbl_product VALUES(null,'$kategori_menu','$nama_produk','$harga','$stok','$deskripsi','$newimage','$status')");
 
                 if ($insert) {
-                    echo "<script> window.location='produk.php'</script>";
+                    echo "<script>alert('Tambah Produk Berhasil');window.location='produk.php'</script>";
                 }
                 else {
                     echo "<script> alert('Input Gagal')</script>";

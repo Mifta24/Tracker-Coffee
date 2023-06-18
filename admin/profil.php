@@ -13,12 +13,13 @@ $query = mysqli_query($conn, "SELECT * FROM tbl_admin");
 
 // ngambil data satu persatu
 while ($admin = mysqli_fetch_array($query)) {
-	$admin_id     = stripslashes($admin['admin_id']);
-	$admin_name   = stripslashes($admin['admin_name']);
-	$username     = stripslashes($admin['username']);
-	$nohp         = stripslashes($admin['admin_telp']);
-	$alamat       = stripslashes($admin['admin_address']);
-	$email        = stripslashes($admin['admin_email']);
+	$admin_id = stripslashes($admin['admin_id']);
+	$admin_name = stripslashes($admin['admin_name']);
+	$username = stripslashes($admin['username']);
+	$nohp = stripslashes($admin['admin_telp']);
+	$alamat = stripslashes($admin['admin_address']);
+	$email = stripslashes($admin['admin_email']);
+	$image = stripslashes($admin['admin_image']);
 }
 ?>
 
@@ -39,13 +40,13 @@ while ($admin = mysqli_fetch_array($query)) {
 	<header>
 		<a href="index.html" class="logo">Tracker<span>coffee</span>.</a>
 		<div class="nav">
-		<a href="admin.php">Dashboard</a>
-          <a href="profil.php">Profil</a>
-          <a href="user.php">Data User</a>
-          <a href="kategori.php">Data Kategori</a>
-          <a href="produk.php">Data Produk</a>
-          <a href="pemesanan.php">Data Pemesanan</a>
-          <a href="penjualan.php">Data Penjualan</a>
+			<a href="admin.php">Dashboard</a>
+			<a href="profil.php">Profil</a>
+			<a href="user.php">Data User</a>
+			<a href="kategori.php">Data Kategori</a>
+			<a href="produk.php">Data Produk</a>
+			<a href="pemesanan.php">Data Pemesanan</a>
+			<a href="penjualan.php">Data Penjualan</a>
 		</div>
 
 		<div class="navbar-extra">
@@ -56,7 +57,12 @@ while ($admin = mysqli_fetch_array($query)) {
 
 	<section class="profil">
 		<h2>Profil</h2>
-		<form action="" method="post">
+		<form action="" method="post" enctype="multipart/form-data">
+			<img  src="../img/profil/<?= $image  ?>" alt="" width="100px">
+
+			<!-- Gambar Upload -->
+			<input type="file" class="input-control" name="gambar">
+
 			<!-- Nama Admin -->
 			<input type="text" class="input-control" name="nama" id="nama" placeholder="Nama Lengkap" value="<?= $admin_name; ?>">
 
@@ -91,29 +97,48 @@ while ($admin = mysqli_fetch_array($query)) {
 			$email_ad = $_POST['email'];
 			$alamat_ad = ucwords($_POST['alamat']);
 
-			// Query data
-			$update = mysqli_query($conn, "UPDATE tbl_admin SET 
-				admin_name='$nama',
-				username='$user',
-				admin_telp='$hp',
-				admin_email='$email_ad',
-				admin_address='$alamat_ad'
-
-				WHERE admin_id= $admin_id");
-
-
-			// Kondisi sesudah query
-			if ($update) {
-				echo "<p style='color : green'>Update Success</p>";
-				echo "<script>window.location='profil.php'</script>";
-			} else {
-				echo "<p style='color : red'>Update Failed</p>";
-			}
-
+			// Menampung data file yg diuplod
+            $filename= $_FILES['gambar']['name'];
+            $tmpname= $_FILES['gambar']['tmp_name'];
+            
+            $type1=explode('.', $filename);
+            $type2=$type1[1];
+            
+            $newimage='img'.time().'.'.$type2;
+            // menampung data file yg diizinkan
+            $tipefile=array("jpg","jpeg","png","gif");
+            // validasi format file
+            if(!in_array($type2,$tipefile)){
+                echo "<script> alert('Format File Tidak Dizinkan')</script>";
+            }
+            else{
+                echo move_uploaded_file($tmpname,'../img/profil/'.$newimage);
+                
+				
+                // proses upload sekalikus insert ke database
+				// Query data
+				$update = mysqli_query($conn, "UPDATE tbl_admin SET 
+					admin_name='$nama',
+					username='$user',
+					admin_telp='$hp',
+					admin_email='$email_ad',
+					admin_address='$alamat_ad',
+					admin_image='$newimage'
+					WHERE admin_id= $admin_id");
+			
+				// Kondisi sesudah query
+				if ($update) {
+					echo "<p style='color : green'>Update Success</p>";
+					echo "<script>window.location='profil.php'</script>";
+				} else {
+					echo "<p style='color : red'>Update Failed</p>";
+				}
+            }
+			
 		}
 		?>
 	</section>
-
+	
 	<!-- Section Ubah Password Login Admin -->
 	<section class="profil">
 		<h2>Ubah Password</h2>
@@ -122,7 +147,7 @@ while ($admin = mysqli_fetch_array($query)) {
 			<input type="password" class="input-control" name="pass1" id="pass1" placeholder="Masukkan Password Baru" value="" required>
 
 			<!-- Konfirmasi Password -->
-			<input type="password" class="input-control" name="pass2" id="pass2" placeholder="Konfirmasi Password Baru" value="" required>	
+			<input type="password" class="input-control" name="pass2" id="pass2" placeholder="Konfirmasi Password Baru" value="" required>
 
 			<!-- Submit Password -->
 			<input type="submit" class="btn" name="ubah_password" id="ubah_password" value="Ubah Password">
@@ -130,7 +155,7 @@ while ($admin = mysqli_fetch_array($query)) {
 		</form>
 	</section>
 
-<!-- Php ubah password -->
+	<!-- Php ubah password -->
 	<?php
 
 	// Untuk membesarkan huruf depan ucwords()

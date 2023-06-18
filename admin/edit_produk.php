@@ -77,10 +77,10 @@ $p = mysqli_fetch_object($produk);
       <input type="text" name="stok" id="stok" class="input-control" placeholder="Stok" value="<?php echo $p->stock ?>">
 
       <!-- Nama file lama -->
-      <input type="text" name="foto" value="<?php echo $p->product_image ?>">
+      <input type="hidden" name="foto" value="<?php echo $p->product_image ?>">
 
       <!-- Tampilan gambar lama -->
-      <img src="img/coffee-menu/<?php echo $p->product_image ?>" width="100px" alt="">
+      <img src="../img/coffee-menu/<?php echo $p->product_image ?>" width="100px" alt="">
 
       <!-- input gambar -->
       <input type="file" name="gambar" id="gambar" class="input-control" placeholder="Masukkan Gambar" value="">

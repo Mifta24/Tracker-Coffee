@@ -40,3 +40,7 @@ ketika admin klik mengecek bukti pembayaran dan betul maka admin pencet success 
 ketika admin klik success maka menu yg ada di keranjang user akan di hapus seluruhnya dan ada tulisan pembelian success
 
 jika sudah beli barang sebelumnya lalu beli lagi maka barang sebelumnya jadi belum terbayar kacauuuu   :: SUCCESS
+
+menambahkan input:hidden untuk kategori menunya
+membuat field kategori di pembayaran
+pie chart sesuai dengan kategori yg dibeli di tbl_pembayaran

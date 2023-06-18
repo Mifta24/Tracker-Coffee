@@ -2,7 +2,7 @@
 
 include 'database/db.php';
 
-$produk=mysqli_query($conn,"SELECT * FROM tbl_product");
+$produk=mysqli_query($conn,"SELECT * FROM tbl_product ORDER BY category_id");
 
 if(isset($_POST['cari'])){
   

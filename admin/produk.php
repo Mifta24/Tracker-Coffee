@@ -60,7 +60,7 @@
             </thead>
             <tbody>
               <?php
-              $produk = mysqli_query($conn, "SELECT * FROM tbl_product LEFT JOIN tbl_category USING (category_id) ORDER BY product_id");
+              $produk = mysqli_query($conn, "SELECT * FROM tbl_product LEFT JOIN tbl_category USING (category_id) ORDER BY category_id");
               $i = 0;
               while ($row = mysqli_fetch_array($produk)) :
                 $i++;

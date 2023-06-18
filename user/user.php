@@ -9,7 +9,7 @@ if ($_SESSION['status'] != "login") {
 	header("location:../login/login.php?pesan=belum_login");
 }
 
-$produk=mysqli_query($conn,"SELECT * FROM tbl_product");
+$produk=mysqli_query($conn,"SELECT * FROM tbl_product ORDER BY category_id");
 
 if(isset($_POST['cari'])){
   
