@@ -104,7 +104,11 @@
                   <!-- deskripsi dihapus -->
                   
                   <!-- Aksi -->
-                  <td  style="display: flex; align-items:center; ">
+                  <td  style="display: flex; align-items:center; justify-content: center; ">
+
+                  <?php if($row['payment_status']=="Pembayaran Success") : ?>
+                    <p>Selesai</p>
+                    <?php else: ?>
                   <!-- Setujui Pembayaran -->
                     <form action="transaksi_penjualan.php?id=<?php echo $row['id'] ?>" method="post">
                     <input type="hidden" name="payment_status" value="Pembayaran Success">
@@ -120,6 +124,9 @@
                     <i data-feather="x" style="background-color: red; color: white;"></i>
                     </button>
                     </form>
+
+                    <?php endif; ?>
+
                   </td>
                 </tr>
               <?php endwhile; ?>
