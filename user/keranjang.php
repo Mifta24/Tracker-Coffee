@@ -2,6 +2,8 @@
 // Mulai session untuk menyimpan keranjang belanja
 session_start();
 
+
+
 include '../database/db.php';
 
 
@@ -21,28 +23,45 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $quantity = $_POST['quantity'];
 
     $_SESSION['name_product'] = $product_name;
-
+    $name_menu=$_SESSION['name_product'];
+    // echo $name_menu;
+    
 
     // echo $p->id;
-
-    // Jika produk sudah ada di keranjang belanja, tambahkan kuantitasnya
-    if (array_key_exists($product_id, $_SESSION['cart'])) {
-
-        $pemesanan = mysqli_query($conn, "SELECT * FROM tbl_pemesanan WHERE name_menu='$product_name' ");
-        $p = mysqli_fetch_object($pemesanan);
-        $id = $_SESSION['cart'][$product_id]['id'];
-        // echo $id;
-        // $_SESSION['cart'][$product_id]['quantity'] += $quantity;
-
-
+    $pemesanan = mysqli_query($conn, "SELECT * FROM tbl_pemesanan WHERE name_menu='$product_name' AND user='". $_SESSION['username'] ."' ");
+    $p = mysqli_fetch_object($pemesanan);
+    
+    // jika kondisi if tidak terpenuhi tidak ada erorr
+    error_reporting(0);
+    
+    if($name_menu==$p->name_menu){
+        // $id = $_SESSION['cart'][$product_id]['id'];
         $qtynew = $p->qty + $quantity;
         //  Update kuantitas produk dalam keranjang belanja
-        $_SESSION['cart'][$product_id]['quantity'] = $qtynew;
+        // $_SESSION['cart'][$product_id]['quantity'] = $qtynew;
+        
+        // echo $qtynew;
 
-        //  echo $qtynew;
+        mysqli_query($conn, "UPDATE tbl_pemesanan SET qty='$qtynew' WHERE name_menu='$product_name' ");
+    }
 
-        mysqli_query($conn, "UPDATE tbl_pemesanan SET qty='$qtynew' WHERE id=$id ");
-    } else {
+    // // Jika produk sudah ada di keranjang belanja, tambahkan kuantitasnya
+    // if (array_key_exists($p->name_menu, $_SESSION['cart'])) {
+
+    //     $id = $_SESSION['cart'][$product_id]['id'];
+    //     // echo $id;
+    //     // $_SESSION['cart'][$product_id]['quantity'] += $quantity;
+
+
+    //     $qtynew = $p->qty + $quantity;
+    //     //  Update kuantitas produk dalam keranjang belanja
+    //     $_SESSION['cart'][$product_id]['quantity'] = $qtynew;
+
+    //      echo $qtynew;
+
+    //     mysqli_query($conn, "UPDATE tbl_pemesanan SET qty='$qtynew' WHERE id=$id ");
+    // }
+     else {
         // Jika produk belum ada di keranjang belanja, tambahkan produk baru
         $_SESSION['cart'][$product_id] = array(
             'id' => $product_id,
@@ -55,6 +74,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $sql = "INSERT INTO tbl_pemesanan VALUES(null, '" . $_SESSION['username'] . "', '" . $_SESSION['cart'][$product_id]['name'] . "', '" . $_SESSION['cart'][$product_id]['price'] . "', '" . $_SESSION['cart'][$product_id]['quantity'] . "', '" . $_SESSION['cart'][$product_id]['image'] . "',null)";
         mysqli_query($conn, $sql);
 
+        // pengurangan stock product
         $produk = mysqli_query($conn, "SELECT * FROM tbl_product");
         $p = mysqli_fetch_assoc($produk);
 

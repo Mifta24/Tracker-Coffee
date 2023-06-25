@@ -404,6 +404,57 @@ body {
     margin: auto;
 }
 
+.menu .category {
+    width: 80%;
+    margin: 2rem auto;
+    
+    
+}
+
+.menu .category h3{
+    text-align: center;
+    font-size:25px;
+    font-weight: bold;
+    font-style:oblique;
+    text-shadow: 2px 1px 1px #9b6734;
+}
+
+.menu .category .box{
+    /* border: 1px solid #ccc; */
+    padding: 15px;
+    box-sizing: border-box;
+    margin: 10px 0 25px 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.menu .category .box a{
+    text-decoration: none;
+    color: #fff;
+    text-align: center;
+}
+
+.menu .category img{
+    margin: 5px auto;
+    
+}
+.menu .category p{
+    margin-left: 15px;
+    
+}
+
+.menu .category .box .col{
+    width: 20%;
+    height: 100%;    
+    text-align: center;
+    margin: 5px;
+    padding: 10px;
+    box-sizing: border-box;
+    
+}
+
+
 /* Contact Section */
 .contact .row {
     display: flex;

@@ -15,7 +15,10 @@ if(isset($_GET['idm'])){
 
     $updatestockbaru=mysqli_query($conn,"UPDATE tbl_product SET stock='$jumlahbaru' WHERE product_name=' ".$_SESSION['product_name']." ' ");
 
-
+    unset($_GET['idm']);
+    unset($_SESSION['name_product']);
+    unset($_SESSION['cart'][$product_id]['name_product']);
+    unset($_SESSION['cart'][$product_id]['quantity']);
 }
 
 

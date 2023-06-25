@@ -5,6 +5,13 @@
     if ($_SESSION['status'] != "login") {
       header("location:../login/login.php?pesan=belum_login");
     }
+
+    if (isset($_GET['category'])) {
+      $category = $_GET['category'];
+      $produk = mysqli_query($conn, "SELECT * FROM tbl_product LEFT JOIN tbl_category USING (category_id) WHERE category_id=$category ORDER BY category_id");
+    } else {
+      $produk = mysqli_query($conn, "SELECT * FROM tbl_product LEFT JOIN tbl_category USING (category_id) ORDER BY category_id");
+    }
     ?>
 
 
@@ -25,7 +32,7 @@
       <header>
         <a href="index.php" target="_blank" class="logo">Tracker<span>coffee</span>.</a>
         <div class="nav">
-        <a href="admin.php">Dashboard</a>
+          <a href="admin.php">Dashboard</a>
           <a href="profil.php">Profil</a>
           <a href="user.php">Data User</a>
           <a href="kategori.php">Data Kategori</a>
@@ -41,6 +48,14 @@
       </header>
 
       <section class="dashboard">
+
+        <div class="filter">
+          <a class="filter-btn" href="produk.php">All</a>
+          <a class="filter-btn" href="produk.php?category=1">Coffee</a>
+          <a class="filter-btn" href="produk.php?category=2">Tea</a>
+          <a class="filter-btn" href="produk.php?category=3">Drink</a>
+          <a class="filter-btn" href="produk.php?category=4">Food</a>
+        </div>
         <div class="box">
           <a href="tambah_produk.php">Tambah Data</a>
           <table border="1" cellpadding=8 cellspacing="0" bordercolor="black">
@@ -60,7 +75,7 @@
             </thead>
             <tbody>
               <?php
-              $produk = mysqli_query($conn, "SELECT * FROM tbl_product LEFT JOIN tbl_category USING (category_id) ORDER BY category_id");
+
               $i = 0;
               while ($row = mysqli_fetch_array($produk)) :
                 $i++;
@@ -90,18 +105,18 @@
                   <!-- Aksi -->
                   <td>
                     <a href="edit_produk.php?id=<?php echo $row['product_id'] ?>">
-                    Edit
+                      Edit
                     </a>
-                      |
-                    <a href="hapus_menu.php?idp=<?php echo $row['product_id'] ?>"  onclick="return confirm('Yakin ingin menghapus data ini ?')">
-                    Hapus
+                    |
+                    <a href="hapus_menu.php?idp=<?php echo $row['product_id'] ?>" onclick="return confirm('Yakin ingin menghapus data ini ?')">
+                      Hapus
                     </a>
                   </td>
                 </tr>
               <?php endwhile; ?>
             </tbody>
           </table>
-          
+
         </div>
       </section>
 

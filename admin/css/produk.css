@@ -105,6 +105,26 @@ header .nav a:hover {
     box-sizing: border-box;
 }
 
+.filter{
+    margin: 15px;
+}
+.filter-btn {
+    padding: 5px 10px;
+    font-size: 16px;
+    background-color: #8e46a0;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 3px;
+    margin: 4px;
+    transition: 1s;
+  }
+  .filter-btn:hover {
+    background-color: #491c47;
+   
+  }
+  
+
 
 table{
     width: 100%;
