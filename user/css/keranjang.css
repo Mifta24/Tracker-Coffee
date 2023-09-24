@@ -118,3 +118,32 @@ body {
     border-radius: 5px;
     margin-left: 50px;
   }
+
+  /* Media Queries */
+/* Untuk layar jadi Responsive */
+
+/* Laptop */
+@media (max-width:1366px) {
+
+  /* Lebar layar */
+  html {
+      font-size: 85%;
+  }
+}
+
+/* Tablet */
+@media (max-width:820px) {
+  html {
+      font-size: 62.5%;
+  }
+
+ 
+}
+
+
+/* Mobile Phone */
+@media (max-width:450px) {
+  html {
+      font-size: 55%;
+  }
+}

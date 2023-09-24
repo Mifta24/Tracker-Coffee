@@ -30,10 +30,10 @@ Tracker Coffee adalah sebuah website kafe yang memungkinkan pengguna untuk membe
 
 ```php
 // Konfigurasi database
-define('DB_HOST', 'localhost');
-define('DB_USERNAME', 'username_db');
-define('DB_PASSWORD', 'password_db');
-define('DB_NAME', 'nama_db');
+$hostname="NAME_HOSTNAME";
+$username="USER_HOSTNAME";
+$password="PASS_HOSTNAME";
+$database="DB_NAME";
 ```
 
 5. Akses halaman beranda melalui peramban web dengan mengunjungi URL `http://localhost/tracker-coffee`.

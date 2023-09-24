@@ -3,7 +3,6 @@
 session_start();
 
 
-
 include '../database/db.php';
 
 
@@ -22,9 +21,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $product_price = $_POST['product_price'];
     $quantity = $_POST['quantity'];
 
+
     $_SESSION['name_product'] = $product_name;
     $name_menu=$_SESSION['name_product'];
-    // echo $name_menu;
+    
     
 
     // echo $p->id;
@@ -42,7 +42,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         
         // echo $qtynew;
 
-        mysqli_query($conn, "UPDATE tbl_pemesanan SET qty='$qtynew' WHERE name_menu='$product_name' ");
+        // update qty keranjang pada user
+        mysqli_query($conn, "UPDATE tbl_pemesanan SET qty='$qtynew' WHERE name_menu='$product_name' AND user='". $_SESSION['username'] ."' ");
+
+         // pengurangan stock product
+         $produk = mysqli_query($conn, "SELECT * FROM tbl_product WHERE  product_id='" . $_SESSION['cart'][$product_id]['id'] . "'");
+         $p = mysqli_fetch_assoc($produk);
+ 
+         $jumlahbaru = $p["stock"] - $quantity;
+         // echo $jumlahbaru;
+ 
+         $updatestockbaru = mysqli_query($conn, "UPDATE tbl_product SET stock='$jumlahbaru' WHERE product_id='" . $_SESSION['cart'][$product_id]['id'] . "' ");
     }
 
     // // Jika produk sudah ada di keranjang belanja, tambahkan kuantitasnya
@@ -75,7 +85,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         mysqli_query($conn, $sql);
 
         // pengurangan stock product
-        $produk = mysqli_query($conn, "SELECT * FROM tbl_product");
+        $produk = mysqli_query($conn, "SELECT * FROM tbl_product WHERE  product_id='" . $_SESSION['cart'][$product_id]['id'] . "' ");
         $p = mysqli_fetch_assoc($produk);
 
         $jumlahbaru = $p["stock"] - $_SESSION['cart'][$product_id]['quantity'];
@@ -148,7 +158,7 @@ $s = mysqli_fetch_assoc($status);
                 <img src="../img/coffee-menu/<?php echo $image ?>" alt="<?php echo $image ?>">
 
                 <div class="item-detail">
-                    <form action="update_menu.php?id=<?php echo $m['id'] ?>" method="post">
+                    <form action="update_menu.php?id=<?php echo $m['id'] ?>&qty=<?php echo $m['qty'] ?>&nmp=<?php echo $m['name_menu']?>" method="post">
                         <h3>
                             <?php echo htmlentities($name); ?>
                         </h3>
@@ -180,7 +190,7 @@ $s = mysqli_fetch_assoc($status);
                 <?php else : ?>
                     <button type="submit" name="submit"><i data-feather="check-circle" class="update-item"></i></button>
                     </form>
-                    <a href="hapus_keranjang.php?idm=<?php echo $m['id'] ?>"><i data-feather="trash-2" class="remove-item"></i></a>
+                    <a href="hapus_keranjang.php?idm=<?php echo $m['id'] ?>&qty=<?php echo $m['qty'] ?>&nmp=<?php echo $m['name_menu']?>"><i data-feather="trash-2" class="remove-item"></i></a>
                 <?php endif ?>
             </div>
 
