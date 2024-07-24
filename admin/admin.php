@@ -27,41 +27,13 @@
 
 	?>
 
-    <!DOCTYPE html>
-    <html lang="en">
-
-    <head>
-    	<meta charset="UTF-8">
-    	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-    	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-    	<title>Dashboard</title>
-
-    	<!-- Bootsrap -->
-    	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/normalize.css@8.0.0/normalize.min.css">
-    	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/css/bootstrap.min.css">
-    	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css">
-    	<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/lykmapipo/themify-icons@0.1.2/css/themify-icons.css">
-    	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pixeden-stroke-7-icon@1.2.3/pe-icon-7-stroke/dist/pe-icon-7-stroke.min.css">
-    	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.2.0/css/flag-icon.min.css">
-    	<link rel="stylesheet" href="../assets/css/cs-skin-elastic.css">
-    	<link rel="stylesheet" href="../assets/css/style.css">
-
-    	<link href="https://cdn.jsdelivr.net/npm/chartist@0.11.0/dist/chartist.min.css" rel="stylesheet">
-    	<link href="https://cdn.jsdelivr.net/npm/jqvmap@1.5.1/dist/jqvmap.min.css" rel="stylesheet">
-
-    	<!-- Fonts -->
-    	<link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,700;1,700&display=swap" rel="stylesheet" />
-
-    	<!-- Feather Icons -->
-    	<script src="https://unpkg.com/feather-icons"></script>
-
-
-    	<link rel="stylesheet" href="css/admin.css">
-    </head>
-
+	<?php 
+	
+		include_once 'layout/header.php';
+	?>
     <body>
 
-    	<header>
+    	<!-- <header>
     		<a href="index.html" class="logo">Tracker<span>coffee</span>.</a>
     		<div class="nav">
     			<a href="admin.php">Dashboard</a>
@@ -77,7 +49,7 @@
     			<a href="#" id="hamburger-menu"> <i data-feather="menu"></i></a>
     			<a href="logout.php">LOGOUT</a>
     		</div>
-    	</header>
+    	</header> -->
 
     	<section class="dashboard">
     		<h3>Dashboard</h3>
@@ -199,27 +171,11 @@
 
     	</section>
 
-    	<!-- Fotter Start -->
-    	<footer>
-    		<div class="sosial">
-    			<a target="_blank" href="https://twitter.com/MiftaAldi24?t=tGR24pLkyKmcJkHMb6NlwA&s=09"><i data-feather="twitter"></i></a>
-    			<a target="_blank" href="https://instagram.com/mifta_xh_ui?igshid=ZDdkNTZiNTM="><i data-feather="instagram"></i></a>
-    			<a target="_blank" href="https://github.com/Mifta24"><i data-feather="github"></i></a>
-    		</div>
+		<?php
+			include_once 'layout/footer.php';
+		?>
 
-    		<div class="link">
-    			<a href="#home">Home</a>
-    			<a href="#about">Tentang Kami</a>
-    			<a href="#menu">Menu</a>
-    			<a href="#contact">Contact</a>
-    		</div>
-
-    		<div class="credit">
-    			<p>Created by <a href="">Miftahudin Aldi Saputra</a>| &copy; 2023.</p>
-    		</div>
-    	</footer>
-    	<!-- Fotter End -->
-
+    
 		<!-- Pie ChartJs -->
     	<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
@@ -270,35 +226,7 @@
     		feather.replace();
     	</script>
 
-    	<!-- Scripts bootstrap -->
-    	<script src="https://cdn.jsdelivr.net/npm/jquery@2.2.4/dist/jquery.min.js"></script>
-    	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.4/dist/umd/popper.min.js"></script>
-    	<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/js/bootstrap.min.js"></script>
-    	<script src="https://cdn.jsdelivr.net/npm/jquery-match-height@0.7.2/dist/jquery.matchHeight.min.js"></script>
-    	<script src="../assets/js/main.js"></script>
-    	<!--  Chart js -->
-    	<!-- <script src="https://cdn.jsdelivr.net/npm/chart.js@2.7.3/dist/Chart.bundle.min.js"></script> -->
-    	<!--Flot Chart-->
-    	<!-- <script src="https://cdn.jsdelivr.net/npm/jquery.flot@0.8.3/jquery.flot.min.js"></script>
-    	<script src="https://cdn.jsdelivr.net/npm/flot-spline@0.0.1/js/jquery.flot.spline.min.js"></script> -->
-
-
-    	<!-- local -->
-    	<script src="../assets/js/widgets.js"></script>
-
-
-    	<!-- pie chart -->
-
-    	<script src="https://cdn.jsdelivr.net/npm/flot-charts@0.8.3/excanvas.min.js"></script>
-    	<script src="https://cdn.jsdelivr.net/npm/flot-charts@0.8.3/jquery.flot.min.js"></script>
-    	<script src="https://cdn.jsdelivr.net/npm/jquery.flot@0.8.3/jquery.flot.pie.min.js"></script>
-    	<script src="https://cdn.jsdelivr.net/npm/jquery.flot@0.8.3/jquery.flot.time.min.js"></script>
-    	<script src="https://cdn.jsdelivr.net/npm/jquery.flot@0.8.3/jquery.flot.stack.js"></script>
-    	<script src="https://cdn.jsdelivr.net/npm/jquery.flot@0.8.3/jquery.flot.resize.js"></script>
-    	<script src="https://cdn.jsdelivr.net/npm/jquery.flot@0.8.3/jquery.flot.crosshair.js"></script>
-    	<script src="https://cdn.jsdelivr.net/npm/flot.curvedlines@1.1.1/curvedLines.min.js"></script>
-    	<script src="https://cdn.jsdelivr.net/npm/jquery.flot.tooltip@0.9.0/js/jquery.flot.tooltip.min.js"></script>
-    	<script src="../assets/js/init/flot-chart-init.js"></script>
+    	
 
 
 

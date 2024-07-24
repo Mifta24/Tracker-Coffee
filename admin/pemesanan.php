@@ -1,113 +1,122 @@
-    <!-- cek apakah sudah login -->
+
+
+    <style>
+      body {
+        background-color: #f8f9fa;
+      }
+
+      .dashboard {
+        margin-top: 20px;
+        padding: 20px;
+      }
+
+      .box {
+        background-color: white;
+        border-radius: 5px;
+        padding: 20px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      }
+
+      .table th, .table td {
+        vertical-align: middle;
+      }
+
+      footer {
+        background-color: #343a40;
+        color: white;
+        padding: 20px 0;
+        position: fixed;
+        bottom: 0;
+        width: 100%;
+      }
+
+      .sosial a, .link a {
+        color: white;
+        margin: 0 10px;
+      }
+
+      .sosial a:hover, .link a:hover {
+        color: #007bff;
+        text-decoration: none;
+      }
+
+      .credit a {
+        color: #007bff;
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- Cek apakah sudah login -->
     <?php
     session_start();
     include '../database/db.php';
     if ($_SESSION['status'] != "login") {
       header("location:../login/login.php?pesan=belum_login");
     }
+
+    include 'layout/header.php'
     ?>
 
-
-    <!DOCTYPE html>
-    <html lang="en">
-
-    <head>
-      <meta charset="UTF-8">
-      <meta http-equiv="X-UA-Compatible" content="IE=edge">
-      <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <title>Produk</title>
-
-       <!-- Fonts -->
-    <link
-      href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,700;1,700&display=swap"
-      rel="stylesheet"
-    />
-
-    <!-- Feather Icons -->
-    <script src="https://unpkg.com/feather-icons"></script>
-
-      <link rel="stylesheet" href="css/pemesanan.css">
-    </head>
-
-    <body>
-
-      <header>
-        <a href="index.php" target="_blank" class="logo">Tracker<span>coffee</span>.</a>
-        <div class="nav">
-          <a href="admin.php">Dashboard</a>
-          <a href="profil.php">Profil</a>
-          <a href="user.php">Data User</a>
-          <a href="kategori.php">Data Kategori</a>
-          <a href="produk.php">Data Produk</a>
-          <a href="pemesanan.php">Data Pemesanan</a>
-          <a href="penjualan.php">Data Penjualan</a>
-        </div>
-
-        <div class="navbar-extra">
-          <a href="#" id="hamburger-menu"> <i data-feather="menu"></i></a>
-          <a href="logout.php">LOGOUT</a>
-        </div>
-      </header>
-
-      <section class="dashboard">
+    <section class="dashboard">
+      <div class="container">
         <div class="box">
-         
-          <table border="1" cellpadding=8 cellspacing="0" bordercolor="black">
-            <thead>
 
-              <tr>
-                <td>No</td>
-                <td>Nama Pembeli</td>
-                <td>Nama Produk</td>
-                <td>Gambar Menu</td>
-                <td>Harga Menu</td>
-                <td>Jumlah Pemesanan</td>
-                <td>Harga Bayar /Menu</td>
-                <td>Status</td>
-             
-              </tr>
-            </thead>
-            <tbody>
-              <?php
-              $pemesanan = mysqli_query($conn, "SELECT * FROM tbl_pemesanan");
-              $i = 0;
-              while ($row = mysqli_fetch_array($pemesanan)) :
-                $i++;
-              ?>
+          <h4 class="mb-4">Daftar Pemesanan</h4>
+
+          <div class="table-responsive">
+            <table class="table table-striped table-hover">
+              <thead class="thead-dark">
                 <tr>
-              
-                  <td><?php echo $i; ?></td>
-                  <td><?php echo $row['user']; ?></td>
-                  <td><?php echo $row['name_menu']; ?></td>
-                  <td><img width="60px" src="../img/coffee-menu/<?php echo $row['image_menu']?>" alt=""></td>
-                  <td><?php echo $row['price_menu']; ?></td>
-                  <!-- Gambar -->
-                  <td>
-                   <?php echo $row['qty'] ?>
-                  </td>
-                  <td>
-                   <?php echo $row['price_menu']*$row['qty'] ?>
-                  </td>
-                  <td><?php echo ($row['payment_status'])==null ?'Belum Dibayar':'Menunggu Konfirmasi' ?></td>
-                
+                  <th scope="col">No</th>
+                  <th scope="col">Nama Pembeli</th>
+                  <th scope="col">Nama Produk</th>
+                  <th scope="col">Gambar Menu</th>
+                  <th scope="col">Harga Menu</th>
+                  <th scope="col">Jumlah Pemesanan</th>
+                  <th scope="col">Harga Bayar / Menu</th>
+                  <th scope="col">Status</th>
                 </tr>
-              <?php endwhile; ?>
-            </tbody>
-          </table>
-          
+              </thead>
+              <tbody>
+                <?php
+                $pemesanan = mysqli_query($conn, "SELECT * FROM tbl_pemesanan");
+                $i = 0;
+                while ($row = mysqli_fetch_array($pemesanan)) :
+                  $i++;
+                ?>
+                  <tr>
+                    <td><?php echo $i; ?></td>
+                    <td><?php echo $row['user']; ?></td>
+                    <td><?php echo $row['name_menu']; ?></td>
+                    <td><img class="img-thumbnail" width="60px" src="../img/coffee-menu/<?php echo $row['image_menu'] ?>" alt=""></td>
+                    <td><?php echo number_format($row['price_menu'], 2, ',', '.'); ?></td>
+                    <td><?php echo $row['qty']; ?></td>
+                    <td><?php echo number_format($row['price_menu'] * $row['qty'], 2, ',', '.'); ?></td>
+                    <td><?php echo ($row['payment_status']) == null ? 'Belum Dibayar' : 'Menunggu Konfirmasi'; ?></td>
+                  </tr>
+                <?php endwhile; ?>
+              </tbody>
+            </table>
+          </div>
         </div>
-      </section>
+      </div>
+    </section>
 
-
-      <!-- Fotter Start -->
-      <footer>
-        <div class="sosial">
+    <?php 
+    
+        include 'layout/footer.php';
+    ?>
+    <!-- Footer Start -->
+    <footer class="text-center">
+      <div class="container">
+        <div class="sosial mb-3">
           <a target="_blank" href="https://twitter.com/MiftaAldi24?t=tGR24pLkyKmcJkHMb6NlwA&s=09"><i data-feather="twitter"></i></a>
           <a target="_blank" href="https://instagram.com/mifta_xh_ui?igshid=ZDdkNTZiNTM="><i data-feather="instagram"></i></a>
           <a target="_blank" href="https://github.com/Mifta24"><i data-feather="github"></i></a>
         </div>
 
-        <div class="link">
+        <div class="link mb-3">
           <a href="#home">Home</a>
           <a href="#about">Tentang Kami</a>
           <a href="#menu">Menu</a>
@@ -115,16 +124,19 @@
         </div>
 
         <div class="credit">
-          <p>Created by <a href="">Miftahudin Aldi Saputra</a>| &copy; 2023.</p>
+          <p>Created by <a href="">Miftahudin Aldi Saputra</a> | &copy; 2023.</p>
         </div>
-      </footer>
-      <!-- Fotter End -->
+      </div>
+    </footer>
+    <!-- Footer End -->
 
-
-       <!-- Feather Icons -->
+    <!-- Feather Icons -->
     <script>
       feather.replace();
     </script>
-    </body>
 
-    </html>
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <!-- <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.3/dist/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+Y+2Dh9T/xqPU9fUwE3DtK13UJh1j0CSrFvLRK7+4M/AKHP0Io/" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4. -->

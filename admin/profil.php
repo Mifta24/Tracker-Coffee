@@ -21,191 +21,187 @@ while ($admin = mysqli_fetch_array($query)) {
 	$email = stripslashes($admin['admin_email']);
 	$image = stripslashes($admin['admin_image']);
 }
+
+	include_once 'layout/header.php';
 ?>
 
-<!DOCTYPE html>
-<html lang="en">
+  <!-- Custom CSS -->
+  <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+        }
 
-<head>
-	<meta charset="UTF-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Document</title>
+        .profil {
+            padding: 20px;
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
 
-	<link rel="stylesheet" href="css/profil.css">
-</head>
+        .profil h2 {
+            margin-bottom: 20px;
+            font-size: 1.5rem;
+            color: #343a40;
+        }
 
-<body>
+        .input-control {
+            margin-bottom: 10px;
+        }
 
-	<header>
-		<a href="index.html" class="logo">Tracker<span>coffee</span>.</a>
-		<div class="nav">
-			<a href="admin.php">Dashboard</a>
-			<a href="profil.php">Profil</a>
-			<a href="user.php">Data User</a>
-			<a href="kategori.php">Data Kategori</a>
-			<a href="produk.php">Data Produk</a>
-			<a href="pemesanan.php">Data Pemesanan</a>
-			<a href="penjualan.php">Data Penjualan</a>
-		</div>
+        .input-control input {
+            border-radius: 4px;
+        }
 
-		<div class="navbar-extra">
-			<a href="#" id="hamburger-menu"> <i data-feather="menu"></i></a>
-			<a href="logout.php">LOGOUT</a>
-		</div>
-	</header>
+        .btn {
+            border-radius: 4px;
+        }
 
-	<section class="profil">
-		<h2>Profil</h2>
-		<form action="" method="post" enctype="multipart/form-data">
-			<img  src="../img/profil/<?= $image  ?>" alt="" width="100px">
+        .alert {
+            margin-top: 20px;
+        }
+    </style>
 
-			<!-- Gambar Upload -->
-			<input type="file" class="input-control" name="gambar">
 
-			<!-- Nama Admin -->
-			<input type="text" class="input-control" name="nama" id="nama" placeholder="Nama Lengkap" value="<?= $admin_name; ?>">
 
-			<!-- Username Login -->
-			<input type="text" class="input-control" name="user" id="user" placeholder="Username" value="<?= $username ?>">
+	 <!-- Profil Admin Start -->
+    <section class="profil container mt-4">
+        <h2>Profil</h2>
+        <form action="" method="post" enctype="multipart/form-data">
+            <div class="form-group">
+                <img src="../img/profil/<?= $image ?>" alt="Profile Image" class="img-thumbnail mb-3" width="100px">
+            </div>
 
-			<!-- No Hp Admin -->
-			<input type="text" class="input-control" name="hp" id="hp" placeholder="No-HP" value="<?= $nohp ?>">
+            <!-- Gambar Upload -->
+            <div class="form-group">
+                <label for="gambar">Upload Gambar:</label>
+                <input type="file" class="form-control-file" name="gambar" id="gambar">
+            </div>
 
-			<!-- Email Admin -->
-			<input type="text" class="input-control" name="email" id="email" placeholder="Email" value="<?= $email ?>">
+            <!-- Nama Admin -->
+            <div class="form-group">
+                <label for="nama">Nama Lengkap:</label>
+                <input type="text" class="form-control" name="nama" id="nama" placeholder="Nama Lengkap" value="<?= $admin_name; ?>">
+            </div>
 
-			<!-- Alamat Admin -->
-			<input type="text" class="input-control" name="alamat" id="alamat" placeholder="Alamat" value="<?= $alamat ?>">
+            <!-- Username Login -->
+            <div class="form-group">
+                <label for="user">Username:</label>
+                <input type="text" class="form-control" name="user" id="user" placeholder="Username" value="<?= $username ?>">
+            </div>
 
-			<!-- Tombol Submit -->
-			<input type="submit" class="btn" name="submit" id="submit" placeholder="Submit">
+            <!-- No Hp Admin -->
+            <div class="form-group">
+                <label for="hp">No-HP:</label>
+                <input type="text" class="form-control" name="hp" id="hp" placeholder="No-HP" value="<?= $nohp ?>">
+            </div>
 
-		</form>
+            <!-- Email Admin -->
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" class="form-control" name="email" id="email" placeholder="Email" value="<?= $email ?>">
+            </div>
 
-		<!-- update data ke data base -->
-		<?php
+            <!-- Alamat Admin -->
+            <div class="form-group">
+                <label for="alamat">Alamat:</label>
+                <input type="text" class="form-control" name="alamat" id="alamat" placeholder="Alamat" value="<?= $alamat ?>">
+            </div>
 
-		// Untuk membesarkan huruf depan ucwords()
+            <!-- Tombol Submit -->
+            <button type="submit" class="btn btn-primary" name="submit" id="submit">Submit</button>
+        </form>
 
-		if (isset($_POST['submit'])) {
+        <!-- update data ke database -->
+        <?php
+        if (isset($_POST['submit'])) {
+            $nama = ucwords($_POST['nama']);
+            $user = $_POST['user'];
+            $hp = $_POST['hp'];
+            $email_ad = $_POST['email'];
+            $alamat_ad = ucwords($_POST['alamat']);
 
-			// Data dari inputan form
-			$nama = ucwords($_POST['nama']);
-			$user = $_POST['user'];
-			$hp = $_POST['hp'];
-			$email_ad = $_POST['email'];
-			$alamat_ad = ucwords($_POST['alamat']);
+            // Menampung data file yg diupload
+            $filename = $_FILES['gambar']['name'];
+            $tmpname = $_FILES['gambar']['tmp_name'];
+            $type1 = explode('.', $filename);
+            $type2 = strtolower(end($type1));
 
-			// Menampung data file yg diuplod
-            $filename= $_FILES['gambar']['name'];
-            $tmpname= $_FILES['gambar']['tmp_name'];
-            
-            $type1=explode('.', $filename);
-            $type2=$type1[1];
-            
-            $newimage='img'.time().'.'.$type2;
-            // menampung data file yg diizinkan
-            $tipefile=array("jpg","jpeg","png","gif");
-            // validasi format file
-            if(!in_array($type2,$tipefile)){
-                echo "<script> alert('Format File Tidak Dizinkan')</script>";
+            $newimage = 'img' . time() . '.' . $type2;
+            $tipefile = array("jpg", "jpeg", "png", "gif");
+
+            // Validasi format file
+            if (!in_array($type2, $tipefile)) {
+                echo "<div class='alert alert-danger' role='alert'>Format File Tidak Dizinkan</div>";
+            } else {
+                if (move_uploaded_file($tmpname, '../img/profil/' . $newimage)) {
+                    // Query data
+                    $update = mysqli_query($conn, "UPDATE tbl_admin SET 
+                        admin_name='$nama',
+                        username='$user',
+                        admin_telp='$hp',
+                        admin_email='$email_ad',
+                        admin_address='$alamat_ad',
+                        admin_image='$newimage'
+                        WHERE admin_id='$admin_id'");
+
+                    // Kondisi sesudah query
+                    if ($update) {
+                        echo "<div class='alert alert-success' role='alert'>Update Success</div>";
+                        echo "<script>window.location='profil.php'</script>";
+                    } else {
+                        echo "<div class='alert alert-danger' role='alert'>Update Failed</div>";
+                    }
+                } else {
+                    echo "<div class='alert alert-danger' role='alert'>Gagal Upload Gambar</div>";
+                }
             }
-            else{
-                echo move_uploaded_file($tmpname,'../img/profil/'.$newimage);
-                
-				
-                // proses upload sekalikus insert ke database
-				// Query data
-				$update = mysqli_query($conn, "UPDATE tbl_admin SET 
-					admin_name='$nama',
-					username='$user',
-					admin_telp='$hp',
-					admin_email='$email_ad',
-					admin_address='$alamat_ad',
-					admin_image='$newimage'
-					WHERE admin_id= $admin_id");
-			
-				// Kondisi sesudah query
-				if ($update) {
-					echo "<p style='color : green'>Update Success</p>";
-					echo "<script>window.location='profil.php'</script>";
-				} else {
-					echo "<p style='color : red'>Update Failed</p>";
-				}
-            }
-			
-		}
-		?>
-	</section>
+        }
+        ?>
+    </section>
+    <!-- Profil Admin End -->
 	
-	<!-- Section Ubah Password Login Admin -->
-	<section class="profil">
-		<h2>Ubah Password</h2>
-		<form action="" method="post">
-			<!-- Password Baru -->
-			<input type="password" class="input-control" name="pass1" id="pass1" placeholder="Masukkan Password Baru" value="" required>
+	   <!-- Ubah Password Start -->
+	   <section class="profil container mt-4">
+        <h2>Ubah Password</h2>
+        <form action="" method="post">
+            <!-- Password Baru -->
+            <div class="form-group">
+                <label for="pass1">Masukkan Password Baru:</label>
+                <input type="password" class="form-control" name="pass1" id="pass1" placeholder="Masukkan Password Baru" required>
+            </div>
 
-			<!-- Konfirmasi Password -->
-			<input type="password" class="input-control" name="pass2" id="pass2" placeholder="Konfirmasi Password Baru" value="" required>
+            <!-- Konfirmasi Password -->
+            <div class="form-group">
+                <label for="pass2">Konfirmasi Password Baru:</label>
+                <input type="password" class="form-control" name="pass2" id="pass2" placeholder="Konfirmasi Password Baru" required>
+            </div>
 
-			<!-- Submit Password -->
-			<input type="submit" class="btn" name="ubah_password" id="ubah_password" value="Ubah Password">
+            <!-- Submit Password -->
+            <button type="submit" class="btn btn-warning" name="ubah_password" id="ubah_password">Ubah Password</button>
+        </form>
 
-		</form>
-	</section>
+        <!-- Php ubah password -->
+        <?php
+        if (isset($_POST['ubah_password'])) {
+            $pass1 = md5($_POST['pass1']);
+            $pass2 = md5($_POST['pass2']);
 
-	<!-- Php ubah password -->
-	<?php
+            if ($pass2 != $pass1) {
+                echo "<div class='alert alert-danger' role='alert'>Konfirmasi Password Tidak Sesuai</div>";
+            } else {
+                $u_pass = mysqli_query($conn, "UPDATE tbl_admin SET 
+                password='$pass1'
+                WHERE admin_id='$admin_id'");
 
-	// Untuk membesarkan huruf depan ucwords()
-
-	if (isset($_POST['ubah_password'])) {
-
-		// data dari form input di encript
-		$pass1 = md5($_POST['pass1']);
-		$pass2 = md5($_POST['pass2']);
-
-		// Logika ganti password
-
-		// jika pass2 tidak sama dengan maka gagal
-		if ($pass2 != $pass1) {
-			echo "<script> alert('Konfirmasi Password Tidak Sesuai') </script>";
-		} else {
-			$u_pass = mysqli_query($conn, "UPDATE tbl_admin SET 
-			password='$pass1'
-			WHERE admin_id= $admin_id");
-
-			// Jika ganti Password sudah berhasil
-			if ($u_pass) {
-				echo "<script> alert('Ubah Data Berhasil') </script>";
-				echo "<script>window.location='profil.php'</>";
-			}
-		}
-	}
-	?>
+                if ($u_pass) {
+                    echo "<div class='alert alert-success' role='alert'>Ubah Data Berhasil</div>";
+                    echo "<script>window.location='profil.php'</script>";
+                }
+            }
+        }
+        ?>
+    </section>
+    <!-- Ubah Password End -->
 
 
-	<!-- Fotter Start -->
-	<footer>
-		<div class="sosial">
-			<a target="_blank" href="https://twitter.com/MiftaAldi24?t=tGR24pLkyKmcJkHMb6NlwA&s=09"><i data-feather="twitter"></i></a>
-			<a target="_blank" href="https://instagram.com/mifta_xh_ui?igshid=ZDdkNTZiNTM="><i data-feather="instagram"></i></a>
-			<a target="_blank" href="https://github.com/Mifta24"><i data-feather="github"></i></a>
-		</div>
-
-		<div class="link">
-			<a href="#home">Home</a>
-			<a href="#about">Tentang Kami</a>
-			<a href="#menu">Menu</a>
-			<a href="#contact">Contact</a>
-		</div>
-
-		<div class="credit">
-			<p>Created by <a href="">Miftahudin Aldi Saputra</a>| &copy; 2023.</p>
-		</div>
-	</footer>
-	<!-- Fotter End -->
-</body>
-
-</html>
+	

@@ -1,173 +1,172 @@
-    <!-- cek apakah sudah login -->
-    <?php
-    session_start();
-    include '../database/db.php';
-    if ($_SESSION['status'] != "login") {
-      header("location:../login/login.php?pesan=belum_login");
+<?php
+session_start();
+include '../database/db.php';
+if ($_SESSION['status'] != "login") {
+  header("location:../login/login.php?pesan=belum_login");
+}
+
+if (isset($_GET['status'])) {
+  $status = $_GET['status'];
+  $pembayaran = mysqli_query($conn, "SELECT * FROM tbl_pembayaran WHERE payment_status = '$status'");
+} else {
+  $pembayaran = mysqli_query($conn, "SELECT * FROM tbl_pembayaran");
+}
+
+include 'layout/header.php'
+?>
+
+
+
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: #f8f9fa;
     }
-    if (isset($_GET['status'])) {
-      $status = $_GET['status'];
-      $pembayaran = mysqli_query($conn, "SELECT * FROM tbl_pembayaran WHERE payment_status = '$status'");
-    } else {
-      $pembayaran = mysqli_query($conn, "SELECT * FROM tbl_pembayaran");
+
+
+    .dashboard .box {
+      background-color: #fff;
+      border-radius: 5px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      padding: 20px;
     }
-    ?>
+
+    .filter .filter-btn {
+      margin: 5px;
+      color: #343a40;
+    }
+
+    .filter .filter-btn:hover {
+      text-decoration: none;
+    }
+
+    table {
+      width: 100%;
+      margin-top: 20px;
+    }
+
+    .table th,
+    .table td {
+      text-align: center;
+      vertical-align: middle;
+    }
+
+    footer {
+      background-color: #343a40;
+      color: white;
+      padding: 20px 0;
+      position: relative;
+      bottom: 0;
+      width: 100%;
+    }
+
+    .sosial a,
+    .link a {
+      color: white;
+      margin: 0 10px;
+    }
+
+    .sosial a:hover,
+    .link a:hover {
+      color: #007bff;
+      text-decoration: none;
+    }
+
+    .credit a {
+      color: #007bff;
+    }
+  </style>
 
 
 
-    <!DOCTYPE html>
-    <html lang="en">
+    
 
-    <head>
-      <meta charset="UTF-8">
-      <meta http-equiv="X-UA-Compatible" content="IE=edge">
-      <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <title>Produk</title>
-
-      <!-- Fonts -->
-      <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,700;1,700&display=swap" rel="stylesheet" />
-
-      <!-- Feather Icons -->
-      <script src="https://unpkg.com/feather-icons"></script>
-
-      <link rel="stylesheet" href="css/penjualan.css">
-    </head>
-
-    <body>
-
-      <header>
-        <a href="index.php" target="_blank" class="logo">Tracker<span>coffee</span>.</a>
-        <div class="nav">
-          <a href="admin.php">Dashboard</a>
-          <a href="profil.php">Profil</a>
-          <a href="user.php">Data User</a>
-          <a href="kategori.php">Data Kategori</a>
-          <a href="produk.php">Data Produk</a>
-          <a href="pemesanan.php">Data Pemesanan</a>
-          <a href="penjualan.php">Data Penjualan</a>
-        </div>
-
-        <div class="navbar-extra">
-          <a href="#" id="hamburger-menu"> <i data-feather="menu"></i></a>
-          <a href="logout.php">LOGOUT</a>
-        </div>
-      </header>
-
-      <section class="dashboard">
-        <div class="box">
+      <!-- Dashboard Start -->
+  <section class="dashboard">
+    <div class="container">
+      <div class="box">
+        <h4 class="mb-4">Data Penjualan</h4>
 
         <!-- Filter -->
-          <div class="filter">
-            <a class="filter-btn" href="penjualan.php">All</a>
-            <a class="filter-btn" href="penjualan.php?status=Pembayaran Success">Pembayaran Success</a>
-            <a class="filter-btn" href="penjualan.php?status=Menunggu Proses">Menunggu Proses</a>
-          </div>
+        <div class="filter mb-3">
+          <a class="filter-btn btn btn-outline-dark" href="penjualan.php">All</a>
+          <a class="filter-btn btn btn-outline-success" href="penjualan.php?status=Pembayaran Success">Pembayaran Success</a>
+          <a class="filter-btn btn btn-outline-warning" href="penjualan.php?status=Menunggu Proses">Menunggu Proses</a>
+        </div>
 
-          <table id="payment" border="1" cellpadding=8 cellspacing="0" bordercolor="black">
-            <thead>
-
+        <!-- Table -->
+        <div class="table-responsive">
+          <table id="payment" class="table table-striped table-hover">
+            <thead class="thead-dark">
               <tr>
-                <td>No</td>
-                <td>Nama Produk</td>
-                <td>Nama Pembeli</td>
-                <td style="width:130px; ">No Telp</td>
-                <td style="width: 200px;">Alamat</td>
-                <td>Catatan</td>
-                <td>Metode Pembayaran</td>
-                <td>Total Pesanan</td>
-                <td>Bukti Pembayaran</td>
-                <td>Status</td>
-                <td>Action</td>
-
+                <th>No</th>
+                <th>Nama Produk</th>
+                <th>Nama Pembeli</th>
+                <th>No Telp</th>
+                <th>Alamat</th>
+                <th>Catatan</th>
+                <th>Metode Pembayaran</th>
+                <th>Total Pesanan</th>
+                <th>Bukti Pembayaran</th>
+                <th>Status</th>
+                <th>Action</th>
               </tr>
             </thead>
             <tbody>
               <?php
-
               $i = 0;
               while ($row = mysqli_fetch_array($pembayaran)) :
                 $i++;
               ?>
                 <tr>
-                  <!-- No -->
                   <td><?php echo $i; ?></td>
-                  <!-- Kategori Menu -->
                   <td><?php echo $row['menu']; ?></td>
                   <td><?php echo $row['user']; ?></td>
-                  <!-- Nama Produk -->
-                  <td style="width:130px;"><?php echo $row['telp']; ?></td>
-
-                  <td style="width: 200px;"><?php echo $row['alamat'] ?></td>
-                  <!-- Harga -->
-                  <!-- Stock -->
+                  <td><?php echo $row['telp']; ?></td>
+                  <td><?php echo $row['alamat']; ?></td>
                   <td><?php echo $row['catatan']; ?></td>
-                  <!-- Gambar -->
+                  <td><?php echo $row['metode_bayar']; ?></td>
+                  <td><?php echo number_format($row['total_pembayaran'], 2, ',', '.'); ?></td>
                   <td>
-                    <?php echo $row['metode_bayar'] ?>
+                    <a id="bukti" class="bukti" href="detail_bukti.php?id=<?php echo $row['id']; ?>">
+                      <img width="60px" height="60px" class="img-thumbnail" src="../img/bukti-pembayaran/<?php echo $row['bukti_pembayaran']; ?>" alt="Bukti Pembayaran">
+                    </a>
                   </td>
+                  <td><?php echo $row['payment_status']; ?></td>
                   <td>
-                    <?php echo $row['total_pembayaran'] ?>
-                  </td>
-                  <td>
-                    <a id="bukti" class="bukti" href="detail_bukti.php?id=<?php echo $row['id'] ?>"><img width="60px" height="60px" src="../img/bukti-pembayaran/<?php echo $row['bukti_pembayaran'] ?>" alt=""></a>
-                  </td>
-                  <td><?php echo $row['payment_status'] ?></td>
-                  <!-- deskripsi dihapus -->
-
-                  <!-- Aksi -->
-                  <td style="display: flex; align-items:center; justify-content: center; ">
-
-                    <?php if ($row['payment_status'] == "Pembayaran Success") : ?>
-                      <p>Selesai</p>
-                    <?php else : ?>
-                      <!-- Setujui Pembayaran -->
-                      <form action="transaksi_penjualan.php?id=<?php echo $row['id'] ?>" method="post">
-                        <input type="hidden" name="payment_status" value="Pembayaran Success">
-                        <button name="success">
-                          <i data-feather="check" style="background-color:chartreuse ; color:white; font-weight: bold;"></i>
-                        </button>
-                      </form>
-
-                      <!-- Tolak Pembayaran -->
-                      <form action="transaksi_penjualan.php?idp=<?php echo $row['id'] ?>" method="post">
-                        <input type="hidden" name="user" value="<?php echo $row['user'] ?>">
-                        <button name="tolak" onclick="return confirm('Yakin ingin menghapus data ini ?')">
-                          <i data-feather="x" style="background-color: red; color: white;"></i>
-                        </button>
-                      </form>
-
-                    <?php endif; ?>
-
+                    <div class="d-flex justify-content-center align-items-center">
+                      <?php if ($row['payment_status'] == "Pembayaran Success") : ?>
+                        <span class="badge badge-success">Selesai</span>
+                      <?php else : ?>
+                        <!-- Setujui Pembayaran -->
+                        <form action="transaksi_penjualan.php?id=<?php echo $row['id']; ?>" method="post" style="display: inline;">
+                          <input type="hidden" name="payment_status" value="Pembayaran Success">
+                          <button name="success" class="btn btn-success btn-sm" title="Setujui Pembayaran">
+                            <i data-feather="check"></i>
+                          </button>
+                        </form>
+                        <!-- Tolak Pembayaran -->
+                        <form action="transaksi_penjualan.php?idp=<?php echo $row['id']; ?>" method="post" style="display: inline;">
+                          <input type="hidden" name="user" value="<?php echo $row['user']; ?>">
+                          <button name="tolak" class="btn btn-danger btn-sm" title="Tolak Pembayaran" onclick="return confirm('Yakin ingin menghapus data ini ?')">
+                            <i data-feather="x"></i>
+                          </button>
+                        </form>
+                      <?php endif; ?>
+                    </div>
                   </td>
                 </tr>
               <?php endwhile; ?>
             </tbody>
           </table>
-
         </div>
-      </section>
+      </div>
+    </div>
+  </section>
+  <!-- Dashboard End -->
 
 
-      <!-- Fotter Start -->
-      <footer>
-        <div class="sosial">
-          <a target="_blank" href="https://twitter.com/MiftaAldi24?t=tGR24pLkyKmcJkHMb6NlwA&s=09"><i data-feather="twitter"></i></a>
-          <a target="_blank" href="https://instagram.com/mifta_xh_ui?igshid=ZDdkNTZiNTM="><i data-feather="instagram"></i></a>
-          <a target="_blank" href="https://github.com/Mifta24"><i data-feather="github"></i></a>
-        </div>
-
-        <div class="link">
-          <a href="#home">Home</a>
-          <a href="#about">Tentang Kami</a>
-          <a href="#menu">Menu</a>
-          <a href="#contact">Contact</a>
-        </div>
-
-        <div class="credit">
-          <p>Created by <a href="">Miftahudin Aldi Saputra</a>| &copy; 2023.</p>
-        </div>
-      </footer>
-      <!-- Fotter End -->
+      
 
 
       <script src="../js/script.js"></script>
@@ -195,6 +194,9 @@
       <script>
         feather.replace();
       </script>
-    </body>
-
-    </html>
+    
+    <?php
+    
+        include 'layout/footer.php'
+    ?>
+    

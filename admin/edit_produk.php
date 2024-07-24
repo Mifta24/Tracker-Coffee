@@ -2,221 +2,222 @@
 session_start();
 include '../database/db.php';
 
-// Jika belum login maka akan di alihkan ke halaman login
+// Redirect to login if not logged in
 if ($_SESSION['status'] != "login") {
-  header("location:../login/login.php?pesan=belum_login");
-};
+    header("location:../login/login.php?pesan=belum_login");
+}
 
-//  ambil data dari tbl_product sesuai id yang didapat dari url
-$produk = mysqli_query($conn, "SELECT * FROM tbl_product WHERE product_id='" . $_GET['id'] . "' ");
-
-// data diambil satu persatu dibungkus ke dalam object
+// Fetch product data
+$produk = mysqli_query($conn, "SELECT * FROM tbl_product WHERE product_id='" . $_GET['id'] . "'");
 $p = mysqli_fetch_object($produk);
+
+include 'layout/header.php';
 ?>
 
-<!DOCTYPE html>
-<html lang="en">
+<style>
+  /* General Styles */
+body {
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+}
 
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 20px;
+}
 
-  <link rel="stylesheet" href="css/profil.css">
-</head>
+/* Edit Product Section */
+.edit-product {
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    margin-top: 20px;
+}
 
-<body>
+.edit-product h2 {
+    font-size: 28px;
+    margin-bottom: 20px;
+    color: #333;
+}
 
-  <header>
-    <a href="index.php" target="_blank"  class="logo">Tracker<span>coffee</span>.</a>
-    <div class="nav">
-    <a href="admin.php">Dashboard</a>
-          <a href="profil.php">Profil</a>
-          <a href="user.php">Data User</a>
-          <a href="kategori.php">Data Kategori</a>
-          <a href="produk.php">Data Produk</a>
-          <a href="pemesanan.php">Data Pemesanan</a>
-          <a href="penjualan.php">Data Penjualan</a>
-    </div>
+.form-group {
+    margin-bottom: 15px;
+}
 
-    <div class="navbar-extra">
-      <a href="#" id="hamburger-menu"> <i data-feather="menu"></i></a>
-      <a href="logout.php">LOGOUT</a>
-    </div>
-  </header>
+.form-group label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 5px;
+    color: #333;
+}
 
-  <section class="profil">
-    <h2>Edit Menu</h2>
+.form-control {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
 
-    <form action="" method="post" enctype="multipart/form-data">
+.form-control:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
 
-        <!-- Kategori menu -->
-      <select name="menu" id="menu" class="input-control">
+.btn-primary {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
 
-        <?php $kategori = mysqli_query($conn, "SELECT * FROM tbl_category ORDER BY category_id");
-        // ulangi option sesuai dengan isi data 
-        while ($row = mysqli_fetch_array($kategori)) :
-        ?> 
-          <!-- Kategori Produk , jika category_id di tbl_category sesuai dengan category_id di tbl_product maka pilih -->
-          <option name="menu" value="<?php echo $row['category_id']; ?>" <?php echo ($row['category_id'] == $p->category_id) ? 'selected' : ''; ?>>
-            <!-- menampilkan kategori nama sesuai id -->
-           <?php echo $row['category_name'] ?>
-          </option>
-        <?php endwhile; ?>
+.btn-primary:hover {
+    background-color: #0056b3;
+}
 
-      </select>
+</style>
 
-      <!-- Nama Produk -->
-      <input type="text" class="input-control" name="nama_produk" id="nama_prduk" placeholder="Nama Produk" value="<?php echo $p->product_name ?>">
+<section class="edit-product">
+    <div class="container">
+        <h2>Edit Produk</h2>
 
-      <!-- Harga -->
-      <input type="text" name="harga" id="" class="input-control" placeholder="Harga" value="<?php echo $p->product_price ?>">
+        <form action="" method="post" enctype="multipart/form-data">
+            <!-- Category -->
+            <div class="form-group">
+                <label for="menu">Kategori</label>
+                <select name="menu" id="menu" class="form-control h-100">
+                    <?php
+                    $kategori = mysqli_query($conn, "SELECT * FROM tbl_category ORDER BY category_id");
+                    while ($row = mysqli_fetch_array($kategori)) :
+                    ?>
+                        <option value="<?php echo $row['category_id']; ?>" <?php echo ($row['category_id'] == $p->category_id) ? 'selected' : ''; ?>>
+                            <?php echo $row['category_name']; ?>
+                        </option>
+                    <?php endwhile; ?>
+                </select>
+            </div>
 
-      <!-- Stock -->
-      <input type="text" name="stok" id="stok" class="input-control" placeholder="Stok" value="<?php echo $p->stock ?>">
+            <!-- Product Name -->
+            <div class="form-group">
+                <label for="nama_produk">Nama Produk</label>
+                <input type="text" class="form-control" name="nama_produk" id="nama_produk" placeholder="Nama Produk" value="<?php echo $p->product_name; ?>">
+            </div>
 
-      <!-- Nama file lama -->
-      <input type="hidden" name="foto" value="<?php echo $p->product_image ?>">
+            <!-- Price -->
+            <div class="form-group">
+                <label for="harga">Harga</label>
+                <input type="text" class="form-control" name="harga" id="harga" placeholder="Harga" value="<?php echo $p->product_price; ?>">
+            </div>
 
-      <!-- Tampilan gambar lama -->
-      <img src="../img/coffee-menu/<?php echo $p->product_image ?>" width="100px" alt="">
+            <!-- Stock -->
+            <div class="form-group">
+                <label for="stok">Stok</label>
+                <input type="text" class="form-control" name="stok" id="stok" placeholder="Stok" value="<?php echo $p->stock; ?>">
+            </div>
 
-      <!-- input gambar -->
-      <input type="file" name="gambar" id="gambar" class="input-control" placeholder="Masukkan Gambar" value="">
+            <!-- Old Image -->
+            <input type="hidden" name="foto" value="<?php echo $p->product_image; ?>">
+            <div class="form-group">
+                <label for="gambar">Gambar Lama</label>
+                <img src="../img/coffee-menu/<?php echo $p->product_image; ?>" width="100px" alt="Gambar Produk">
+            </div>
 
+            <!-- New Image -->
+            <div class="form-group">
+                <label for="gambar">Gambar Baru (Opsional)</label>
+                <input type="file" name="gambar" id="gambar" class="form-control h-100">
+            </div>
 
-      <!-- Deskripsi Produk -->
-      <textarea name="deskripsi" id="" cols="40" rows="5" class="input-control"><?php echo $p->product_description ?></textarea>
+            <!-- Description -->
+            <div class="form-group">
+                <label for="deskripsi">Deskripsi Produk</label>
+                <textarea name="deskripsi" id="deskripsi" cols="30" rows="5" class="form-control"><?php echo $p->product_description; ?></textarea>
+            </div>
 
-      <!-- Status Penjualan -->
-      <select name="status" id="status" class="input-control">
-        <option value="">Pilih...</option>
-        <option value="1" <?php echo ($p->product_status == 1) ? 'selected' : ''; ?>>On Sale</option>
-        <option value="0" <?php echo ($p->product_status == 0) ? 'selected' : ''; ?>>Not For Sale</option>
-      </select>
+            <!-- Status -->
+            <div class="form-group">
+                <label for="status">Status Penjualan</label>
+                <select name="status" id="status" class="form-control h-100">
+                    <option value="">Pilih...</option>
+                    <option value="1" <?php echo ($p->product_status == 1) ? 'selected' : ''; ?>>On Sale</option>
+                    <option value="0" <?php echo ($p->product_status == 0) ? 'selected' : ''; ?>>Not For Sale</option>
+                </select>
+            </div>
 
-      <input type="submit" class="btn" name="submit" id="submit" placeholder="Submit">
-    </form>
+            <button type="submit" class="btn btn-primary" name="submit" id="submit">Update</button>
+        </form>
 
-    <!-- update data ke data base -->
-    <?php
+        <?php
+        include 'layout/footer.php';
 
-    // Untuk membesarkan huruf depan ucwords()
+        if (isset($_POST['submit'])) {
+            // Collect form data
+            $kategori_menu = $_POST['menu'];
+            $nama_produk = $_POST['nama_produk'];
+            $harga = $_POST['harga'];
+            $stok = $_POST['stok'];
+            $deskripsi = $_POST['deskripsi'];
+            $status = $_POST['status'];
+            $fotoLama = $_POST['foto'];
+            $filename = $_FILES['gambar']['name'];
+            $tmpname = $_FILES['gambar']['tmp_name'];
 
-    if (isset($_POST['submit'])) {
+            // Process new image if uploaded
+            if ($filename != '') {
+                $type1 = explode('.', $filename);
+                $type2 = end($type1);
+                $newimage = 'img' . time() . '.' . $type2;
+                $tipefile = array("jpg", "jpeg", "png", "gif");
 
-      // Menampung inputan form
-      $kategori_menu = $_POST['menu'];
-      $nama_produk = $_POST['nama_produk'];
-      $harga = $_POST['harga'];
-      $stok = $_POST['stok'];
-      $deskripsi = $_POST['deskripsi'];
-      $status = $_POST['status'];
+                if (!in_array($type2, $tipefile)) {
+                    echo "<script>alert('Format File Tidak Dizinkan');</script>";
+                } else {
+                    unlink("../img/coffee-menu/" . $fotoLama);
+                    if (move_uploaded_file($tmpname, '../img/coffee-menu/' . $newimage)) {
+                        $nama_gambar = $newimage;
+                    } else {
+                        $nama_gambar = $fotoLama;
+                    }
+                }
+            } else {
+                $nama_gambar = $fotoLama;
+            }
 
-      // nama file foto lama
-      $fotoLama= $_POST['foto'];
+            // Update product details
+            $update = mysqli_query($conn, "UPDATE tbl_product SET 
+                                            category_id='$kategori_menu',
+                                            product_name='$nama_produk',
+                                            product_price='$harga',
+                                            stock='$stok',
+                                            product_image='$nama_gambar',
+                                            product_description='$deskripsi',
+                                            product_status='$status'
+                                            WHERE product_id='$p->product_id'");
 
-      // Menampung data file yg diuplod
-      $filename = $_FILES['gambar']['name'];
-      $tmpname = $_FILES['gambar']['tmp_name'];
-
-      // var_dump($filename);
-      // var_dump($tmpname);
-
-
-      //  Jika admin ganti gambar
-      if ($filename != '') {
-
-
-        $type1 = explode('.', $filename);
-        $type2 = end($type1);
-
-        // namawaktu.exe
-        $newimage = 'img' . time() . '.' . $type2;
-
-
-        // menampung data file yg diizinkan
-        $tipefile = array("jpg", "jpeg", "png", "gif");
-
-
-        // validasi format file
-
-        // jika ekstensi file tidak sesuai tipe yang di izinkan
-        if (!in_array($type2, $tipefile)) {
-          echo "<script> alert('Format File Tidak Dizinkan')</script>";
+            if ($update) {
+                echo "<script>window.location='produk.php';</script>";
+            } else {
+                echo "<script>alert('Update Gagal');</script>";
+            }
         }
-
-        // jika sesuai
-        else {
-
-          // mengapus file lama ynag tersimpan
-          unlink("../img/coffee-menu/" . $fotoLama);
-
-          // untuk memindahkan file yang di upload
-         echo move_uploaded_file($tmpname, '../img/coffee-menu/' . $newimage);
-
-          // 
-          $nama_gambar = $newimage;
-        }
-      }
-
-      // jika admin tidak ganti gambar
-      else {
-
-        $nama_gambar = $fotoLama;
-      }
-
-
-      // proses upload sekalikus insert ke database
-      $update = mysqli_query($conn, " UPDATE  tbl_product SET 
-                                      category_id='$kategori_menu',
-                                      product_name='$nama_produk',
-                                      product_price='$harga',
-                                      stock='$stok',
-                                      product_image='$nama_gambar',
-                                      product_description='$deskripsi',
-                                      product_status='$status'
-
-                                      WHERE product_id='$p->product_id' 
-                                      
-                                      ");
-
-
-      // kondisi sesudah di update
-      if ($update) {
-        echo "<script> window.location='produk.php'</script>";
-      } else {
-        echo "<script> alert('Input Gagal')</script>";
-      }
-
-
-    }
-    ?>
-  </section>
-
-
-
-  <!-- Fotter Start -->
-  <footer>
-    <div class="sosial">
-      <a target="_blank" href="https://twitter.com/MiftaAldi24?t=tGR24pLkyKmcJkHMb6NlwA&s=09"><i data-feather="twitter"></i></a>
-      <a target="_blank" href="https://instagram.com/mifta_xh_ui?igshid=ZDdkNTZiNTM="><i data-feather="instagram"></i></a>
-      <a target="_blank" href="https://github.com/Mifta24"><i data-feather="github"></i></a>
+        ?>
     </div>
+</section>
 
-    <div class="link">
-      <a href="index.php #home">Home</a>
-      <a href="#about">Tentang Kami</a>
-      <a href="#menu">Menu</a>
-      <a href="#contact">Contact</a>
-    </div>
-
-    <div class="credit">
-      <p>Created by <a href="">Miftahudin Aldi Saputra</a>| &copy; 2023.</p>
-    </div>
-  </footer>
-  <!-- Fotter End -->
-</body>
-
-</html>
+<!-- CKEditor 5 -->
+<script src="https://cdn.ckeditor.com/ckeditor5/ckeditor.js"></script>
+<script>
+    ClassicEditor
+        .create(document.querySelector('#deskripsi'))
+        .catch(error => {
+            console.error(error);
+        });
+</script>

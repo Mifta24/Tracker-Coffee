@@ -12,103 +12,121 @@
     } else {
       $produk = mysqli_query($conn, "SELECT * FROM tbl_product LEFT JOIN tbl_category USING (category_id) ORDER BY category_id");
     }
+
+
+      include 'layout/header.php';
     ?>
 
+<style>
 
-    <!DOCTYPE html>
-    <html lang="en">
+    .dashboard .box {
+      background-color: #fff;
+      border-radius: 5px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      padding: 20px;
+    }
 
-    <head>
-      <meta charset="UTF-8">
-      <meta http-equiv="X-UA-Compatible" content="IE=edge">
-      <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <title>Produk</title>
+    .filter .filter-btn {
+      margin: 5px;
+      color: #343a40;
+    }
 
-      <link rel="stylesheet" href="css/produk.css">
-    </head>
+    .filter .filter-btn:hover {
+      text-decoration: none;
+    }
 
-    <body>
+    table {
+      width: 100%;
+      margin-top: 20px;
+    }
 
-      <header>
-        <a href="index.php" target="_blank" class="logo">Tracker<span>coffee</span>.</a>
-        <div class="nav">
-          <a href="admin.php">Dashboard</a>
-          <a href="profil.php">Profil</a>
-          <a href="user.php">Data User</a>
-          <a href="kategori.php">Data Kategori</a>
-          <a href="produk.php">Data Produk</a>
-          <a href="pemesanan.php">Data Pemesanan</a>
-          <a href="penjualan.php">Data Penjualan</a>
+    .table th,
+    .table td {
+      text-align: center;
+      vertical-align: middle;
+    }
+
+    footer {
+      background-color: #343a40;
+      color: white;
+      padding: 20px 0;
+      position: relative;
+      bottom: 0;
+      width: 100%;
+    }
+
+    .sosial a,
+    .link a {
+      color: white;
+      margin: 0 10px;
+    }
+
+    .sosial a:hover,
+    .link a:hover {
+      color: #007bff;
+      text-decoration: none;
+    }
+
+    .credit a {
+      color: #007bff;
+    }
+  </style>
+    
+
+       <!-- Dashboard Start -->
+  <section class="dashboard">
+    <div class="container">
+      <div class="box">
+        <h4 class="mb-4">Data Produk</h4>
+
+        <!-- Filter -->
+        <div class="filter mb-3">
+          <a class="filter-btn btn btn-outline-dark" href="produk.php">All</a>
+          <a class="filter-btn btn btn-outline-primary" href="produk.php?category=1">Coffee</a>
+          <a class="filter-btn btn btn-outline-success" href="produk.php?category=2">Tea</a>
+          <a class="filter-btn btn btn-outline-info" href="produk.php?category=3">Drink</a>
+          <a class="filter-btn btn btn-outline-warning" href="produk.php?category=4">Food</a>
         </div>
 
-        <div class="navbar-extra">
-          <a href="#" id="hamburger-menu"> <i data-feather="menu"></i></a>
-          <a href="logout.php">LOGOUT</a>
-        </div>
-      </header>
-
-      <section class="dashboard">
-
-        <div class="filter">
-          <a class="filter-btn" href="produk.php">All</a>
-          <a class="filter-btn" href="produk.php?category=1">Coffee</a>
-          <a class="filter-btn" href="produk.php?category=2">Tea</a>
-          <a class="filter-btn" href="produk.php?category=3">Drink</a>
-          <a class="filter-btn" href="produk.php?category=4">Food</a>
-        </div>
-        <div class="box">
-          <a href="tambah_produk.php">Tambah Data</a>
-          <table border="1" cellpadding=8 cellspacing="0" bordercolor="black">
-            <thead>
-
+        <!-- Table -->
+        <a href="tambah_produk.php" class="btn btn-primary mb-3">Tambah Data</a>
+        <div class="table-responsive">
+          <table class="table table-striped table-hover">
+            <thead class="thead-dark">
               <tr>
-                <td>No</td>
-                <td>Kategori</td>
-                <td>Nama Produk</td>
-                <td>Harga</td>
-                <td>Stock</td>
-                <td>Gambar</td>
-                <!-- <td>Deskripsi</td> -->
-                <td>Status</td>
-                <td>Action</td>
+                <th>No</th>
+                <th>Kategori</th>
+                <th>Nama Produk</th>
+                <th>Harga</th>
+                <th>Stock</th>
+                <th>Gambar</th>
+                <th>Status</th>
+                <th>Action</th>
               </tr>
             </thead>
             <tbody>
               <?php
-
               $i = 0;
               while ($row = mysqli_fetch_array($produk)) :
                 $i++;
               ?>
                 <tr>
-                  <!-- No -->
                   <td><?php echo $i; ?></td>
-                  <!-- Kategori Menu -->
                   <td><?php echo $row['category_name']; ?></td>
-                  <!-- Nama Produk -->
                   <td><?php echo $row['product_name']; ?></td>
-                  <!-- Harga -->
-                  <td><?php echo $row['product_price']; ?></td>
-                  <!-- Stock -->
+                  <td><?php echo number_format($row['product_price'], 2, ',', '.'); ?></td>
                   <td><?php echo $row['stock']; ?></td>
-                  <!-- Gambar -->
                   <td>
-                    <!-- a href ketika di klik -->
                     <a href="../img/coffee-menu/<?php echo $row['product_image']; ?>" target="_blank">
-                      <img alt="<?php echo $row['product_image']; ?>" src="../img/coffee-menu/<?php echo $row['product_image']; ?>" width="100px">
+                      <img alt="<?php echo $row['product_image']; ?>" src="../img/coffee-menu/<?php echo $row['product_image']; ?>" class="img-thumbnail" width="100px">
                     </a>
                   </td>
-                  <!-- deskripsi dihapus -->
-
-                  <!-- Status Penjualan -->
                   <td><?php echo ($row['product_status'] == 0) ? 'Not Sale' : 'For Sale'; ?></td>
-                  <!-- Aksi -->
                   <td>
-                    <a href="edit_produk.php?id=<?php echo $row['product_id'] ?>">
+                    <a href="edit_produk.php?id=<?php echo $row['product_id']; ?>" class="btn btn-warning btn-sm">
                       Edit
                     </a>
-                    |
-                    <a href="hapus_menu.php?idp=<?php echo $row['product_id'] ?>" onclick="return confirm('Yakin ingin menghapus data ini ?')">
+                    <a href="hapus_menu.php?idp=<?php echo $row['product_id']; ?>" class="btn btn-danger btn-sm" onclick="return confirm('Yakin ingin menghapus data ini ?')">
                       Hapus
                     </a>
                   </td>
@@ -116,31 +134,13 @@
               <?php endwhile; ?>
             </tbody>
           </table>
-
         </div>
-      </section>
+      </div>
+    </div>
+  </section>
+  <!-- Dashboard End -->
 
-
-      <!-- Fotter Start -->
-      <footer>
-        <div class="sosial">
-          <a target="_blank" href="https://twitter.com/MiftaAldi24?t=tGR24pLkyKmcJkHMb6NlwA&s=09"><i data-feather="twitter"></i></a>
-          <a target="_blank" href="https://instagram.com/mifta_xh_ui?igshid=ZDdkNTZiNTM="><i data-feather="instagram"></i></a>
-          <a target="_blank" href="https://github.com/Mifta24"><i data-feather="github"></i></a>
-        </div>
-
-        <div class="link">
-          <a href="#home">Home</a>
-          <a href="#about">Tentang Kami</a>
-          <a href="#menu">Menu</a>
-          <a href="#contact">Contact</a>
-        </div>
-
-        <div class="credit">
-          <p>Created by <a href="">Miftahudin Aldi Saputra</a>| &copy; 2023.</p>
-        </div>
-      </footer>
-      <!-- Fotter End -->
-    </body>
-
-    </html>
+      <?php
+          include 'layout/footer.php';
+      ?>
+    
