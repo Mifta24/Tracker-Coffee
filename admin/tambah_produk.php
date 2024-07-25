@@ -2,6 +2,8 @@
 // koneksi database
 include '../database/db.php';
 
+
+
 // Kondisi jika belum login
 session_start();
 if ($_SESSION['status'] != "login") {
@@ -11,75 +13,74 @@ if ($_SESSION['status'] != "login") {
 include 'layout/header.php';
 ?>
 
-<style> 
+<style>
     /* General Styles */
-body {
-    font-family: 'Poppins', sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: #f4f4f4;
-}
+    body {
+        font-family: 'Poppins', sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f4f4f4;
+    }
 
-.container {
-    max-width: 900px;
-    margin: 0 auto;
-    padding: 20px;
-}
+    .container {
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 20px;
+    }
 
-/* Add Product Section */
-.add-product {
-    background-color: #ffffff;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    padding: 20px;
-    margin-top: 20px;
-}
+    /* Add Product Section */
+    .add-product {
+        background-color: #ffffff;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        padding: 20px;
+        margin-top: 20px;
+    }
 
-.add-product h2 {
-    font-size: 28px;
-    margin-bottom: 20px;
-    color: #333;
-}
+    .add-product h2 {
+        font-size: 28px;
+        margin-bottom: 20px;
+        color: #333;
+    }
 
-.form-group {
-    margin-bottom: 15px;
-}
+    .form-group {
+        margin-bottom: 15px;
+    }
 
-.form-group label {
-    display: block;
-    font-weight: 600;
-    margin-bottom: 5px;
-    color: #333;
-}
+    .form-group label {
+        display: block;
+        font-weight: 600;
+        margin-bottom: 5px;
+        color: #333;
+    }
 
-.form-control {
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #ced4da;
-    border-radius: 4px;
-    box-sizing: border-box;
-}
+    .form-control {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ced4da;
+        border-radius: 4px;
+        box-sizing: border-box;
+    }
 
-.form-control:focus {
-    border-color: #007bff;
-    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
-}
+    .form-control:focus {
+        border-color: #007bff;
+        box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+    }
 
-.btn-primary {
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    padding: 10px 20px;
-    font-size: 16px;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-}
+    .btn-primary {
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        padding: 10px 20px;
+        font-size: 16px;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+    }
 
-.btn-primary:hover {
-    background-color: #0056b3;
-}
-
+    .btn-primary:hover {
+        background-color: #0056b3;
+    }
 </style>
 
 <section class="add-product">
@@ -88,7 +89,7 @@ body {
         <form action="" method="post" enctype="multipart/form-data">
             <div class="form-group">
                 <label for="menu">Kategori</label>
-                <select name="menu" id="menu" class="form-control h-100" >
+                <select name="menu" id="menu" class="form-control h-100">
                     <?php
                     $kategori = mysqli_query($conn, "SELECT * FROM tbl_category ORDER BY category_id");
                     while ($row = mysqli_fetch_array($kategori)) :
@@ -138,6 +139,15 @@ body {
         </form>
 
         <?php
+
+        // Fungsi untuk mengubah ukuran gambar
+        function resizeImage($resourceType, $imageWidth, $imageHeight, $resizeWidth, $resizeHeight)
+        {
+            $resizeLayer = imagecreatetruecolor($resizeWidth, $resizeHeight);
+            imagecopyresampled($resizeLayer, $resourceType, 0, 0, 0, 0, $resizeWidth, $resizeHeight, $imageWidth, $imageHeight);
+            return $resizeLayer;
+        }
+
         if (isset($_POST['submit'])) {
             $kategori_menu = $_POST['menu'];
             $nama_produk = $_POST['nama_produk'];
@@ -151,20 +161,64 @@ body {
             $type1 = explode('.', $filename);
             $type2 = $type1[1];
             $newimage = 'img' . time() . '.' . $type2;
-            $tipefile = array("jpg", "jpeg", "png", "gif");
+            $tipefile = array("jpg", "jpeg", "png", "gif", "webp");
 
-            if (!in_array($type2, $tipefile)) {
-                echo "<script>alert('Format File Tidak Dizinkan');</script>";
-            } else {
-                if (move_uploaded_file($tmpname, '../img/asset/menu/' . $newimage)) {
-                    $insert = mysqli_query($conn, "INSERT INTO tbl_product VALUES(null,'$kategori_menu','$nama_produk','$harga','$stok','$deskripsi','$newimage','$status')");
-                    if ($insert) {
-                        echo "<script>alert('Tambah Produk Berhasil');window.location='produk.php'</script>";
-                    } else {
-                        echo "<script>alert('Input Gagal');</script>";
-                    }
+            if ($filename != "") {
+
+
+                if (!in_array($type2, $tipefile)) {
+                    echo "<script>alert('Format File Tidak Dizinkan');</script>";
                 } else {
-                    echo "<script>alert('Upload Gambar Gagal');</script>";
+                      // Mengubah ukuran gambar
+                      list($width, $height) = getimagesize($tmpname);
+                      $resizeWidth = 300;
+                      $resizeHeight = 300;
+
+                      switch ($type2) {
+                        case 'jpg':
+                        case 'jpeg':
+                            $resourceType = imagecreatefromjpeg($tmpname);
+                            $imageLayer = resizeImage($resourceType, $width, $height, $resizeWidth, $resizeHeight);
+                            imagejpeg($imageLayer, '../img/asset/menu/' . $newimage);
+                            break;
+
+                        case 'png':
+                            $resourceType = imagecreatefrompng($tmpname);
+                            $imageLayer = resizeImage($resourceType, $width, $height, $resizeWidth, $resizeHeight);
+                            imagepng($imageLayer, '../img/asset/menu/' . $newimage);
+                            break;
+
+                        case 'gif':
+                            $resourceType = imagecreatefromgif($tmpname);
+                            $imageLayer = resizeImage($resourceType, $width, $height, $resizeWidth, $resizeHeight);
+                            imagegif($imageLayer, '../img/asset/menu/' . $newimage);
+                            break;
+
+                        case 'webp':
+                            $resourceType = imagecreatefromwebp($tmpname);
+                            $imageLayer = resizeImage($resourceType, $width, $height, $resizeWidth, $resizeHeight);
+                            imagewebp($imageLayer, '../img/asset/menu/' . $newimage);
+                            break;
+                    }
+
+                    if (move_uploaded_file($tmpname, '../img/asset/menu/' . $newimage)) {
+                        $insert = mysqli_query($conn, "INSERT INTO tbl_product VALUES(null,'$kategori_menu','$nama_produk','$harga','$stok','$deskripsi','$newimage','$status')");
+                        if ($insert) {
+                            echo "<script>alert('Tambah Produk Berhasil');window.location='produk.php'</script>";
+                        } else {
+                            echo "<script>alert('Input Gagal');</script>";
+                        }
+                    } else {
+                        echo "<script>alert('Upload Gambar Gagal');</script>";
+                    }
+                }
+            } else {
+                $newimage = "";
+                $insert = mysqli_query($conn, "INSERT INTO tbl_product VALUES(null,'$kategori_menu','$nama_produk','$harga','$stok','$deskripsi','$newimage','$status')");
+                if ($insert) {
+                    echo "<script>alert('Tambah Produk Berhasil');window.location='produk.php'</script>";
+                } else {
+                    echo "<script>alert('Input Gagal');</script>";
                 }
             }
         }

@@ -121,15 +121,32 @@ include 'layout/header.php';
   <div class="container">
     <div class="box">
       <h4 class="mb-4">Data Produk</h4>
-
-      <!-- Filter -->
       <div class="filter mb-3">
-        <a class="filter-btn btn btn-outline-dark" href="produk.php">All</a>
-        <a class="filter-btn btn btn-outline-primary" href="produk.php?category=1">Coffee</a>
-        <a class="filter-btn btn btn-outline-success" href="produk.php?category=2">Tea</a>
-        <a class="filter-btn btn btn-outline-info" href="produk.php?category=3">Drink</a>
-        <a class="filter-btn btn btn-outline-warning" href="produk.php?category=4">Food</a>
-      </div>
+      <a class="filter-btn btn btn-outline-dark" href="produk.php">All</a>
+      <?php $kategori = mysqli_query($conn, "SELECT * FROM tbl_category ORDER BY category_id ASC");
+        // pengecekan jika datanya adalah
+        $color=['primary','info','warning','success','secondary'];
+        $i=0;
+      if($i>$color){
+        $i=0;
+      }
+        if (mysqli_num_rows($kategori) > 0) :
+          while ($k = mysqli_fetch_assoc($kategori)) :
+        ?>
+            <!-- Filter -->
+           
+              <a class="filter-btn btn btn-outline-<?= $color[$i] ?>" href="produk.php?category=<?= $k['category_id'] ?>"><?= $k['category_name'] ?></a>
+
+              <!-- <a class="filter-btn btn btn-outline-success" href="produk.php?category=2">Tea</a>
+              <a class="filter-btn btn btn-outline-info" href="produk.php?category=3">Drink</a>
+              <a class="filter-btn btn btn-outline-warning" href="produk.php?category=4">Food</a> -->
+              <?php
+          $i++;
+          endwhile;
+        endif;
+        
+        ?>
+        </div>
 
       <!-- Add Product Button -->
       <a href="tambah_produk.php" class="btn btn-primary mb-3">Tambah Data</a>

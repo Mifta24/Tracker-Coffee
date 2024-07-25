@@ -84,11 +84,24 @@ include '../database/db.php';
 <section class="edit-menu">
     <div class="container">
         <h2>Edit Menu</h2>
-        <form action="" method="post">
+        <form action="" method="post" enctype="multipart/form-data">
             <div class="form-group">
                 <label for="nama_menu">Nama Menu</label>
                 <input type="text" class="form-control" name="nama_menu" id="nama_menu" placeholder="Nama Menu" value="<?php echo $k->category_name ;?>">
             </div>
+            <!-- Old Image -->
+            <input type="hidden" name="foto" value="<?php echo $k->image; ?>">
+            <div class="form-group">
+                <label for="gambar">Gambar Lama</label>
+                <img src="../img/asset/kategori/<?php echo $k->image; ?>" width="100px" alt="Gambar Produk">
+            </div>
+
+            <!-- New Image -->
+            <div class="form-group">
+                <label for="gambar">Gambar Baru (Opsional)</label>
+                <input type="file" name="gambar" id="gambar" class="form-control h-100">
+            </div>
+            
             <button type="submit" class="btn btn-primary" name="submit" id="submit">Update</button>
         </form>
 
@@ -107,9 +120,33 @@ include '../database/db.php';
 		if (isset($_POST['submit'])) {
 			$nama_menu=ucwords( $_POST['nama_menu']);
 		
+            $fotoLama = $_POST['foto'];
+            $filename = $_FILES['gambar']['name'];
+            $tmpname = $_FILES['gambar']['tmp_name'];
+
+            // Process new image if uploaded
+            if ($filename != '') {
+                $type1 = explode('.', $filename);
+                $type2 = end($type1);
+                $newimage = 'img' . time() . '.' . $type2;
+                $tipefile = array("jpg", "jpeg", "png", "webp");
+
+                if (!in_array($type2, $tipefile)) {
+                    echo "<script>alert('Format File Tidak Dizinkan');</script>";
+                } else {
+                    unlink("../img/asset/kategori/" . $fotoLama);
+                    if (move_uploaded_file($tmpname, '../img/asset/kategori/' . $newimage)) {
+                        $nama_gambar = $newimage;
+                    } else {
+                        $nama_gambar = $fotoLama;
+                    }
+                }
+            } else {
+                $nama_gambar = $fotoLama;
+            }
 
 			$update=mysqli_query($conn,"UPDATE tbl_category SET 
-			category_name='$nama_menu' WHERE category_id='$k->category_id' ");
+			category_name='$nama_menu', image='$newimage' WHERE category_id='$k->category_id' ");
 
 			if ($update) {
 				echo "<p style='color : green'>Update Success</p>";

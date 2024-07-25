@@ -175,12 +175,12 @@ body {
                 $type1 = explode('.', $filename);
                 $type2 = end($type1);
                 $newimage = 'img' . time() . '.' . $type2;
-                $tipefile = array("jpg", "jpeg", "png", "gif");
+                $tipefile = array("jpg", "jpeg", "png", "webp");
 
                 if (!in_array($type2, $tipefile)) {
                     echo "<script>alert('Format File Tidak Dizinkan');</script>";
                 } else {
-                    unlink("../img/coffee-menu/" . $fotoLama);
+                    unlink("../img/asset/menu/" . $fotoLama);
                     if (move_uploaded_file($tmpname, '../img/asset/menu/' . $newimage)) {
                         $nama_gambar = $newimage;
                     } else {

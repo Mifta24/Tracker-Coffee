@@ -63,8 +63,8 @@ $p=mysqli_fetch_object($produk);
             
             <img
               class="menu-card-img"
-              src="../img/coffee-menu/<?php echo $p->product_image ?>"
-              alt="../img/coffee-menu/<?php echo $p->product_image ?>"
+              src="../img/asset/menu/<?php echo $p->product_image ?>"
+              alt="../img/asset/menu/<?php echo $p->product_image ?>"
             />
           <h3 class="menu-card-title">~ <?php echo $p->product_name ?> ~</h3>
           <p class=""><?php echo  $p->product_description ?></p>

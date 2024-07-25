@@ -1,14 +1,14 @@
-# README - Tracker Coffee
+# README - Cateringku
 
 ## Deskripsi
 
-Tracker Coffee adalah sebuah website kafe yang memungkinkan pengguna untuk membeli berbagai jenis kopi, teh, minuman, dan makanan. Website ini dibangun menggunakan PHP 8.20 dan terhubung dengan database MySQL menggunakan phpMyAdmin, HTML, CSS, dan JavaScript dengan framework Bootstrap 5 pada halaman dasbor admin.
+Cateringku adalah sebuah website kafe yang memungkinkan pengguna untuk membeli berbagai jenis kopi, teh, minuman, dan makanan. Website ini dibangun menggunakan PHP 8.20 dan terhubung dengan database MySQL menggunakan phpMyAdmin, HTML, CSS, dan JavaScript dengan framework Bootstrap 5 pada halaman dasbor admin.
 
 ## Fitur
 
-1. **Beranda**: Pengguna dapat melihat informasi tentang kafe Tracker Coffee, promosi terbaru, dan menu yang tersedia.
+1. **Beranda**: Pengguna dapat melihat informasi tentang kafe Cateringku, promosi terbaru, dan menu yang tersedia.
 
-2. **Menu**: Pengguna dapat melihat daftar kopi, teh, minuman, dan makanan yang ditawarkan oleh kafe Tracker Coffee. Setiap item menu memiliki deskripsi, harga, dan gambar.
+2. **Menu**: Pengguna dapat melihat daftar kopi, teh, minuman, dan makanan yang ditawarkan oleh kafe Cateringku. Setiap item menu memiliki deskripsi, harga, dan gambar.
 
 3. **Pemesanan**: Pengguna dapat memilih item menu yang ingin dipesan dan menambahkannya ke keranjang belanja. Pengguna juga dapat mengatur jumlah item yang akan dipesan.
 
@@ -36,16 +36,15 @@ $password="PASS_HOSTNAME";
 $database="DB_NAME";
 ```
 
-5. Akses halaman beranda melalui peramban web dengan mengunjungi URL `http://localhost/tracker-coffee`.
+5. Akses halaman beranda melalui peramban web dengan mengunjungi URL `http://localhost/cateringku`.
 
-6. Untuk mengakses halaman dasbor admin, buka URL `http://localhost/tracker-coffee/admin` dan masukkan kata sandi yang ditetapkan dalam konfigurasi.
+6. Untuk mengakses halaman dasbor admin, buka URL `http://localhost/cateringku/admin` dan masukkan kata sandi yang ditetapkan dalam konfigurasi.
 
 ## Kredit
 
-Tracker Coffee dikembangkan oleh Miftahudin Aldi Saputra.
-
+Cateringku dikembangkan oleh ---
 ## Kontak
 
-Jika Anda memiliki pertanyaan atau masalah terkait dengan Tracker Coffee, silakan hubungi Miftahudin Aldi Saputra melalui email di miftafree3@gmail.com.
+Jika Anda memiliki pertanyaan atau masalah terkait dengan Cateringku, silakan hubungi Miftahudin Aldi Saputra melalui email di miftafree3@gmail.com.
 
-Terima kasih telah menggunakan Tracker Coffee!
+Terima kasih telah menggunakan Cateringku!

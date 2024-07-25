@@ -40,6 +40,10 @@ if (isset($_GET['kat'])) {
   <!-- Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,700;1,700&display=swap" rel="stylesheet" />
 
+  <!-- Bootstrap 4.1.3 CSS -->
+  <!-- <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" rel="stylesheet"> -->
+
+
   <!-- Feather Icons -->
   <script src="https://unpkg.com/feather-icons"></script>
 
@@ -88,7 +92,7 @@ if (isset($_GET['kat'])) {
   <section class="hero-section" id="home">
     <main class="content">
 
-      <h1>Pesan Makanan Favorit Anda dengan Mudah</h1>
+      <h1>Pesan <span>Makanan Favorit Anda</span> dengan Mudah</h1>
       <p>Cateringku menyediakan layanan pesan antar makanan yang cepat dan lezat. Nikmati berbagai pilihan menu sehat dan lezat kami!</p>
        <a class="btn-beli" href="#menu">Lihat Menu</a>
 
@@ -144,11 +148,10 @@ if (isset($_GET['kat'])) {
         if (mysqli_num_rows($kategori) > 0) :
           while ($k = mysqli_fetch_assoc($kategori)) :
         ?>
-            <a href="index.php?kat=<?php echo $k["category_id"] ?>#menu">
-              <div class="col">
-                <img src="img/asset/menu/<?php echo $k["image"] ?>" alt="categori" width="60px">
-                <p><?php echo $k["category_name"] ?></p>
-              </div>
+            <a href="index.php?kat=<?php echo $k["category_id"] ?>#menu" class="btn btn-success btn-outline m-auto text-center">
+           
+                <p class="m-auto"><?php echo $k["category_name"] ?></p>
+             
             </a>
         <?php
           endwhile;

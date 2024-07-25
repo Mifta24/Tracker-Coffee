@@ -58,7 +58,7 @@ if (isset($_GET['kat'])) {
   <!-- Navbar Start-->
   <nav class="navbar">
     <!-- Logo -->
-    <a href="index.html" class="navbar-logo">Tracker<span>coffee</span>.</a>
+    <a href="index.html" class="navbar-logo">Catering<span>ku</span>.</a>
 
     <div class="navbar-nav">
       <a href="#home">Home</a>
@@ -98,8 +98,8 @@ if (isset($_GET['kat'])) {
    <section class="hero-section" id="home">
     <main class="content">
 
-      <h1>Pesan Makanan Favorit Anda dengan Mudah</h1>
-      <p>Cateringku menyediakan layanan pesan antar makanan yang cepat dan lezat. Nikmati berbagai pilihan menu sehat dan lezat kami!</p>
+      <h1>Pesan <span>Makanan Favorit </span> Anda dengan Mudah</h1>
+      <p class="text-white">Cateringku menyediakan layanan pesan antar makanan yang cepat dan lezat. Nikmati berbagai pilihan menu sehat dan lezat kami!</p>
        <a class="btn-beli" href="#menu">Lihat Menu</a>
 
 
@@ -172,7 +172,7 @@ if (isset($_GET['kat'])) {
         ?>
             <a href="user.php?kat=<?php echo $k["category_id"]?>#menu">
               <div class="col">
-                <img src="../img/<?php echo $k["image"] ?>" alt="coffee" width="60px">
+                
                 <p><?php echo $k["category_name"] ?></p>
               </div>
             </a>

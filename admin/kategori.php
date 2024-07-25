@@ -100,7 +100,13 @@ include 'layout/header.php';
             ?>
               <tr>
                 <td><?php echo $i++; ?></td>
+                <td>
+                  <a href="../img/asset/kategori/<?php echo $row['image']; ?>" target="_blank">
+                    <img alt="<?php echo $row['image']; ?>" src="../img/asset/kategori/<?php echo $row['image']; ?>" class="img-thumbnail" width="100px">
+                  </a>
+                </td>
                 <td><?php echo $row['category_name']; ?></td>
+
                 <td>
                   <a href="edit_menu.php?id=<?php echo $row['category_id'] ?>" class="btn btn-sm btn-warning">
                     <i class="fas fa-edit"></i> Edit
