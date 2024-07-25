@@ -92,10 +92,10 @@ include '../database/db.php';
             <button type="submit" class="btn btn-primary" name="submit" id="submit">Update</button>
         </form>
 
-        <div class="image-preview">
+        <!-- <div class="image-preview">
             <h3>Current Image</h3>
-            <img src="img/<?php echo $k->gambar ?>" alt="Current Image">
-        </div>
+            <img src="img/asset/category/<?php echo $k->gambar ?>" alt="Current Image">
+        </div> -->
     </div>
 </section>
 

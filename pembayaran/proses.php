@@ -24,7 +24,7 @@ if(isset($_POST['cek'])){
     echo "<script> alert('Format Tidak Diizinkan');window.location='qr.php'</script>";
    }
    else{
-        move_uploaded_file($tmpname,'../img/bukti-pembayaran/'.$newimage);
+        move_uploaded_file($tmpname,'../img/asset/bukti-pembayaran/'.$newimage);
        $user=$_SESSION['username'];
        $pesanan=$_SESSION['pesanan'];
        $kd=$_SESSION['kd'];

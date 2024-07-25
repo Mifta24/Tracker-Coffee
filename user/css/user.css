@@ -217,12 +217,13 @@ body {
     display: flex;
     align-items: center;
     /* Untuk membuat tampilan secara vertikal */
-    background-image: url('../../img/coffee7.jpg');
+    background-image: url('../../img/asset/banner/food-banner.jpg');
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
     position: relative;
 }
+
 
 /* untuk memberi gradasi warna unutk di scroll di bWh gambar */
 .hero-section::after {

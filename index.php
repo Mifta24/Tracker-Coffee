@@ -127,7 +127,7 @@ if (isset($_GET['kat'])) {
 
       <?php while ($p = mysqli_fetch_object($produk)) : ?>
         <div class="menu-card">
-          <img class="menu-card-img" src="img/menu/<?php echo $p->product_image ?>" alt="Menu" />
+          <img class="menu-card-img" src="img/asset/menu/<?php echo $p->product_image ?>" alt="Menu"  />
           <h3 class="menu-card-title">~ <?php echo $p->product_name ?> ~</h3>
           <p class="menu-card-price">Rp.<?php echo $p->product_price ?></p>
           <a class="beli-menu" href="qr.html">Beli Sekarang</a>
@@ -146,7 +146,7 @@ if (isset($_GET['kat'])) {
         ?>
             <a href="index.php?kat=<?php echo $k["category_id"] ?>#menu">
               <div class="col">
-                <img src="img/<?php echo $k["image"] ?>" alt="categori" width="60px">
+                <img src="img/asset/menu/<?php echo $k["image"] ?>" alt="categori" width="60px">
                 <p><?php echo $k["category_name"] ?></p>
               </div>
             </a>

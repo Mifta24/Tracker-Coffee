@@ -156,7 +156,7 @@ body {
             if (!in_array($type2, $tipefile)) {
                 echo "<script>alert('Format File Tidak Dizinkan');</script>";
             } else {
-                if (move_uploaded_file($tmpname, '../img/coffee-menu/' . $newimage)) {
+                if (move_uploaded_file($tmpname, '../img/asset/menu/' . $newimage)) {
                     $insert = mysqli_query($conn, "INSERT INTO tbl_product VALUES(null,'$kategori_menu','$nama_produk','$harga','$stok','$deskripsi','$newimage','$status')");
                     if ($insert) {
                         echo "<script>alert('Tambah Produk Berhasil');window.location='produk.php'</script>";

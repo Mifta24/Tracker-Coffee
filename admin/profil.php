@@ -68,7 +68,7 @@ while ($admin = mysqli_fetch_array($query)) {
         <h2>Profil</h2>
         <form action="" method="post" enctype="multipart/form-data">
             <div class="form-group">
-                <img src="../img/profil/<?= $image ?>" alt="Profile Image" class="img-thumbnail mb-3" width="100px">
+                <img src="../img/asset/profil/<?= $image ?>" alt="Profile Image" class="img-thumbnail mb-3" width="100px">
             </div>
 
             <!-- Gambar Upload -->
@@ -122,18 +122,22 @@ while ($admin = mysqli_fetch_array($query)) {
 
             // Menampung data file yg diupload
             $filename = $_FILES['gambar']['name'];
+       
+
             $tmpname = $_FILES['gambar']['tmp_name'];
             $type1 = explode('.', $filename);
             $type2 = strtolower(end($type1));
-
+            
             $newimage = 'img' . time() . '.' . $type2;
             $tipefile = array("jpg", "jpeg", "png", "gif");
+        
+        
 
             // Validasi format file
             if (!in_array($type2, $tipefile)) {
                 echo "<div class='alert alert-danger' role='alert'>Format File Tidak Dizinkan</div>";
             } else {
-                if (move_uploaded_file($tmpname, '../img/profil/' . $newimage)) {
+                if (move_uploaded_file($tmpname, '../img/asset/profil/' . $newimage)) {
                     // Query data
                     $update = mysqli_query($conn, "UPDATE tbl_admin SET 
                         admin_name='$nama',

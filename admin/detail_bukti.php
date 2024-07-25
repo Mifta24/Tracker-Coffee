@@ -84,7 +84,7 @@ $row = mysqli_fetch_array($pembayaran);
                     <h2 class="judul">Bukti Pembayaran</h2>
                     <img
                         class="menu-card-img"
-                        src="../img/bukti-pembayaran/<?php echo htmlspecialchars($row['bukti_pembayaran']); ?>"
+                        src="../img/asset/bukti-pembayaran/<?php echo htmlspecialchars($row['bukti_pembayaran']); ?>"
                         alt="Bukti Pembayaran"
                     />
                 </div>

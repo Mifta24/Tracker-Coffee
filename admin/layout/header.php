@@ -13,13 +13,80 @@
       font-family: 'Poppins', sans-serif;
       background-color: #f8f9fa;
     }
+
+    .footer {
+    background-color: #222;
+    color: #ddd;
+    padding-top: 40px;
+    padding-bottom: 20px;
+    font-family: 'Poppins', sans-serif;
+}
+
+.footer h5 {
+    color: #fff;
+    font-weight: 600;
+    margin-bottom: 20px;
+}
+
+.footer p,
+.footer a {
+    color: #aaa;
+    font-size: 14px;
+    line-height: 1.7;
+}
+
+.footer a:hover {
+    color: #bb6a00;
+    text-decoration: none;
+}
+
+.footer .social-icons a {
+    display: inline-block;
+    margin-right: 15px;
+    font-size: 20px;
+    transition: color 0.3s ease;
+}
+
+.footer .social-icons a:hover {
+    color: #bb6a00;
+}
+
+.footer .list-unstyled {
+    padding-left: 0;
+    list-style: none;
+}
+
+.footer .text-warning {
+    color: #bb6a00 !important;
+}
+
+.pagination .page-item.active .page-link {
+    background-color: #007bff;
+    border-color: #007bff;
+    color: white;
+}
+
+.pagination .page-link {
+    color: #007bff;
+}
+
+.pagination .page-link:hover {
+    color: #0056b3;
+}
+
+.pagination .page-item.disabled .page-link {
+    color: #6c757d;
+}
+
+
     </style>
+
 
     <title>Admin</title>
   </head>
   <body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-secondary">
-      <a class="navbar-brand" href="#">Cateringku.</a>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-secondary sticky-top p-3">
+      <a class="navbar-brand" href="admin.php">Cateringku.</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -27,7 +94,7 @@
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav">
           <li class="nav-item active">
-            <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+            <a class="nav-link" href="admin.php">Home <span class="sr-only">(current)</span></a>
           </li>
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -41,16 +108,16 @@
             </div>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">Kelola User</a>
+            <a class="nav-link" href="user.php">Kelola User</a>
           </li>
         </ul>
 
         <ul class="navbar-nav ml-auto">
           <li class="nav-item">
-            <a class="nav-link" href="#">Profile</a>
+            <a class="nav-link" href="profil.php">Profile</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">Logout</a>
+            <a class="nav-link" href="logout.php">Logout</a>
           </li>
         </ul>
       </div>

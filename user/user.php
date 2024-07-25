@@ -94,12 +94,15 @@ if (isset($_GET['kat'])) {
   </nav>
   <!-- Navbar End-->
 
-  <!-- Hero Section Start -->
-  <section class="hero-section" id="home">
+   <!-- Hero Section Start -->
+   <section class="hero-section" id="home">
     <main class="content">
-      <h1>Kenikmatan Secangkir <span>Kopi</span>.</h1>
-      <p>Even bad coffee is better than no coffee at all. ~David Lynch</p>
-      <a href="#menu" class="btn-beli">Beli Sekarang</a>
+
+      <h1>Pesan Makanan Favorit Anda dengan Mudah</h1>
+      <p>Cateringku menyediakan layanan pesan antar makanan yang cepat dan lezat. Nikmati berbagai pilihan menu sehat dan lezat kami!</p>
+       <a class="btn-beli" href="#menu">Lihat Menu</a>
+
+
     </main>
   </section>
   <!-- Hero Section End-->
@@ -113,31 +116,13 @@ if (isset($_GET['kat'])) {
 
     <div class="row">
       <div class="about-img">
-        <img src="../img/coffe2bg.jpg" alt="" srcset="" />
+        <img src="../img/asset/about/about-us-cateringku2.jpg" alt="" srcset="" height="600px" width="300px" />
       </div>
       <div class="content">
-        <h3>Apa Itu Tracker Coffee?</h3>
-        <p>
-          Kami adalah perusahaan kopi yang mendedikasikan seluruh gairah,
-          kecintaan, dan antusiasme kami kepada dunia kopi yang menakjubkan.
-          Kami adalah perusahaan lokal dan sebagian besar bahan baku yang kami
-          gunakan adalah lokal. Ya, dan kami mengatakan hal tersebut dengan
-          bangga.
-        </p>
-        <p>
-          Kami tahu, begitu juga Anda, bahwa biji-biji kopi terbaik dunia
-          berasal dari Indonesia. Kami berkeliling ke berbagai pelosok
-          Indonesia dan bekerja sama dengan para petani dan pemanggang kopi
-          lokal untuk mendapatkan cite rasa kopi terbaik Indonesia, bijt kopi
-          arabika grade satu dan berbagai perkebunan yang tersebar di
-          Nusantara.
-        </p>
-        <p>
-          Dengan pengalaman dan pengetahuan kami di industri kopi ritel, mulai
-          dan pemWhan biji kopi sampai dengan bagaimana mendesain sebuah
-          coffee bar, kami membuat perjalanan bisnis kopi Anda menjadi
-          EASY,SIMPLE,dan FUN!
-        </p>
+        <h3>Apa Itu Cateringku ?</h3>
+        <p>Cateringku adalah layanan katering online yang berdedikasi untuk menyediakan makanan sehat dan lezat kepada pelanggan kami. Kami percaya bahwa makanan yang baik dapat membuat hidup lebih baik.</p>
+        <h3>Misi Kami</h3>
+        <p>Memberikan pengalaman kuliner yang luar biasa dengan kualitas makanan yang terbaik dan pelayanan yang ramah.</p>
       </div>
     </div>
   </section>
@@ -145,8 +130,8 @@ if (isset($_GET['kat'])) {
 
   <!-- Menu Section Start -->
   <section class="menu" id="menu">
-    <h2><span>Coffee</span> Menu</h2>
-    <p>MENU COFFEE DARI SELURUH PENJURU DUNIA. PILIH COFFE FAVORITMU!</p>
+  <h2><span>Pilihan</span> Menu</h2>
+  <p>Makanan cepat dan enak di cateringku solusinya!</p>
 
     <div class="row">
 
@@ -157,7 +142,7 @@ if (isset($_GET['kat'])) {
 
             <a href="detail_produk.php?id=<?php echo $p->product_id ?>">
 
-              <img class="menu-card-img" src="../img/coffee-menu/<?php echo $p->product_image ?>" alt="<?php echo $p->product_image ?>" />
+              <img class="menu-card-img" src="../img/asset/menu/<?php echo $p->product_image ?>" alt="<?php echo $p->product_image ?>" />
             </a>
             <input type="hidden" name="product_gambar" value="<?php echo $p->product_image ?>">
 
@@ -249,7 +234,7 @@ if (isset($_GET['kat'])) {
     </div>
 
     <div class="credit">
-      <p>Created by <a href="">Miftahudin Aldi Saputra</a>| &copy; 2023.</p>
+      <p>Created by <a href="">Cateringku</a>| &copy; 2024.</p>
     </div>
   </footer>
   <!-- Fotter End -->

@@ -21,7 +21,7 @@ if (isset($_POST['submit'])) {
                 echo "berhasil";
                 header("location:keranjang.php");
             } else {
-                echo "kontol";
+           
                 error_reporting(1);
             }
         } elseif ($_GET['qty'] < $qtybaru) {
@@ -33,9 +33,12 @@ if (isset($_POST['submit'])) {
                 echo "berhasil";
                 header("location:keranjang.php");
             } else {
-                echo "kontol";
+               
                 error_reporting(1);
             }
+        }
+        else{
+            header("location:keranjang.php");
         }
     }
     else{

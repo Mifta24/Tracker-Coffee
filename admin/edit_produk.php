@@ -127,7 +127,7 @@ body {
             <input type="hidden" name="foto" value="<?php echo $p->product_image; ?>">
             <div class="form-group">
                 <label for="gambar">Gambar Lama</label>
-                <img src="../img/coffee-menu/<?php echo $p->product_image; ?>" width="100px" alt="Gambar Produk">
+                <img src="../img/asset/menu/<?php echo $p->product_image; ?>" width="100px" alt="Gambar Produk">
             </div>
 
             <!-- New Image -->
@@ -181,7 +181,7 @@ body {
                     echo "<script>alert('Format File Tidak Dizinkan');</script>";
                 } else {
                     unlink("../img/coffee-menu/" . $fotoLama);
-                    if (move_uploaded_file($tmpname, '../img/coffee-menu/' . $newimage)) {
+                    if (move_uploaded_file($tmpname, '../img/asset/menu/' . $newimage)) {
                         $nama_gambar = $newimage;
                     } else {
                         $nama_gambar = $fotoLama;

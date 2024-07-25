@@ -6,69 +6,106 @@ if ($_SESSION['status'] != "login") {
 
 include '../database/db.php';
 
-$user = mysqli_query($conn, "SELECT * FROM tbl_user");
+// Pagination setup
+$records_per_page = 10; // Number of records per page
+$page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
+$offset = ($page - 1) * $records_per_page;
+
+// Get total number of records
+$total_query = mysqli_query($conn, "SELECT COUNT(*) AS total FROM tbl_user");
+$total_records = mysqli_fetch_assoc($total_query)['total'];
+$total_pages = ceil($total_records / $records_per_page);
+
+// Get records for the current page
+$user = mysqli_query($conn, "SELECT * FROM tbl_user LIMIT $offset, $records_per_page");
 include 'layout/header.php';
 ?>
 
+<!-- CSS Kustom -->
 <style>
   /* User List Styles */
-.user-list {
-    padding: 20px;
-    background-color: #f4f4f4;
-}
+  .user-list {
+      padding: 20px;
+      background-color: #f4f4f4;
+  }
 
-.container {
-    max-width: 1200px;
-    margin: 0 auto;
-}
+  .container {
+      max-width: 1200px;
+      margin: 0 auto;
+  }
 
-.card {
-    background-color: #ffffff;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    margin-bottom: 20px;
-    padding: 20px;
-}
+  .card {
+      background-color: #ffffff;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      margin-bottom: 20px;
+      padding: 20px;
+  }
 
-.card-header {
-    display: flex;
-    justify-content: center;
-    margin-bottom: 10px;
-}
+  .card-header {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 10px;
+  }
 
-.card-header h3 {
-    font-size: 2rem;
-    color: #007bff;
-}
+  .card-header h3 {
+      font-size: 2rem;
+      color: #007bff;
+  }
 
-.card-body {
-    display: flex;
-    flex-wrap: wrap;
-}
+  .card-body {
+      display: flex;
+      flex-wrap: wrap;
+  }
 
-.row {
-    display: flex;
-    margin-bottom: 15px;
-}
+  .row {
+      display: flex;
+      margin-bottom: 15px;
+  }
 
-.col {
-    flex: 1;
-    min-width: 200px;
-    margin-right: 20px;
-}
+  .col {
+      flex: 1;
+      min-width: 200px;
+      margin-right: 20px;
+  }
 
-h4 {
-    font-size: 1.2rem;
-    color: #333;
-    margin-bottom: 5px;
-}
+  h4 {
+      font-size: 1.2rem;
+      color: #333;
+      margin-bottom: 5px;
+  }
 
-p {
-    font-size: 1rem;
-    color: #666;
-    margin: 0;
-}
+  p {
+      font-size: 1rem;
+      color: #666;
+      margin: 0;
+  }
 
+  /* Pagination Styles */
+  .pagination {
+      display: flex;
+      justify-content: center;
+      margin-top: 20px;
+  }
+
+  .pagination a {
+      padding: 10px 15px;
+      margin: 0 5px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      color: #007bff;
+      text-decoration: none;
+  }
+
+  .pagination a.active {
+      background-color: #007bff;
+      color: #fff;
+      border: 1px solid #007bff;
+  }
+
+  .pagination a:hover {
+      background-color: #f1f1f1;
+  }
 </style>
 
 <section class="user-list">
@@ -102,6 +139,21 @@ p {
                 </div>
             </div>
         <?php endwhile; ?>
+        
+        <!-- Pagination Links -->
+        <div class="pagination">
+            <?php if ($page > 1): ?>
+                <a href="?page=<?php echo $page - 1; ?>">&laquo; Prev</a>
+            <?php endif; ?>
+            <?php for ($i = 1; $i <= $total_pages; $i++): ?>
+                <a href="?page=<?php echo $i; ?>" class="<?php echo $i == $page ? 'active' : ''; ?>">
+                    <?php echo $i; ?>
+                </a>
+            <?php endfor; ?>
+            <?php if ($page < $total_pages): ?>
+                <a href="?page=<?php echo $page + 1; ?>">Next &raquo;</a>
+            <?php endif; ?>
+        </div>
     </div>
 </section>
 
