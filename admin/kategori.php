@@ -16,8 +16,15 @@ $current_page = max($current_page, 1);
 // Calculate the offset
 $offset = ($current_page - 1) * $entries_per_page;
 
+// Search functionality
+$search_query = "";
+if (isset($_GET['search'])) {
+    $search = mysqli_real_escape_string($conn, $_GET['search']);
+    $search_query = "WHERE category_name LIKE '%$search%'";
+}
+
 // Get total number of categories
-$total_entries_result = mysqli_query($conn, "SELECT COUNT(*) AS total FROM tbl_category");
+$total_entries_result = mysqli_query($conn, "SELECT COUNT(*) AS total FROM tbl_category $search_query");
 $total_entries_row = mysqli_fetch_assoc($total_entries_result);
 $total_entries = $total_entries_row['total'];
 
@@ -25,7 +32,7 @@ $total_entries = $total_entries_row['total'];
 $total_pages = ceil($total_entries / $entries_per_page);
 
 // Retrieve the data for the current page
-$kategori = mysqli_query($conn, "SELECT * FROM tbl_category ORDER BY category_id LIMIT $entries_per_page OFFSET $offset");
+$kategori = mysqli_query($conn, "SELECT * FROM tbl_category $search_query ORDER BY category_id LIMIT $entries_per_page OFFSET $offset");
 
 include 'layout/header.php';
 ?>
@@ -73,6 +80,29 @@ include 'layout/header.php';
   .pagination .page-item.disabled .page-link {
     color: #6c757d;
   }
+
+  .search {
+    margin-bottom: 20px;
+}
+
+.search form {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.search input[type="text"] {
+    width: 250px;
+    padding: 8px;
+    margin-right: 10px;
+    border: 1px solid #ced4da;
+    border-radius: 5px;
+}
+
+.search button {
+    padding: 8px 20px;
+}
+
 </style>
 
 <section class="dashboard">
@@ -84,11 +114,21 @@ include 'layout/header.php';
           <i class="fas fa-plus-circle"></i> Tambah Data
         </a>
       </div>
+
+      <!-- Search Form -->
+      <div class="search mb-4">
+        <form method="get" action="">
+          <input type="text" name="search" value="<?= isset($_GET['search']) ? htmlspecialchars($_GET['search']) : ''; ?>" placeholder="Cari berdasarkan nama kategori">
+          <button type="submit" class="btn btn-primary">Search</button>
+        </form>
+      </div>
+
       <div class="table-responsive">
         <table class="table table-striped table-hover">
           <thead class="thead-dark">
             <tr>
               <th scope="col">#</th>
+              <th scope="col">Logo</th>
               <th scope="col">Kategori Menu</th>
               <th scope="col">Action</th>
             </tr>

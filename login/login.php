@@ -45,7 +45,7 @@
 
     <div class="welcome">
       <a href="../index.php"><i data-feather="corner-up-left"></i></a>
-      <h1 class="text-center"> Welcome To Tracker<span>Coffee</span>.</h1>
+      <h1 class="text-center"> Welcome To Catering<span>ku</span>.</h1>
 
     </div>
 

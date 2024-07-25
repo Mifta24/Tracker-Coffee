@@ -17,8 +17,15 @@ $current_page = max($current_page, 1);
 // Calculate the offset
 $offset = ($current_page - 1) * $entries_per_page;
 
+// Check if there's a search query
+$search_query = '';
+if (isset($_GET['search'])) {
+    $search = mysqli_real_escape_string($conn, $_GET['search']);
+    $search_query = " WHERE user LIKE '%$search%' OR name_menu LIKE '%$search%' OR payment_status LIKE '%$search%'";
+}
+
 // Get total number of entries
-$total_entries_result = mysqli_query($conn, "SELECT COUNT(*) AS total FROM tbl_pemesanan");
+$total_entries_result = mysqli_query($conn, "SELECT COUNT(*) AS total FROM tbl_pemesanan $search_query");
 $total_entries_row = mysqli_fetch_assoc($total_entries_result);
 $total_entries = $total_entries_row['total'];
 
@@ -26,16 +33,126 @@ $total_entries = $total_entries_row['total'];
 $total_pages = ceil($total_entries / $entries_per_page);
 
 // Retrieve the data for the current page
-$pemesanan = mysqli_query($conn, "SELECT * FROM tbl_pemesanan LIMIT $entries_per_page OFFSET $offset");
+$pemesanan = mysqli_query($conn, "SELECT * FROM tbl_pemesanan $search_query LIMIT $entries_per_page OFFSET $offset");
 ?>
 
 <?php include 'layout/header.php'; ?>
 
+
+<style>
+body {
+  font-family: 'Poppins', sans-serif;
+  background-color: #f8f9fa;
+}
+
+.dashboard .box {
+  background-color: #fff;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  margin-bottom: 20px;
+}
+
+.filter .filter-btn {
+  margin: 5px;
+  color: #343a40;
+}
+
+.filter .filter-btn:hover {
+  text-decoration: none;
+  background-color: #343a40;
+  color: #fff;
+}
+
+table {
+  width: 100%;
+  margin-top: 20px;
+}
+
+.table th,
+.table td {
+  text-align: center;
+  vertical-align: middle;
+}
+
+footer {
+  background-color: #343a40;
+  color: white;
+  padding: 20px 0;
+  position: relative;
+  bottom: 0;
+  width: 100%;
+}
+
+.sosial a,
+.link a {
+  color: white;
+  margin: 0 10px;
+}
+
+.sosial a:hover,
+.link a:hover {
+  color: #007bff;
+  text-decoration: none;
+}
+
+.credit a {
+  color: #007bff;
+}
+
+.pagination .page-item.active .page-link {
+  background-color: #007bff;
+  border-color: #007bff;
+  color: white;
+}
+
+.pagination .page-link {
+  color: #007bff;
+}
+
+.pagination .page-link:hover {
+  color: #0056b3;
+}
+
+.pagination .page-item.disabled .page-link {
+  color: #6c757d;
+}
+
+.search {
+    margin-bottom: 20px;
+}
+
+.search form {
+    display: flex;
+    align-items: center;
+}
+
+.search input[type="text"] {
+    width: 250px;
+    padding: 8px;
+    margin-right: 10px;
+    border: 1px solid #ced4da;
+    border-radius: 5px;
+}
+
+.search button {
+    padding: 8px 20px;
+}
+
+</style>
+
 <section class="dashboard">
     <div class="container">
         <div class="box">
-
             <h4 class="mb-4">Daftar Pemesanan</h4>
+
+            <!-- Search Form (Aligned to the Right) -->
+            <div class="d-flex justify-content-end mb-4">
+                <form action="" method="GET" class="form-inline">
+                    <input type="text" name="search" class="form-control mr-sm-2" placeholder="Search" value="<?php echo isset($_GET['search']) ? $_GET['search'] : ''; ?>">
+                    <button type="submit" class="btn btn-primary">Search</button>
+                </form>
+            </div>
 
             <div class="table-responsive">
                 <table class="table table-striped table-hover">
@@ -102,6 +219,8 @@ $pemesanan = mysqli_query($conn, "SELECT * FROM tbl_pemesanan LIMIT $entries_per
 </section>
 
 <?php include 'layout/footer.php'; ?>
+
+
 
 
 

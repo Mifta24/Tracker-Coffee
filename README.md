@@ -2,7 +2,7 @@
 
 ## Deskripsi
 
-Cateringku adalah sebuah website kafe yang memungkinkan pengguna untuk membeli berbagai jenis kopi, teh, minuman, dan makanan. Website ini dibangun menggunakan PHP 8.20 dan terhubung dengan database MySQL menggunakan phpMyAdmin, HTML, CSS, dan JavaScript dengan framework Bootstrap 5 pada halaman dasbor admin.
+Cateringku adalah sebuah website kafe yang memungkinkan pengguna untuk membeli berbagai jenismakanan dan minuman. Website ini dibangun menggunakan PHP 8.20 dan terhubung dengan database MySQL menggunakan phpMyAdmin, HTML, CSS, dan JavaScript dengan framework Bootstrap 4.1.3 pada halaman dasbor admin.
 
 ## Fitur
 
@@ -24,7 +24,7 @@ Cateringku adalah sebuah website kafe yang memungkinkan pengguna untuk membeli b
 
 2. Salin repositori ini ke direktori web server Anda.
 
-3. Import file SQL yang disediakan (`tracker_coffee.sql`) ke dalam database MySQL Anda menggunakan phpMyAdmin.
+3. Import file SQL yang disediakan (`catering.sql`) ke dalam database MySQL Anda menggunakan phpMyAdmin.
 
 4. Konfigurasikan koneksi database MySQL dengan mengedit berkas `config.php` dan mengganti nilai `DB_HOST`, `DB_USERNAME`, `DB_PASSWORD`, dan `DB_NAME` sesuai dengan pengaturan Anda.
 
@@ -45,6 +45,8 @@ $database="DB_NAME";
 Cateringku dikembangkan oleh ---
 ## Kontak
 
-Jika Anda memiliki pertanyaan atau masalah terkait dengan Cateringku, silakan hubungi Miftahudin Aldi Saputra melalui email di miftafree3@gmail.com.
+Jika Anda memiliki pertanyaan atau masalah terkait dengan Cateringku, silakan hubungi .. melalui email di@gmail.com.
 
 Terima kasih telah menggunakan Cateringku!
+
+Worker : Mr. M

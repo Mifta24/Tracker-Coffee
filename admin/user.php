@@ -11,13 +11,22 @@ $records_per_page = 10; // Number of records per page
 $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
 $offset = ($page - 1) * $records_per_page;
 
+// Search functionality
+$search_query = "";
+if (isset($_GET['search'])) {
+    $search = mysqli_real_escape_string($conn, $_GET['search']);
+    $search_query = "WHERE username LIKE '%$search%' OR name_user LIKE '%$search%' OR no_telp LIKE '%$search%' OR alamat LIKE '%$search%'";
+}
+
 // Get total number of records
-$total_query = mysqli_query($conn, "SELECT COUNT(*) AS total FROM tbl_user");
+$total_query = mysqli_query($conn, "SELECT COUNT(*) AS total FROM tbl_user $search_query");
 $total_records = mysqli_fetch_assoc($total_query)['total'];
 $total_pages = ceil($total_records / $records_per_page);
 
 // Get records for the current page
-$user = mysqli_query($conn, "SELECT * FROM tbl_user LIMIT $offset, $records_per_page");
+$user_query = "SELECT * FROM tbl_user $search_query LIMIT $offset, $records_per_page";
+$user = mysqli_query($conn, $user_query);
+
 include 'layout/header.php';
 ?>
 
@@ -110,6 +119,14 @@ include 'layout/header.php';
 
 <section class="user-list">
     <div class="container">
+        <!-- Search Form -->
+        <div class="search mb-4">
+            <form method="get" action="" class="">
+                <input type="text" name="search"  class="h-100" value="<?= isset($_GET['search']) ? htmlspecialchars($_GET['search']) : ''; ?>" placeholder="Search users...">
+                <button type="submit" class="btn btn-primary">Search</button>
+            </form>
+        </div>
+
         <?php while ($u = mysqli_fetch_assoc($user)): ?>
             <div class="card">
                 <div class="card-header">
@@ -143,15 +160,15 @@ include 'layout/header.php';
         <!-- Pagination Links -->
         <div class="pagination">
             <?php if ($page > 1): ?>
-                <a href="?page=<?php echo $page - 1; ?>">&laquo; Prev</a>
+                <a href="?page=<?php echo $page - 1; ?><?= isset($_GET['search']) ? '&search=' . urlencode($_GET['search']) : ''; ?>">&laquo; Prev</a>
             <?php endif; ?>
             <?php for ($i = 1; $i <= $total_pages; $i++): ?>
-                <a href="?page=<?php echo $i; ?>" class="<?php echo $i == $page ? 'active' : ''; ?>">
+                <a href="?page=<?php echo $i; ?><?= isset($_GET['search']) ? '&search=' . urlencode($_GET['search']) : ''; ?>" class="<?php echo $i == $page ? 'active' : ''; ?>">
                     <?php echo $i; ?>
                 </a>
             <?php endfor; ?>
             <?php if ($page < $total_pages): ?>
-                <a href="?page=<?php echo $page + 1; ?>">Next &raquo;</a>
+                <a href="?page=<?php echo $page + 1; ?><?= isset($_GET['search']) ? '&search=' . urlencode($_GET['search']) : ''; ?>">Next &raquo;</a>
             <?php endif; ?>
         </div>
     </div>

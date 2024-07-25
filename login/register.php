@@ -45,7 +45,7 @@ if (isset($_GET['pesan'])) {
 
   <div class="welcome">
     <a href="login.php"><i data-feather="corner-up-left"></i></a>
-    <h1> Welcome To Tracker<span>Coffee</span>.</h1>
+    <h1> Welcome To Catering<span>ku</span>.</h1>
 
   </div>
 

@@ -16,12 +16,19 @@ $current_page = max($current_page, 1);
 // Calculate the offset
 $offset = ($current_page - 1) * $entries_per_page;
 
+// Search functionality
+$search_query = "";
+if (isset($_GET['search'])) {
+    $search = mysqli_real_escape_string($conn, $_GET['search']);
+    $search_query = "AND product_name LIKE '%$search%'";
+}
+
 // Get total number of products
 if (isset($_GET['category'])) {
-  $category = $_GET['category'];
-  $total_entries_result = mysqli_query($conn, "SELECT COUNT(*) AS total FROM tbl_product WHERE category_id = $category");
+    $category = (int)$_GET['category'];
+    $total_entries_result = mysqli_query($conn, "SELECT COUNT(*) AS total FROM tbl_product WHERE category_id = $category $search_query");
 } else {
-  $total_entries_result = mysqli_query($conn, "SELECT COUNT(*) AS total FROM tbl_product");
+    $total_entries_result = mysqli_query($conn, "SELECT COUNT(*) AS total FROM tbl_product WHERE 1 $search_query");
 }
 
 $total_entries_row = mysqli_fetch_assoc($total_entries_result);
@@ -32,10 +39,10 @@ $total_pages = ceil($total_entries / $entries_per_page);
 
 // Retrieve the data for the current page
 if (isset($_GET['category'])) {
-  $category = $_GET['category'];
-  $produk = mysqli_query($conn, "SELECT * FROM tbl_product LEFT JOIN tbl_category USING (category_id) WHERE category_id=$category ORDER BY category_id LIMIT $entries_per_page OFFSET $offset");
+    $category = (int)$_GET['category'];
+    $produk = mysqli_query($conn, "SELECT * FROM tbl_product LEFT JOIN tbl_category USING (category_id) WHERE category_id=$category $search_query ORDER BY category_id LIMIT $entries_per_page OFFSET $offset");
 } else {
-  $produk = mysqli_query($conn, "SELECT * FROM tbl_product LEFT JOIN tbl_category USING (category_id) ORDER BY category_id LIMIT $entries_per_page OFFSET $offset");
+    $produk = mysqli_query($conn, "SELECT * FROM tbl_product LEFT JOIN tbl_category USING (category_id) WHERE 1 $search_query ORDER BY category_id LIMIT $entries_per_page OFFSET $offset");
 }
 
 include 'layout/header.php';
@@ -50,15 +57,32 @@ include 'layout/header.php';
     margin-bottom: 20px;
   }
 
-  .filter .filter-btn {
-    margin: 5px;
-    color: #343a40;
+  .filter {
+    display: flex;
+    justify-content: flex-start;
+    margin-bottom: 20px;
   }
 
-  .filter .filter-btn:hover {
-    text-decoration: none;
-    background-color: #343a40;
-    color: #fff;
+  .filter .filter-btn {
+    margin-right: 10px;
+  }
+
+  .search {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 20px;
+  }
+
+  .search input[type="text"] {
+    width: 250px;
+    padding: 8px;
+    margin-right: 10px;
+    border: 1px solid #ced4da;
+    border-radius: 5px;
+  }
+
+  .search button {
+    padding: 8px 20px;
   }
 
   table {
@@ -121,32 +145,35 @@ include 'layout/header.php';
   <div class="container">
     <div class="box">
       <h4 class="mb-4">Data Produk</h4>
-      <div class="filter mb-3">
-      <a class="filter-btn btn btn-outline-dark" href="produk.php">All</a>
-      <?php $kategori = mysqli_query($conn, "SELECT * FROM tbl_category ORDER BY category_id ASC");
-        // pengecekan jika datanya adalah
-        $color=['primary','info','warning','success','secondary'];
-        $i=0;
-      if($i>$color){
-        $i=0;
-      }
+
+      <!-- Search Form -->
+      <div class="search">
+        <form method="get" action="">
+          <input type="text" name="search" value="<?= isset($_GET['search']) ? htmlspecialchars($_GET['search']) : ''; ?>" placeholder="Cari berdasarkan nama produk">
+          <button type="submit" class="btn btn-primary">Search</button>
+          <?php if (isset($_GET['category'])): ?>
+            <input type="hidden" name="category" value="<?= htmlspecialchars($_GET['category']); ?>">
+          <?php endif; ?>
+        </form>
+      </div>
+
+      <!-- Filter -->
+      <div class="filter">
+        <a class="filter-btn btn btn-outline-dark" href="produk.php">All</a>
+        <?php
+        $kategori = mysqli_query($conn, "SELECT * FROM tbl_category ORDER BY category_id ASC");
+        $color = ['primary', 'info', 'warning', 'success', 'secondary'];
+        $i = 0;
         if (mysqli_num_rows($kategori) > 0) :
           while ($k = mysqli_fetch_assoc($kategori)) :
         ?>
-            <!-- Filter -->
-           
-              <a class="filter-btn btn btn-outline-<?= $color[$i] ?>" href="produk.php?category=<?= $k['category_id'] ?>"><?= $k['category_name'] ?></a>
-
-              <!-- <a class="filter-btn btn btn-outline-success" href="produk.php?category=2">Tea</a>
-              <a class="filter-btn btn btn-outline-info" href="produk.php?category=3">Drink</a>
-              <a class="filter-btn btn btn-outline-warning" href="produk.php?category=4">Food</a> -->
-              <?php
-          $i++;
+          <a class="filter-btn btn btn-outline-<?= $color[$i % count($color)] ?>" href="produk.php?category=<?= $k['category_id'] ?>"><?= $k['category_name'] ?></a>
+        <?php
+            $i++;
           endwhile;
         endif;
-        
         ?>
-        </div>
+      </div>
 
       <!-- Add Product Button -->
       <a href="tambah_produk.php" class="btn btn-primary mb-3">Tambah Data</a>
