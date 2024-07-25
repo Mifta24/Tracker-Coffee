@@ -50,6 +50,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 
+// Pagination setup
+$limit = 5; // Number of items per page
+$page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
+$offset = ($page - 1) * $limit;
+
+// Retrieve cart items
+$total_query = mysqli_query($conn, "SELECT COUNT(*) AS total FROM tbl_pemesanan WHERE user='" . $_SESSION['username'] . "'");
+$total_row = mysqli_fetch_assoc($total_query);
+$total_items = $total_row['total'];
+$total_pages = ceil($total_items / $limit);
+
+$menu_query = mysqli_query($conn, "SELECT * FROM tbl_pemesanan WHERE user='" . $_SESSION['username'] . "' LIMIT $limit OFFSET $offset");
+$total_price = 0;
+
+// Retrieve payment status
 $bayar = mysqli_query($conn, "SELECT * FROM tbl_pembayaran WHERE user='" . $_SESSION['username'] . "' ");
 $b = mysqli_fetch_assoc($bayar);
 
@@ -124,7 +139,7 @@ $s = mysqli_fetch_assoc($status);
                                     <a href="hapus_keranjang.php?idm=<?php echo $m['id'] ?>&qty=<?php echo $m['qty'] ?>&nmp=<?php echo $m['name_menu'] ?>" class="btn btn-danger btn-sm"><i data-feather="trash-2"></i> Remove</a>
                                 <?php endif; ?>
                             </div>
-                        </form>
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -146,9 +161,42 @@ $s = mysqli_fetch_assoc($status);
                 }
                 ?>
             </div>
+             <!-- Pagination -->
+             <div class="col-12 text-center mt-4">
+                <nav aria-label="Page navigation">
+                      <ul class="pagination">
+                        <?php if ($page > 1) : ?>
+                            <li class="page-item">
+                                <a class="page-link" href="?page=<?php echo $page - 1; ?>" aria-label="Previous">
+                                    <span aria-hidden="true">&laquo;</span>
+                                </a>
+                            </li>
+                        <?php endif; ?>
+
+                        <?php for ($i = 1; $i <= $total_pages; $i++) : ?>
+                            <li class="page-item <?php echo ($i == $page) ? 'active' : ''; ?>">
+                                <a class="page-link" href="?page=<?php echo $i; ?>"><?php echo $i; ?></a>
+                            </li>
+                        <?php endfor; ?>
+
+                        <?php if ($page < $total_pages) : ?>
+                            <li class="page-item">
+                                <a class="page-link" href="?page=<?php echo $page + 1; ?>" aria-label="Next">
+                                    <span aria-hidden="true">&raquo;</span>
+                                </a>
+                            </li>
+                        <?php endif; ?>
+                    </ul>
+                </nav>
+            </div>
         </div>
     </div>
     <!-- Shopping Cart end -->
+        </div>
+    </div>
+    <!-- Shopping Cart end -->
+
+
 
     <!-- Feather Icons -->
     <script>

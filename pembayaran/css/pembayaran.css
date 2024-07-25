@@ -51,30 +51,7 @@ body {
     color: var(--primary);
 }
 
-/* .navbar .navbar-nav a {
-    color: whitesmoke;
-    display: inline-block;
-    font-size: 1.3rem;
-    margin: 0 1rem;
-} */
 
-/* Jika di klik berbuah warna*/
-/* .navbar .navbar-nav a:hover {
-    color: var(--primary);
-}
-
-/*garis*/
-/* .navbar .navbar-nav a::after {
-    content: '';
-    display: block;
-    padding-bottom: 0.5;
-    border-bottom: 0.1rem solid var(--primary);
-    transform: scaleX(0);
-    transition: 0.2s linear;
-}
-
-/* setelah di klik akan munul garis*/
-/* .navbar .navbar-nav a:hover::after {
     transform: scaleX(1);  // Panjang garis 
 }
 
@@ -93,79 +70,74 @@ body {
 
 
 /* Pembayaran */
-.pembayaran{
-    margin-top: 2rem;
-    text-align: center;
-    
-}
-.pembayaran h1{
-    margin: 2rem;
-    font-size: 3rem;
-}
-
-
-.pembayaran .qr{
-    display: flexbox;
-    padding: 4rem 2rem;
-    justify-content: center;
-    text-align: center;
-    flex-wrap: wrap;
-    margin: 1rem 2rem 5rem;
-    border: 2px solid var(--primary);
+.pembayaran {
+    max-width: 800px;
+    margin: 2rem auto;
+    padding: 2rem;
+    background-color: #f1f1f1;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
 }
 
-.pembayaran .qr h3{
+.pembayaran h1 {
     font-size: 2rem;
+    margin-bottom: 1.5rem;
+    text-align: center;
+    color: #333;
+}
+
+.payment-option {
     margin-bottom: 2rem;
+    text-align: center;
 }
 
-.pembayaran .qr .qr-title{
-    margin: 1rem;
-    font-size: 1rem;
-    font-weight: 100;
-    line-height: 1;
+.payment-option h2 {
+    font-size: 1.5rem;
+    color: #333;
+    margin-bottom: 1rem;
 }
 
-.pembayaran .qr a img{
-    width: 40%;
+.payment-option img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
+.payment-option p {
+    color: #666;
+}
 
-form{
+.upload-form {
     display: flex;
     flex-direction: column;
-    background-color:dimgrey;
-    text-align: center;
-    justify-content: center;
     align-items: center;
-    width: 500px;
-    margin: auto;
-    border-radius: 10px;
-    border: 1px solid white;
-    box-shadow: 1px 1px 1px rgb(181, 44, 223), -1px -1px 1px rgb(168, 55, 233);
 }
 
-form label{
-    margin: 3px;
-    font-size: 1.2rem;
-    font-weight: bold;
+.upload-form label {
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+    color: #333;
 }
 
-form button{
-    background-color: blueviolet;
-    color: whitesmoke;
-    padding: 3px;
-    border-radius: 2px;
-    margin: 5px;
-    width: 60px;
-    transition: 400ms;
+.upload-form input[type="file"] {
+    margin-bottom: 1rem;
 }
 
-form button:hover{
-    transform: scale(1.1);
-    background-color:darkgoldenrod;
+.upload-form button {
+    background-color: #e63946;
+    color: #fff;
+    border: none;
+    padding: 0.75rem 1.5rem;
+    font-size: 1rem;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
 }
 
+.upload-form button:hover {
+    background-color: #d62839;
+}
 
 
 
